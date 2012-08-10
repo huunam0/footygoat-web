@@ -8,5 +8,6 @@
 	while ($row = mysql_fetch_array($result)) {
 		echo $row['date']." ".$row['event']."-".$row['match']."<br/>";
 	}
+
 ?>
 
