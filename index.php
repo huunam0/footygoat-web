@@ -72,8 +72,46 @@ $(document).ready(function(){
 			alert("Enter your email then submit.");
 		}
 	});
-	$("#test").click(function() {
-		alert(getafter("http://localhost:8080/preview/_/id/335890","/","preview"));
+	$("#loadmatch").click(function() {
+		$.ajax({
+			url: 'getlist.php',
+			type:"GET",
+			data:{d:"2012-08-14"},
+			//dataType: 'json',	
+			success: function(json) {
+				//$("#fortest").html(json);
+				var obj = $.parseJSON(json);
+				var league="";
+				var group="";
+				var tr='';
+				//alert(obj.leagues['col.1']);
+				$("#bigboard tr:gt(1)").remove();
+				for (var i=0; i<obj.matches.length;i++) {
+					if (obj.matches[i]['lg']!=league) {
+						$("#bigboard").append('<tr class="league"><td align="left" colspan="24">'+obj.leagues[obj.matches[i]['lg']]+'</td></tr>');
+						league=obj.matches[i]['lg']+"";
+					}
+					if (obj.matches[i]['gr']) {
+						if (obj.matches[i]['gr']!=group) {
+							$("#bigboard").append('<tr class="group"><td align="left" colspan="24">Group '+obj.matches[i]['r']+'</td></tr>');
+							group=obj.matches[i]['gr'];
+						}
+					}
+					tr='<tr class="match" id="'+obj.matches[i]['id']+'">';
+					tr+='<td class="status">'+(obj.matches[i]['st']<1?obj.matches[i]['da'].substr(12,5):obj.matches[i]['st'])+'</td>';
+					tr+='<td class="home" id="t'+obj.matches[i]['ht']+'">'+obj.matches[i]['ht']+'</td>';
+					tr+='<td class="score"><span class="hscore"></span>-<span class="ascore"></span></td>';
+					tr+='<td class="away" id="t'+obj.matches[i]['at']+'">'+obj.matches[i]['at']+'</td>';
+					
+					tr+='</tr>';
+					$("#bigboard").append(tr);
+				}
+				
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert("Error");
+			}
+		});
 	});
 	
 });
@@ -331,16 +369,15 @@ echo '<span class="menucontainer" style="display:none;">
 </div>
 <br><br><br>
 <div>
+<span class="button" id="loadmatch">Load</span>
 <a href="http://www.footygoat.com">Live Football Scores</a> | <a href="http://www.footygoat.com">Inplay Betting Alerts</a> | <a href="http://www.footygoat.com">Inplay Football Betting</a> 
 </div>
+<div id="fortest"></div>
 <br><br><br>
 <div>
 </div>
 </div>
-<script language="javascript">
-	//window.setTimeout(stg,4000);
-	//window.setTimeout(fd,6000);
-</script>
+
 
 <script type="text/javascript">
 
