@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+error_reporting(-1);
 $thispage = $_SERVER["PHP_SELF"];
 if (isset($_COOKIE['your_id'])) {
 	$puser = $_COOKIE['your_id'];

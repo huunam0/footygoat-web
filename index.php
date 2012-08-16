@@ -72,11 +72,40 @@ $(document).ready(function(){
 			alert("Enter your email then submit.");
 		}
 	});
+	function getteam(teamid,away) {
+		$.ajax({
+			url: 'getteam.php',
+			type:"GET",
+			data:{id:teamid,aw:away},
+			//dataType: 'json',	
+			success: function(json) {
+				//$("#fortest").html(json);
+				var obj = $.parseJSON(json);
+				//alert(json);
+				if (obj) {
+					//if (obj.count) {
+						$("#t"+teamid).html(obj.na+(obj.po.length?" ("+obj.po+")":""));
+						$("#w"+teamid).html(obj.w);
+						$("#d"+teamid).html(obj.d);
+						$("#l"+teamid).html(obj.l);
+						$("#f"+teamid).html(obj.f);
+						$("#a"+teamid).html(obj.a);
+					//}
+					
+				}
+				
+				
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert("Error get team");
+			}
+		});
+	}
 	$("#loadmatch").click(function() {
 		$.ajax({
 			url: 'getlist.php',
 			type:"GET",
-			data:{d:"2012-08-14"},
+			//data:{d:"2012-08-15"},
 			//dataType: 'json',	
 			success: function(json) {
 				//$("#fortest").html(json);
@@ -97,21 +126,46 @@ $(document).ready(function(){
 							group=obj.matches[i]['gr'];
 						}
 					}
-					tr='<tr class="match" id="'+obj.matches[i]['id']+'">';
-					tr+='<td class="status">'+(obj.matches[i]['st']<1?obj.matches[i]['da'].substr(12,5):obj.matches[i]['st'])+'</td>';
+					tr='<tr class="match" id="m'+obj.matches[i]['id']+'">';
+					tr+='<td class="status">'+(obj.matches[i]['st']<1?obj.matches[i]['da'].substr(11,5):obj.matches[i]['st'])+'</td>';
 					tr+='<td class="home" id="t'+obj.matches[i]['ht']+'">'+obj.matches[i]['ht']+'</td>';
-					tr+='<td class="score"><span class="hscore"></span>-<span class="ascore"></span></td>';
+					tr+='<td class="score"><span class="score0"></span>-<span class="score1"></span></td>';
 					tr+='<td class="away" id="t'+obj.matches[i]['at']+'">'+obj.matches[i]['at']+'</td>';
-					
+					tr+='<td class="score1"><span class="score10"></span>-<span class="score11"></span></td>';
+					tr+='<td class="yellow"><span class="yellow0"></span>-<span class="yellow1"></span></td>';
+					tr+='<td class="red"><span class="red0"></span>-<span class="red1"></span></td>';
+					tr+='<td class="shots"><span class="shots0"></span>-<span class="shots1"></span></td>';
+					tr+='<td class="gshots"><span class="gshots0"></span>-<span class="gshots1"></span></td>';
+					tr+='<td class="corner"><span class="corner0"></span>-<span class="corner1"></span></td>';
+					tr+='<td class="possession"><span class="possession0"></span>-<span class="possession1"></span></td>';
+					tr+='<td class="pshots"><span class="pshots0"></span>-<span class="pshots1"></span></td>';
+					tr+='<td class="pgshots"><span class="pgshots0"></span>-<span class="pgshots1"></span></td>';
+					tr+='<td class="pcorner"><span class="pcorner0"></span>-<span class="pcorner1"></span></td>';
+					tr+='<td class="w0" id="w'+obj.matches[i]['ht']+'">-</td>';
+					tr+='<td class="d0" id="d'+obj.matches[i]['ht']+'">-</td>';
+					tr+='<td class="l0" id="l'+obj.matches[i]['ht']+'">-</td>';
+					tr+='<td class="f0" id="f'+obj.matches[i]['ht']+'">-</td>';
+					tr+='<td class="a0" id="a'+obj.matches[i]['ht']+'">-</td>';
+					tr+='<td class="w1" id="w'+obj.matches[i]['at']+'">-</td>';
+					tr+='<td class="d1" id="d'+obj.matches[i]['at']+'">-</td>';
+					tr+='<td class="l1" id="l'+obj.matches[i]['at']+'">-</td>';
+					tr+='<td class="f1" id="f'+obj.matches[i]['at']+'">-</td>';
+					tr+='<td class="a1" id="a'+obj.matches[i]['at']+'">-</td>';
 					tr+='</tr>';
 					$("#bigboard").append(tr);
+					getteam(obj.matches[i]['ht'],0);
+					getteam(obj.matches[i]['at'],1);
 				}
 				
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
-				alert("Error");
+				alert("Error get matches");
 			}
 		});
+	});
+	$("#btest").click(function(){
+		getteam(585,0);
+		getteam(187,1);
 	});
 	
 });
@@ -369,7 +423,8 @@ echo '<span class="menucontainer" style="display:none;">
 </div>
 <br><br><br>
 <div>
-<span class="button" id="loadmatch">Load</span>
+<span class="button" id="loadmatch">Load Matches</span> 
+<span class="button" id="btest">Test</span>
 <a href="http://www.footygoat.com">Live Football Scores</a> | <a href="http://www.footygoat.com">Inplay Betting Alerts</a> | <a href="http://www.footygoat.com">Inplay Football Betting</a> 
 </div>
 <div id="fortest"></div>
