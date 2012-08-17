@@ -247,7 +247,7 @@ table.tabtrig td {
 	font-weight:bold;
 }
 #bigboard tr.league {
-    background-color:#DBA901;
+    background-color:#F7D358;
 	font-weight:bold;
     color: #FFFFFF
     height: 17px;
@@ -261,13 +261,13 @@ table.tabtrig td {
 tr.even { background-color: #CCC0DA;}
 tr.odd { background-color: #DBE5F1;}
 
-.status1,.status2,.status3 {color:red;}
+.status1,.status2,.status3,.status4,.status5,.status6 {color:red;}
 .status0 {color:black;}
-.status4 {color:black;font-weight:bold;}
+.status7,.status8,.status9 {color:black;font-weight:bold;}
 
 .white {color:white;}
 .grey {color:grey;}
-.red {color:red;}
+
 .size6 {font-size:6px;}
 .size8 {font-size:8px;}
 .size10 {font-size:10px;}
@@ -352,4 +352,25 @@ a:focus { outline: none; }
 }
 .style1:focus {
 
+}
+.match {
+	background-color: #E0F8E0;
+}
+.match:hover {
+	background-color: #A9A9F5;
+}
+.header-button {
+	background-color: #B6D3F4;
+    background-image: -moz-linear-gradient(center top , #B6D3F4, #5483B8) !important;
+    border: 1px solid #9AC9FF !important;
+    border-radius: 18px 18px 18px 18px;
+    box-shadow: 0 1px 1px white inset, 0 3px 3px rgba(0, 0, 0, 0.6);
+    color: white !important;
+    display: inline-block;
+    font: 600 12px "Lucida Grande",Sans-Serif;
+    margin: 0;
+    padding: 3px 15px;
+    position: relative;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
