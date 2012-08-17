@@ -11,20 +11,162 @@ echo "</script>";
 ?>
 
 <script type="text/javascript">
-
-$(document).ready(function(){
-	if (myid>0) {
-		stg();
-		fd();
-		//$("#Content2").offset({top:60,left:0});
-		//$("#Content2").css("position","fix");
-		//$("#Content2").offset($("#Content").offset());
+var status= new Array("","1st","HT","2nd","ST","Ex.","","FT","AET","FT-Pens");
+var momment="";
+var hldelay=2000;
+function getnew() {
+		$.ajax({
+			url: 'gtimeline.php',
+			type:"GET",
+			data:{t:momment},
+			//dataType: 'json',	
+			success: function(json) {
+				//$("#fortest").html(json);
+				var obj = $.parseJSON(json);
+				if (obj) {
+					$("#fortest").html(json);
+					//alert(obj[0]['e']);
+					for (var i=0; i<obj.length;i++) {
+						var mrow="#m"+obj[i]['m'];
+						if (obj[i]['e']==100) {
+							
+						} else if (obj[i]['e']==12) {
+							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
+						} else if (obj[i]['e']==10) {
+							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
+						} else if (obj[i]['e']==9) {
+							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
+						} else if (obj[i]['e']==8) {
+							if (obj[i]['v']) $(mrow).find(".status").html(obj[i]['v']+"'").effect("highlight", {color:"#ff0000"}, hldelay);
+						} else if (obj[i]['e']==7) {
+							$(mrow).find(".possession .possession"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
+						} else if (obj[i]['e']==6) {
+							$(mrow).find(".conner .conner"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
+						} else if (obj[i]['e']==5) {
+							$(mrow).find(".gshots .gshots"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
+						} else if (obj[i]['e']==4) {
+							$(mrow).find(".shots"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
+						} else if (obj[i]['e']==3) {
+							$(mrow).find(".yellow .yellow"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
+						} else if (obj[i]['e']==2) {
+							//alert("redcard");
+							$(mrow).find(".red .red"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
+						} else if (obj[i]['e']==1) {
+							$(mrow).find(".score1 .score1"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
+						} else if (obj[i]['e']==0) {
+							//alert("score");
+							$(mrow).find(".score .score"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
+						}
+						
+						momment=obj[i]['d'];
+						
+					}
+				}
+				
+				
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				//alert("Error get team");
+			}
+		});
+		//window.setTimeout(getNew,2000);
+		setTimeout(getnew,2000);
 	}
+	function getteam(teamid,away) {
+		$.ajax({
+			url: 'getteam.php',
+			type:"GET",
+			data:{id:teamid,aw:away},
+			//dataType: 'json',	
+			success: function(json) {
+				//$("#fortest").html(json);
+				var obj = $.parseJSON(json);
+				//alert(json);
+				if (obj) {
+					//if (obj.count) {
+						$("#t"+teamid).html(obj.na+(obj.po.length?" ("+obj.po+")":""));
+						$("#w"+teamid).html(obj.w);
+						$("#d"+teamid).html(obj.d);
+						$("#l"+teamid).html(obj.l);
+						$("#f"+teamid).html(obj.f);
+						$("#a"+teamid).html(obj.a);
+					//}
+					
+				}
+				
+				
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				//alert("Error get team");
+			}
+		});
+	}
+	function loadmatches() {
+		$.ajax({
+			url: 'getlist.php',
+			type:"GET",
+			//data:{d:"2012-08-15"},
+			//dataType: 'json',	
+			success: function(json) {
+				//$("#fortest").html(json);
+				var obj = $.parseJSON(json);
+				var league="";
+				var group="";
+				var tr='';
+				//alert(obj.leagues['col.1']);
+				$("#bigboard tr:gt(1)").remove();
+				for (var i=0; i<obj.matches.length;i++) {
+					if (obj.matches[i]['lg']!=league) {
+						$("#bigboard").append('<tr class="league"><td align="left" colspan="24">'+obj.leagues[obj.matches[i]['lg']]+'</td></tr>');
+						league=obj.matches[i]['lg']+"";
+					}
+					if (obj.matches[i]['gr']) {
+						if (obj.matches[i]['gr']!=group) {
+							$("#bigboard").append('<tr class="group"><td align="left" colspan="24">Group '+obj.matches[i]['r']+'</td></tr>');
+							group=obj.matches[i]['gr'];
+						}
+					}
+					tr='<tr class="match" id="m'+obj.matches[i]['id']+'">';
+					tr+='<td class="status status'+obj.matches[i]['st']+'">'+(obj.matches[i]['st']<1?obj.matches[i]['da'].substr(11,5):(obj.matches[i]['mi']?obj.matches[i]['mi']+"'":status[obj.matches[i]['st']]))+'</td>';
+					tr+='<td class="home" id="t'+obj.matches[i]['ht']+'">'+obj.matches[i]['ht']+'</td>';
+					tr+='<td class="score"><span class="score0">'+(obj.matches[i]['st']>0?obj.matches[i]['hg']:"")+'</span> - <span class="score1">'+(obj.matches[i]['st']>0?obj.matches[i]['ag']:"")+'</span></td>';
+					tr+='<td class="away" id="t'+obj.matches[i]['at']+'">'+obj.matches[i]['at']+'</td>';
+					tr+='<td class="score1"><span class="score10"></span> - <span class="score11"></span></td>';
+					tr+='<td class="yellow"><span class="yellow0">0</span> - <span class="yellow1">0</span></td>';
+					tr+='<td class="red"><span class="red0">0</span> - <span class="red1">0</span></td>';
+					tr+='<td class="shots"><span class="shots0"></span> - <span class="shots1"></span></td>';
+					tr+='<td class="gshots"><span class="gshots0"></span> - <span class="gshots1"></span></td>';
+					tr+='<td class="corner"><span class="corner0"></span> - <span class="corner1"></span></td>';
+					tr+='<td class="possession"><span class="possession0"></span> - <span class="possession1"></span></td>';
+					tr+='<td class="pshots"><span class="pshots0"></span> - <span class="pshots1"></span></td>';
+					tr+='<td class="pgshots"><span class="pgshots0"></span> - <span class="pgshots1"></span></td>';
+					tr+='<td class="pcorner"><span class="pcorner0"></span> - <span class="pcorner1"></span></td>';
+					tr+='<td class="w0" id="w'+obj.matches[i]['ht']+'">-</td>';
+					tr+='<td class="d0" id="d'+obj.matches[i]['ht']+'">-</td>';
+					tr+='<td class="l0" id="l'+obj.matches[i]['ht']+'">-</td>';
+					tr+='<td class="f0" id="f'+obj.matches[i]['ht']+'">-</td>';
+					tr+='<td class="a0" id="a'+obj.matches[i]['ht']+'">-</td>';
+					tr+='<td class="w1" id="w'+obj.matches[i]['at']+'">-</td>';
+					tr+='<td class="d1" id="d'+obj.matches[i]['at']+'">-</td>';
+					tr+='<td class="l1" id="l'+obj.matches[i]['at']+'">-</td>';
+					tr+='<td class="f1" id="f'+obj.matches[i]['at']+'">-</td>';
+					tr+='<td class="a1" id="a'+obj.matches[i]['at']+'">-</td>';
+					tr+='</tr>';
+					$("#bigboard").append(tr);
+					getteam(obj.matches[i]['ht'],0);
+					getteam(obj.matches[i]['at'],1);
+					//break;//debug only
+				}
+				
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				//alert("Error get matches");
+			}
+		});
+	}
+$(document).ready(function(){
+	
 	$("#Content2").css($("#Content").offset());
-	
-	//$("#Content2").offset($("#Content").offset());
-	
-	//$('#bigboard').fixheadertable({height: '500'});
 	$("#loadpage").click(function() {
 		fd();
 		if (match_list) 
@@ -72,102 +214,13 @@ $(document).ready(function(){
 			alert("Enter your email then submit.");
 		}
 	});
-	function getteam(teamid,away) {
-		$.ajax({
-			url: 'getteam.php',
-			type:"GET",
-			data:{id:teamid,aw:away},
-			//dataType: 'json',	
-			success: function(json) {
-				//$("#fortest").html(json);
-				var obj = $.parseJSON(json);
-				//alert(json);
-				if (obj) {
-					//if (obj.count) {
-						$("#t"+teamid).html(obj.na+(obj.po.length?" ("+obj.po+")":""));
-						$("#w"+teamid).html(obj.w);
-						$("#d"+teamid).html(obj.d);
-						$("#l"+teamid).html(obj.l);
-						$("#f"+teamid).html(obj.f);
-						$("#a"+teamid).html(obj.a);
-					//}
-					
-				}
-				
-				
-			},
-			error: function(xhr, ajaxOptions, thrownError) {
-				alert("Error get team");
-			}
-		});
-	}
-	$("#loadmatch").click(function() {
-		$.ajax({
-			url: 'getlist.php',
-			type:"GET",
-			//data:{d:"2012-08-15"},
-			//dataType: 'json',	
-			success: function(json) {
-				//$("#fortest").html(json);
-				var obj = $.parseJSON(json);
-				var league="";
-				var group="";
-				var tr='';
-				//alert(obj.leagues['col.1']);
-				$("#bigboard tr:gt(1)").remove();
-				for (var i=0; i<obj.matches.length;i++) {
-					if (obj.matches[i]['lg']!=league) {
-						$("#bigboard").append('<tr class="league"><td align="left" colspan="24">'+obj.leagues[obj.matches[i]['lg']]+'</td></tr>');
-						league=obj.matches[i]['lg']+"";
-					}
-					if (obj.matches[i]['gr']) {
-						if (obj.matches[i]['gr']!=group) {
-							$("#bigboard").append('<tr class="group"><td align="left" colspan="24">Group '+obj.matches[i]['r']+'</td></tr>');
-							group=obj.matches[i]['gr'];
-						}
-					}
-					tr='<tr class="match" id="m'+obj.matches[i]['id']+'">';
-					tr+='<td class="status">'+(obj.matches[i]['st']<1?obj.matches[i]['da'].substr(11,5):obj.matches[i]['st'])+'</td>';
-					tr+='<td class="home" id="t'+obj.matches[i]['ht']+'">'+obj.matches[i]['ht']+'</td>';
-					tr+='<td class="score"><span class="score0"></span>-<span class="score1"></span></td>';
-					tr+='<td class="away" id="t'+obj.matches[i]['at']+'">'+obj.matches[i]['at']+'</td>';
-					tr+='<td class="score1"><span class="score10"></span>-<span class="score11"></span></td>';
-					tr+='<td class="yellow"><span class="yellow0"></span>-<span class="yellow1"></span></td>';
-					tr+='<td class="red"><span class="red0"></span>-<span class="red1"></span></td>';
-					tr+='<td class="shots"><span class="shots0"></span>-<span class="shots1"></span></td>';
-					tr+='<td class="gshots"><span class="gshots0"></span>-<span class="gshots1"></span></td>';
-					tr+='<td class="corner"><span class="corner0"></span>-<span class="corner1"></span></td>';
-					tr+='<td class="possession"><span class="possession0"></span>-<span class="possession1"></span></td>';
-					tr+='<td class="pshots"><span class="pshots0"></span>-<span class="pshots1"></span></td>';
-					tr+='<td class="pgshots"><span class="pgshots0"></span>-<span class="pgshots1"></span></td>';
-					tr+='<td class="pcorner"><span class="pcorner0"></span>-<span class="pcorner1"></span></td>';
-					tr+='<td class="w0" id="w'+obj.matches[i]['ht']+'">-</td>';
-					tr+='<td class="d0" id="d'+obj.matches[i]['ht']+'">-</td>';
-					tr+='<td class="l0" id="l'+obj.matches[i]['ht']+'">-</td>';
-					tr+='<td class="f0" id="f'+obj.matches[i]['ht']+'">-</td>';
-					tr+='<td class="a0" id="a'+obj.matches[i]['ht']+'">-</td>';
-					tr+='<td class="w1" id="w'+obj.matches[i]['at']+'">-</td>';
-					tr+='<td class="d1" id="d'+obj.matches[i]['at']+'">-</td>';
-					tr+='<td class="l1" id="l'+obj.matches[i]['at']+'">-</td>';
-					tr+='<td class="f1" id="f'+obj.matches[i]['at']+'">-</td>';
-					tr+='<td class="a1" id="a'+obj.matches[i]['at']+'">-</td>';
-					tr+='</tr>';
-					$("#bigboard").append(tr);
-					getteam(obj.matches[i]['ht'],0);
-					getteam(obj.matches[i]['at'],1);
-				}
-				
-			},
-			error: function(xhr, ajaxOptions, thrownError) {
-				alert("Error get matches");
-			}
-		});
-	});
-	$("#btest").click(function(){
-		getteam(585,0);
-		getteam(187,1);
-	});
 	
+	$("#loadmatch").click(loadmatches);
+
+	$("#btest").click(function(){
+		getnew();
+	});
+	//setTimeout(getnew,2000);
 });
 </script>
 <!--<meta http-equiv='refresh' content='20'>-->
@@ -385,7 +438,7 @@ echo '<span class="menucontainer" style="display:none;">
 <table id="bigboard2">
 <tr class="header" align="center" valign="middle">
 <td rowspan="2">Status</td>
-<td rowspan="2" width="16%">Home Team2</td>
+<td rowspan="2" width="16%">Home Team</td>
 <td rowspan="2" width="3%">Score</td>
 <td rowspan="2" width="16%">Away Team</td>
 <td rowspan="2" width="3%">1st <br> round</td>
