@@ -13,10 +13,60 @@ echo "</script>";
 <script type="text/javascript">
 var status= new Array("","1st","HT","2nd","ST","Ex.","","FT","AET","FT-Pens");
 var momment="";
-var hlightdelay=2000;
+var hldelay=1000;
 var rp;
 var getfirst=true;
 var getdelay=2000;
+function getmatch(matchid) {
+	$.ajax({
+		url: 'getmatch.php',
+		type:"GET",
+		data:{id:matchid},
+		//dataType: 'json',	
+		success: function(json) {
+			//$("#fortest").html(json);
+			var obj = $.parseJSON(json);
+			//alert(json);
+			if (obj) {
+				//if (obj.count) {
+				var mrow="#m"+matchid;
+				if ((obj['st']==1)||(obj['st']==3)) {
+					if (obj['mi'])
+						$(mrow).find(".status").html(obj['mi']+"'");
+					else
+						$(mrow).find(".status").html(status[obj['st']]);
+				}
+				else
+					$(mrow).find(".status").html(status[obj['st']]);
+				if (obj['st']>=7) {
+					$(mrow).find(".status").attr("class","status status7");
+				}
+				else if (obj['st']>=1) {
+					$(mrow).find(".status").attr("class","status status1");
+				}
+				else {
+					$(mrow).find(".status").attr("class","status status0");
+				}
+				$(mrow).find(".score .score0").html(obj['hg']);
+				$(mrow).find(".score .score1").html(obj['ag']);
+				$(mrow).find(".score1 .score10").html(obj['h1g']);
+				$(mrow).find(".score1 .score11").html(obj['a1g']);
+				$(mrow).find(".red .red0").html(obj['hr']);
+				$(mrow).find(".red .red1").html(obj['ar']);
+				$(mrow).find(".yellow .yellow0").html(obj['hy']);
+				$(mrow).find(".yellow .yellow1").html(obj['ay']);
+				//...bo sung them
+				//}
+				
+			}
+			
+			
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			//alert("Error get team");
+		}
+	});
+}
 function getnew() {
 		$.ajax({
 			url: 'gtimeline.php',
@@ -24,33 +74,25 @@ function getnew() {
 			data:{t:momment},
 			//dataType: 'json',	
 			success: function(json) {
-				//$("#fortest").html(json);
 				var obj = $.parseJSON(json);
 				if (obj) {
 					$("#fortest").html(json);
-					//alert(obj[0]['e']);
-					var hldelay=(getfirst?0:hlightdelay);
 					for (var i=0; i<obj.length;i++) {
 						var mrow="#m"+obj[i]['m'];
 						if (obj[i]['e']==100) {
 							
 						} else if ((obj[i]['e']==12) || (obj[i]['e']==9)) {
-							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]);//.effect("highlight", {color:"#ff0000"}, hldelay);
+							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
 						} else if (obj[i]['e']==10) {
-							
-							
-						/*} else if (obj[i]['e']==9) {
-							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]);//.effect("highlight", {color:"#ff0000"}, hldelay);
-							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);*/
+							getmatch(obj[i]['m']);
 						} else if (obj[i]['e']==8) {
 							if (obj[i]['v']) {
-								$(mrow).find(".status").html(obj[i]['v']+"'");//.effect("highlight", {color:"#ff0000"}, hldelay);
+								$(mrow).find(".status").html(obj[i]['v']+"'").effect("highlight", {color:"#ff0000"}, hldelay);
 								$(mrow).find(".status").attr('class','status status1');
 							}
 						} else if (obj[i]['e']==7) {
 							$(mrow).find(".possession .possession"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
-							
 						} else if (obj[i]['e']==6) {
 							$(mrow).find(".conner .conner"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
 						} else if (obj[i]['e']==5) {
@@ -60,12 +102,10 @@ function getnew() {
 						} else if (obj[i]['e']==3) {
 							$(mrow).find(".yellow .yellow"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
 						} else if (obj[i]['e']==2) {
-							//alert("redcard");
 							$(mrow).find(".red .red"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
 						} else if (obj[i]['e']==1) {
 							$(mrow).find(".score1 .score1"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
 						} else if (obj[i]['e']==0) {
-							//alert("score");
 							$(mrow).find(".score .score"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
 						}
 						momment=obj[i]['d'];
@@ -78,8 +118,59 @@ function getnew() {
 				getdelay=10000;
 			}
 		});
-		//window.setTimeout(getNew,2000);
-		getfirst=false;
+		rp=setTimeout(getnew,getdelay);
+	}
+	function getnew1() {
+		$.ajax({
+			url: 'gtimeline.php',
+			type:"GET",
+			data:{t:momment},
+			//dataType: 'json',	
+			success: function(json) {
+				var obj = $.parseJSON(json);
+				if (obj) {
+					var hldelay=(getfirst?0:hlightdelay);
+					for (var i=0; i<obj.length;i++) {
+						var mrow="#m"+obj[i]['m'];
+						if (obj[i]['e']==100) {
+							
+						} else if ((obj[i]['e']==12) || (obj[i]['e']==9)) {
+							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]);
+							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
+						} else if (obj[i]['e']==10) {
+							getmatch(obj[i]['m']);
+						} else if (obj[i]['e']==8) {
+							if (obj[i]['v']) {
+								$(mrow).find(".status").html(obj[i]['v']+"'");
+								$(mrow).find(".status").attr('class','status status1');
+							}
+						} else if (obj[i]['e']==7) {
+							$(mrow).find(".possession .possession"+obj[i]['t']).html(obj[i]['v']);
+						} else if (obj[i]['e']==6) {
+							$(mrow).find(".conner .conner"+obj[i]['t']).html(obj[i]['v']);
+						} else if (obj[i]['e']==5) {
+							$(mrow).find(".gshots .gshots"+obj[i]['t']).html(obj[i]['v']);
+						} else if (obj[i]['e']==4) {
+							$(mrow).find(".shots"+obj[i]['t']).html(obj[i]['v']);
+						} else if (obj[i]['e']==3) {
+							$(mrow).find(".yellow .yellow"+obj[i]['t']).html(obj[i]['v']);
+						} else if (obj[i]['e']==2) {
+							$(mrow).find(".red .red"+obj[i]['t']).html(obj[i]['v']);
+						} else if (obj[i]['e']==1) {
+							$(mrow).find(".score1 .score1"+obj[i]['t']).html(obj[i]['v']);
+						} else if (obj[i]['e']==0) {
+							$(mrow).find(".score .score"+obj[i]['t']).html(obj[i]['v']);
+						}
+						momment=obj[i]['d'];
+					}
+				}
+				getdelay=2000;
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				//alert("Error get team");
+				getdelay=10000;
+			}
+		});
 		rp=setTimeout(getnew,getdelay);
 	}
 	function getteam(teamid,away) {
@@ -231,7 +322,7 @@ $(document).ready(function(){
 		if (rp) clearInterval(rp);
 	});
 	loadmatches();
-	getnew();
+	getnew1();
 });
 </script>
 <!--<meta http-equiv='refresh' content='20'>-->
