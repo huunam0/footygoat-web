@@ -219,9 +219,9 @@ $(document).ready(function(){
 	$("#loadmatch").click();
 
 	$("#btest").click(function(){
-		
+		if (rp) clearInterval(rp);
 	});
-	loadmatches;
+	loadmatches();
 	rp=setInterval(getnew,2000);
 });
 </script>
@@ -479,7 +479,7 @@ echo '<span class="menucontainer" style="display:none;">
 <br><br><br>
 <div>
 <span class="button" id="loadmatch">Load Matches</span> 
-<span class="button" id="btest">Test</span>
+<span class="button" id="btest">Test:Stop update</span>
 <a href="http://www.footygoat.com">Live Football Scores</a> | <a href="http://www.footygoat.com">Inplay Betting Alerts</a> | <a href="http://www.footygoat.com">Inplay Football Betting</a> 
 </div>
 <div id="fortest"></div>
