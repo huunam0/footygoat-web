@@ -13,8 +13,9 @@ echo "</script>";
 <script type="text/javascript">
 var status= new Array("","1st","HT","2nd","ST","Ex.","","FT","AET","FT-Pens");
 var momment="";
-var hldelay=2000;
+var hlightdelay=2000;
 var rp;
+var getfirst=true;
 function getnew() {
 		$.ajax({
 			url: 'gtimeline.php',
@@ -27,20 +28,25 @@ function getnew() {
 				if (obj) {
 					$("#fortest").html(json);
 					//alert(obj[0]['e']);
+					var hldelay=(getfirst?10:hlightdelay);
 					for (var i=0; i<obj.length;i++) {
 						var mrow="#m"+obj[i]['m'];
 						if (obj[i]['e']==100) {
 							
-						} else if (obj[i]['e']==12) {
-							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
-						} else if (obj[i]['e']==10) {
-							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
+						} else if ((obj[i]['e']==12) || (obj[i]['e']==10) || (obj[i]['e']==9)) {
+							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]);//.effect("highlight", {color:"#ff0000"}, hldelay);
+							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
+						/*} else if (obj[i]['e']==10) {
+							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]);//.effect("highlight", {color:"#ff0000"}, hldelay);
+							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
 						} else if (obj[i]['e']==9) {
-							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
+							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]);//.effect("highlight", {color:"#ff0000"}, hldelay);
+							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);*/
 						} else if (obj[i]['e']==8) {
-							if (obj[i]['v']) $(mrow).find(".status").html(obj[i]['v']+"'").effect("highlight", {color:"#ff0000"}, hldelay);
+							if (obj[i]['v']) $(mrow).find(".status").html(obj[i]['v']+"'");//.effect("highlight", {color:"#ff0000"}, hldelay);
 						} else if (obj[i]['e']==7) {
 							$(mrow).find(".possession .possession"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
+							
 						} else if (obj[i]['e']==6) {
 							$(mrow).find(".conner .conner"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
 						} else if (obj[i]['e']==5) {
@@ -58,20 +64,17 @@ function getnew() {
 							//alert("score");
 							$(mrow).find(".score .score"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
 						}
-						
 						momment=obj[i]['d'];
-						
 					}
 				}
-				
-				
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
 				//alert("Error get team");
 			}
 		});
 		//window.setTimeout(getNew,2000);
-		//setTimeout(getnew,2000);
+		getfirst=false;
+		rp=setTimeout(getnew,2000);
 	}
 	function getteam(teamid,away) {
 		$.ajax({
@@ -133,8 +136,8 @@ function getnew() {
 					tr+='<td class="score"><span class="score0">'+(obj.matches[i]['st']>0?obj.matches[i]['hg']:"")+'</span> - <span class="score1">'+(obj.matches[i]['st']>0?obj.matches[i]['ag']:"")+'</span></td>';
 					tr+='<td class="away" id="t'+obj.matches[i]['at']+'">'+obj.matches[i]['at']+'</td>';
 					tr+='<td class="score1"><span class="score10"></span> - <span class="score11"></span></td>';
-					tr+='<td class="yellow"><span class="yellow0">0</span> - <span class="yellow1">0</span></td>';
-					tr+='<td class="red"><span class="red0">0</span> - <span class="red1">0</span></td>';
+					tr+='<td class="yellow"><span class="yellow0"></span> - <span class="yellow1"></span></td>';
+					tr+='<td class="red"><span class="red0"></span> - <span class="red1"></span></td>';
 					tr+='<td class="shots"><span class="shots0"></span> - <span class="shots1"></span></td>';
 					tr+='<td class="gshots"><span class="gshots0"></span> - <span class="gshots1"></span></td>';
 					tr+='<td class="corner"><span class="corner0"></span> - <span class="corner1"></span></td>';
@@ -222,7 +225,7 @@ $(document).ready(function(){
 		if (rp) clearInterval(rp);
 	});
 	loadmatches();
-	rp=setInterval(getnew,2000);
+	getnew();
 });
 </script>
 <!--<meta http-equiv='refresh' content='20'>-->
