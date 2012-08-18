@@ -122,7 +122,7 @@ function getnew() {
 					}
 					if (obj.matches[i]['gr']) {
 						if (obj.matches[i]['gr']!=group) {
-							$("#bigboard").append('<tr class="group"><td align="left" colspan="24">Group '+obj.matches[i]['r']+'</td></tr>');
+							$("#bigboard").append('<tr class="group"><td align="left" colspan="24">Group '+obj.matches[i]['gr']+'</td></tr>');
 							group=obj.matches[i]['gr'];
 						}
 					}
