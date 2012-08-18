@@ -14,6 +14,7 @@ echo "</script>";
 var status= new Array("","1st","HT","2nd","ST","Ex.","","FT","AET","FT-Pens");
 var momment="";
 var hldelay=2000;
+var rp;
 function getnew() {
 		$.ajax({
 			url: 'gtimeline.php',
@@ -70,7 +71,7 @@ function getnew() {
 			}
 		});
 		//window.setTimeout(getNew,2000);
-		setTimeout(getnew,2000);
+		//setTimeout(getnew,2000);
 	}
 	function getteam(teamid,away) {
 		$.ajax({
@@ -215,12 +216,13 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("#loadmatch").click(loadmatches);
+	$("#loadmatch").click();
 
 	$("#btest").click(function(){
-		getnew();
+		
 	});
-	//setTimeout(getnew,2000);
+	loadmatches;
+	rp=setInterval(getnew,2000);
 });
 </script>
 <!--<meta http-equiv='refresh' content='20'>-->
