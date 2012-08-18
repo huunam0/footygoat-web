@@ -11,7 +11,7 @@
 			$match['st']=$row['status'];
 			$match['mi']=$row['minutes'];
 			$match['hg']=$row['hgoals'];
-			$match['ag']=$row['agoals'];
+			$match['ag']=$row['agoals']; 
 			$match['h1']=$row['h1goals'];
 			$match['a1']=$row['a1goals'];
 			$match['hr']=$row['hreds'];
@@ -51,7 +51,7 @@
 			$match['ae']=($row['apenalty']?$row['apenalty']:"");
 			*/
 		} 
-		echo json_encode($match);
+		//echo json_encode($match);
 	}
 	
 
