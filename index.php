@@ -5,7 +5,7 @@ include_once("maincore.php");
 include_once("header.php");
 //echo "<title>ABC</title>";
 include_once("dbconfig.php");
-
+date_default_timezone_set("Europe/London");
 echo "<script language='javascript'>var myid=".$myid.";";
 echo "</script>";
 ?>
@@ -16,6 +16,7 @@ var momment="";
 var hlightdelay=2000;
 var rp;
 var getfirst=true;
+var getdelay=2000;
 function getnew() {
 		$.ajax({
 			url: 'gtimeline.php',
@@ -28,22 +29,25 @@ function getnew() {
 				if (obj) {
 					$("#fortest").html(json);
 					//alert(obj[0]['e']);
-					var hldelay=(getfirst?10:hlightdelay);
+					var hldelay=(getfirst?0:hlightdelay);
 					for (var i=0; i<obj.length;i++) {
 						var mrow="#m"+obj[i]['m'];
 						if (obj[i]['e']==100) {
 							
-						} else if ((obj[i]['e']==12) || (obj[i]['e']==10) || (obj[i]['e']==9)) {
+						} else if ((obj[i]['e']==12) || (obj[i]['e']==9)) {
 							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]);//.effect("highlight", {color:"#ff0000"}, hldelay);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
-						/*} else if (obj[i]['e']==10) {
-							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]);//.effect("highlight", {color:"#ff0000"}, hldelay);
-							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
-						} else if (obj[i]['e']==9) {
+						} else if (obj[i]['e']==10) {
+							
+							
+						/*} else if (obj[i]['e']==9) {
 							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]);//.effect("highlight", {color:"#ff0000"}, hldelay);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);*/
 						} else if (obj[i]['e']==8) {
-							if (obj[i]['v']) $(mrow).find(".status").html(obj[i]['v']+"'");//.effect("highlight", {color:"#ff0000"}, hldelay);
+							if (obj[i]['v']) {
+								$(mrow).find(".status").html(obj[i]['v']+"'");//.effect("highlight", {color:"#ff0000"}, hldelay);
+								$(mrow).find(".status").attr('class','status status1');
+							}
 						} else if (obj[i]['e']==7) {
 							$(mrow).find(".possession .possession"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
 							
@@ -67,14 +71,16 @@ function getnew() {
 						momment=obj[i]['d'];
 					}
 				}
+				getdelay=2000;
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
 				//alert("Error get team");
+				getdelay=10000;
 			}
 		});
 		//window.setTimeout(getNew,2000);
 		getfirst=false;
-		rp=setTimeout(getnew,2000);
+		rp=setTimeout(getnew,getdelay);
 	}
 	function getteam(teamid,away) {
 		$.ajax({
