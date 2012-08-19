@@ -238,16 +238,29 @@ function getnew() {
 					tr+='<td class="home" id="t'+obj.matches[i]['ht']+'">'+obj.matches[i]['ht']+'</td>';
 					tr+='<td class="score"><span class="score0">'+(obj.matches[i]['st']>0?obj.matches[i]['hg']:"")+'</span> - <span class="score1">'+(obj.matches[i]['st']>0?obj.matches[i]['ag']:"")+'</span></td>';
 					tr+='<td class="away" id="t'+obj.matches[i]['at']+'">'+obj.matches[i]['at']+'</td>';
-					tr+='<td class="score1"><span class="score10"></span> - <span class="score11"></span></td>';
-					tr+='<td class="yellow"><span class="yellow0"></span> - <span class="yellow1"></span></td>';
-					tr+='<td class="red"><span class="red0"></span> - <span class="red1"></span></td>';
-					tr+='<td class="shots"><span class="shots0"></span> - <span class="shots1"></span></td>';
-					tr+='<td class="gshots"><span class="gshots0"></span> - <span class="gshots1"></span></td>';
-					tr+='<td class="corner"><span class="corner0"></span> - <span class="corner1"></span></td>';
-					tr+='<td class="possession"><span class="possession0"></span> - <span class="possession1"></span></td>';
-					tr+='<td class="pshots"><span class="pshots0"></span> - <span class="pshots1"></span></td>';
-					tr+='<td class="pgshots"><span class="pgshots0"></span> - <span class="pgshots1"></span></td>';
-					tr+='<td class="pcorner"><span class="pcorner0"></span> - <span class="pcorner1"></span></td>';
+					if (obj.matches[i]['st']==0) {
+						tr+='<td class="score1"><span class="score10"></span> - <span class="score11"></span></td>';
+						tr+='<td class="yellow"><span class="yellow0"></span> - <span class="yellow1"></span></td>';
+						tr+='<td class="red"><span class="red0"></span> - <span class="red1"></span></td>';
+						tr+='<td class="shots"><span class="shots0"></span> - <span class="shots1"></span></td>';
+						tr+='<td class="gshots"><span class="gshots0"></span> - <span class="gshots1"></span></td>';
+						tr+='<td class="corner"><span class="corner0"></span> - <span class="corner1"></span></td>';
+						tr+='<td class="possession"><span class="possession0"></span> - <span class="possession1"></span></td>';
+						tr+='<td class="pshots"><span class="pshots0"></span> - <span class="pshots1"></span></td>';
+						tr+='<td class="pgshots"><span class="pgshots0"></span> - <span class="pgshots1"></span></td>';
+						tr+='<td class="pcorner"><span class="pcorner0"></span> - <span class="pcorner1"></span></td>';
+					} else {
+						tr+='<td class="score1"><span class="score10">'+obj.matches[i]['hg1']+'</span> - <span class="score11">'+obj.matches[i]['ag1']+'</span></td>';
+						tr+='<td class="yellow"><span class="yellow0">'+obj.matches[i]['hy']+'</span> - <span class="yellow1">'+obj.matches[i]['ay']+'</span></td>';
+						tr+='<td class="red"><span class="red0">'+obj.matches[i]['hr']+'</span> - <span class="red1">'+obj.matches[i]['ar']+'</span></td>';
+						tr+='<td class="shots"><span class="shots0">'+obj.matches[i]['hs']+'</span> - <span class="shots1">'+obj.matches[i]['as']+'</span></td>';
+						tr+='<td class="gshots"><span class="gshots0">'+obj.matches[i]['hgs']+'</span> - <span class="gshots1">'+obj.matches[i]['ags']+'</span></td>';
+						tr+='<td class="corner"><span class="corner0">'+obj.matches[i]['hc']+'</span> - <span class="corner1">'+obj.matches[i]['ac']+'</span></td>';
+						tr+='<td class="possession"><span class="possession0">'+obj.matches[i]['hpo']+'</span> - <span class="possession1">'+obj.matches[i]['apo']+'</span></td>';
+						tr+='<td class="pshots"><span class="pshots0"></span> - <span class="pshots1"></span></td>';
+						tr+='<td class="pgshots"><span class="pgshots0"></span> - <span class="pgshots1"></span></td>';
+						tr+='<td class="pcorner"><span class="pcorner0"></span> - <span class="pcorner1"></span></td>';
+					}
 					tr+='<td class="w0" id="w'+obj.matches[i]['ht']+'">-</td>';
 					tr+='<td class="d0" id="d'+obj.matches[i]['ht']+'">-</td>';
 					tr+='<td class="l0" id="l'+obj.matches[i]['ht']+'">-</td>';
@@ -262,7 +275,7 @@ function getnew() {
 					$("#bigboard").append(tr);
 					getteam(obj.matches[i]['ht'],0);
 					getteam(obj.matches[i]['at'],1);
-					if (obj.matches[i]['st']>=1) getmatch(obj.matches[i]['id']);
+					//if (obj.matches[i]['st']>=1) getmatch(obj.matches[i]['id']);
 					//break;//debug only
 				}
 				
