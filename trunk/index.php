@@ -15,7 +15,6 @@ var status= new Array("","1st","HT","2nd","ST","Ex.","","FT","AET","FT-Pens");
 var momment="";
 var hldelay=1000;
 var rp;
-var getfirst=true;
 var getdelay=2000;
 function getmatch(matchid) {
 	$.ajax({
@@ -129,7 +128,6 @@ function getnew() {
 			success: function(json) {
 				var obj = $.parseJSON(json);
 				if (obj) {
-					var hldelay=(getfirst?0:hlightdelay);
 					for (var i=0; i<obj.length;i++) {
 						var mrow="#m"+obj[i]['m'];
 						if (obj[i]['e']==100) {
@@ -334,18 +332,18 @@ $(document).ready(function(){
 
 <table border='0' width='100%'>
 <tr valign="middle" style="height:40px;">
-<td align = 'right' >
+<td align = 'right' width="5%">
 <img src="image/goat.jpg"/>
 </td>
-<td align = 'left'>
+<td align = 'left' width="40%">
 <div class="white" style="position: relative">
-&nbsp; <b>FootyGoat.com</b>
+<b>FootyGoat.com</b>
 <a href="http://twitter.com/footygoat" class='tw' target='_blank'><span class='space20 s12'>Follow Us</span></a>
 <a href="http://www.facebook.com/footygoat" class='fb' target='_blank'><span class='space20 s12'>Like Us</span></a>
 <a href="http://www.petestilgoe.com/2012/01/turn-free-bets-into-free-cash" Target="_Blank"><span class='space20 s12'>Free Money</a>
 </div>
 </td>
-<td align = 'center'>
+<td align = 'center' width="25%">
 <div>
 <!--<a href="image/sample1.png" rel="oday" class="button" title="screen shot 1">HOME</a>-->
 <a href='#' class="button"><span id = "upmatch" >Update matches</span></a>
@@ -393,8 +391,12 @@ echo '</table>
 
 echo '</div>
 </td>
-<td align = "right">
-<div class="white" style="vertical-align:bottom">';
+<td>
+
+
+<a href="#" class=" button">'.(date("M j, Y H:i")).'</a>
+</td><td align = "right" >
+';
 
 if ($MEMBER) {
 
@@ -428,7 +430,7 @@ echo '<a href="#" class="button" id="btlogout">LOGOUT</a>';
 
 
 
-echo '<span class="menucontainer" style="display:none;">
+echo '<span class="" style="display:block;">
 <span>
 <a href="#" class="dropdown button">LOGIN BY</a>
 </span>
@@ -445,15 +447,15 @@ echo '<span class="menucontainer" style="display:none;">
 <span class="hidedrop">Hide this panel</span>
 </div>
 </span>
-
+<!--
 <a href="lbfb/index.php?login&oauth_provider=twitter"><img src="lbfb/images/tw_login.png" height="30" align="middle" alt="Login by Twitter" title="Login by Twitter"/></a>
 <a href="lbfb/index.php?login&oauth_provider=facebook"><img src="lbfb/images/fb_login.png" height="30" align="middle" alt="Login by Facebook" title="Login by Facebook"/></a>
-<a href="register.php" rel="olaiday" class="button" style="display:none;">REGISTER</a>';
+<a href="register.php" rel="olaiday" class="button" style="display:none;">REGISTER</a>-->';
 
 	}
 ?>
 
-</div>
+
 </td>
 </tr>
 </table>
