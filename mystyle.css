@@ -122,7 +122,7 @@ div.Box22 {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 	position: absolute;
 	top: 0;
-	width: 220px;
+	/*width: 220px;*/
 	font-size:11px;
 }
 #applytriger {

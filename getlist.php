@@ -1,7 +1,12 @@
 <?php
 	include_once("maincore.php");
 	include_once("dbconfig.php");
-	if (!isset($_GET['d'])) $cdate=date("Y-m-d");
+	if (!isset($_GET['d'])) {
+		$cdate=date("Y-m-d");
+		if (date("H")<="06") {
+			$cdate = date("Y-m-d", strtotime($cdate)-86400);
+		}
+	}
 	else $cdate=$_GET['d'];
 	$ndate = date("Y-m-d", strtotime($cdate)+86400);
 	//echo $cdate."/".$ndate;
@@ -83,7 +88,7 @@
 	
 	//echo $list."<br/>".$leagues;
 	
-	echo json_encode(array("matches"=>$list,"leagues" => $leagues));
+	echo json_encode(array("matches"=>$list,"leagues" => $leagues,"date" => $cdate));
 
 ?>
 
