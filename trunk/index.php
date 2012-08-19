@@ -234,7 +234,14 @@ function getnew() {
 						}
 					}
 					tr='<tr class="match" id="m'+obj.matches[i]['id']+'">';
-					tr+='<td class="status status'+obj.matches[i]['st']+'">'+(obj.matches[i]['st']<1?obj.matches[i]['da'].substr(11,5):(obj.matches[i]['mi']?obj.matches[i]['mi']+"'":status[obj.matches[i]['st']]))+'</td>';
+					tr+='<td class="status status'+obj.matches[i]['st']+'">';
+					if (obj.matches[i]['st']<1)  {
+						tr+=obj.matches[i]['da'].substr(11,5);
+					} else {
+						tr+=status[obj.matches[i]['st']];
+					}
+					tr+="</td>";
+					//+(obj.matches[i]['st']<1?obj.matches[i]['da'].substr(11,5):(obj.matches[i]['mi']?obj.matches[i]['mi']+"'":status[obj.matches[i]['st']]))+'</td>';
 					tr+='<td class="home" id="t'+obj.matches[i]['ht']+'">'+obj.matches[i]['ht']+'</td>';
 					tr+='<td class="score"><span class="score0">'+(obj.matches[i]['st']>0?obj.matches[i]['hg']:"")+'</span> - <span class="score1">'+(obj.matches[i]['st']>0?obj.matches[i]['ag']:"")+'</span></td>';
 					tr+='<td class="away" id="t'+obj.matches[i]['at']+'">'+obj.matches[i]['at']+'</td>';
