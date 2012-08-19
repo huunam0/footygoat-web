@@ -48,13 +48,21 @@ function getmatch(matchid) {
 				}
 				$(mrow).find(".score .score0").html(obj['hg']);
 				$(mrow).find(".score .score1").html(obj['ag']);
-				$(mrow).find(".score1 .score10").html(obj['h1g']);
-				$(mrow).find(".score1 .score11").html(obj['a1g']);
+				$(mrow).find(".score1 .score10").html(obj['h1']);
+				$(mrow).find(".score1 .score11").html(obj['a1']);
 				$(mrow).find(".red .red0").html(obj['hr']);
 				$(mrow).find(".red .red1").html(obj['ar']);
 				$(mrow).find(".yellow .yellow0").html(obj['hy']);
 				$(mrow).find(".yellow .yellow1").html(obj['ay']);
-				//...bo sung them
+				$(mrow).find(".shots .shots0").html(obj['hs']);
+				$(mrow).find(".shots .shots1").html(obj['as']);
+				$(mrow).find(".gshots .gshots0").html(obj['hsg']);
+				$(mrow).find(".gshots .gshots1").html(obj['asg']);
+				$(mrow).find(".corner .corner0").html(obj['hc']);
+				$(mrow).find(".corner .corner1").html(obj['ac']);
+				$(mrow).find(".possession .possession0").html(obj['hp']);
+				$(mrow).find(".possession .possession1").html(obj['ap']);
+				//...bo sung them %
 				//}
 				
 			}
@@ -84,7 +92,7 @@ function getnew() {
 							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
 						} else if (obj[i]['e']==10) {
-							getmatch(obj[i]['m']);
+							//getmatch(obj[i]['m']);
 						} else if (obj[i]['e']==8) {
 							if (obj[i]['v']) {
 								$(mrow).find(".status").html(obj[i]['v']+"'").effect("highlight", {color:"#ff0000"}, hldelay);
@@ -93,7 +101,7 @@ function getnew() {
 						} else if (obj[i]['e']==7) {
 							$(mrow).find(".possession .possession"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
 						} else if (obj[i]['e']==6) {
-							$(mrow).find(".conner .conner"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
+							$(mrow).find(".corner .corner"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
 						} else if (obj[i]['e']==5) {
 							$(mrow).find(".gshots .gshots"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
 						} else if (obj[i]['e']==4) {
@@ -136,7 +144,7 @@ function getnew() {
 							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
 						} else if (obj[i]['e']==10) {
-							getmatch(obj[i]['m']);
+							//getmatch(obj[i]['m']);
 						} else if (obj[i]['e']==8) {
 							if (obj[i]['v']) {
 								$(mrow).find(".status").html(obj[i]['v']+"'");
@@ -145,7 +153,7 @@ function getnew() {
 						} else if (obj[i]['e']==7) {
 							$(mrow).find(".possession .possession"+obj[i]['t']).html(obj[i]['v']);
 						} else if (obj[i]['e']==6) {
-							$(mrow).find(".conner .conner"+obj[i]['t']).html(obj[i]['v']);
+							$(mrow).find(".corner .corner"+obj[i]['t']).html(obj[i]['v']);
 						} else if (obj[i]['e']==5) {
 							$(mrow).find(".gshots .gshots"+obj[i]['t']).html(obj[i]['v']);
 						} else if (obj[i]['e']==4) {
@@ -169,7 +177,7 @@ function getnew() {
 				getdelay=10000;
 			}
 		});
-		rp=setTimeout(getnew,getdelay);
+		rp=setTimeout(getnew1,getdelay);
 	}
 	function getteam(teamid,away) {
 		$.ajax({
@@ -254,6 +262,7 @@ function getnew() {
 					$("#bigboard").append(tr);
 					getteam(obj.matches[i]['ht'],0);
 					getteam(obj.matches[i]['at'],1);
+					if (obj.matches[i]['st']>=1) getmatch(obj.matches[i]['id']);
 					//break;//debug only
 				}
 				
@@ -320,7 +329,7 @@ $(document).ready(function(){
 		if (rp) clearInterval(rp);
 	});
 	loadmatches();
-	getnew1();
+	//getnew1();
 });
 </script>
 <!--<meta http-equiv='refresh' content='20'>-->
