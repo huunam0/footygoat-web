@@ -87,7 +87,8 @@ function getnew() {
 					for (var i=0; i<obj.length;i++) {
 						var mrow="#m"+obj[i]['m'];
 						if (obj[i]['e']==100) {
-							
+							loadmatches();
+							break;
 						} else if ((obj[i]['e']==12) || (obj[i]['e']==9)) {
 							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
@@ -139,7 +140,8 @@ function getnew() {
 					for (var i=0; i<obj.length;i++) {
 						var mrow="#m"+obj[i]['m'];
 						if (obj[i]['e']==100) {
-							
+							loadmatches();
+							break;
 						} else if ((obj[i]['e']==12) || (obj[i]['e']==9)) {
 							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
@@ -349,7 +351,7 @@ $(document).ready(function(){
 		if (rp) clearInterval(rp);
 	});
 	loadmatches();
-	//getnew1();
+	getnew1();
 });
 </script>
 <!--<meta http-equiv='refresh' content='20'>-->
