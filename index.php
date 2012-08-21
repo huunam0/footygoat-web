@@ -88,7 +88,7 @@ function getnew() {
 						var mrow="#m"+obj[i]['m'];
 						if (obj[i]['e']==100) {
 							loadmatches();
-							break;
+							//break;
 						} else if ((obj[i]['e']==12) || (obj[i]['e']==9)) {
 							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
@@ -141,7 +141,7 @@ function getnew() {
 						var mrow="#m"+obj[i]['m'];
 						if (obj[i]['e']==100) {
 							loadmatches();
-							break;
+							//break;
 						} else if ((obj[i]['e']==12) || (obj[i]['e']==9)) {
 							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
