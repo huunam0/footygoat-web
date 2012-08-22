@@ -30,14 +30,10 @@ function getmatch(matchid) {
 			if (obj) {
 				//if (obj.count) {
 				var mrow="#m"+matchid;
-				if ((obj['st']==1)||(obj['st']==3)) {
-					if (obj['mi'])
-						$(mrow).find(".status").html(obj['mi']+"'");
-					else
-						$(mrow).find(".status").html(status[obj['st']]);
-				}
-				else
-					$(mrow).find(".status").html(status[obj['st']]);
+				//if ((obj['st']==1)||(obj['st']==3)) {
+				$(mrow).find(".status .mminutes").html(obj['mi']+"'");
+				$(mrow).find(".status .mstatus").html(status[obj['st']]);
+				//}
 				if (obj['st']>=7) {
 					$(mrow).find(".status").attr("class","status status7");
 				}
@@ -91,13 +87,13 @@ function getnew() {
 							loadmatches();
 							//break;
 						} else if ((obj[i]['e']==12) || (obj[i]['e']==9)) {
-							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
+							$(mrow).find(".status mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
 						} else if (obj[i]['e']==10) {
 							//getmatch(obj[i]['m']);
 						} else if (obj[i]['e']==8) {
 							if (obj[i]['v']) {
-								$(mrow).find(".status").html(obj[i]['v']+"'").effect("highlight", {color:"#ff0000"}, hldelay);
+								$(mrow).find(".status mminutes").html(obj[i]['v']+"'").effect("highlight", {color:"#ff0000"}, hldelay);
 								$(mrow).find(".status").attr('class','status status1');
 							}
 						} else if (obj[i]['e']==7) {
@@ -144,13 +140,15 @@ function getnew() {
 							loadmatches();
 							//break;
 						} else if ((obj[i]['e']==12) || (obj[i]['e']==9)) {
-							$(mrow).find(".status").html(status[(obj[i]['v']?obj[i]['v']:7)]);
+							$(mrow).find(".status mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
 						} else if (obj[i]['e']==10) {
 							//getmatch(obj[i]['m']);
+							$(mrow).find(".status span:eq(0)").hide();
+							$(mrow).find(".status span:gt(0)").show();
 						} else if (obj[i]['e']==8) {
 							if (obj[i]['v']) {
-								$(mrow).find(".status").html(obj[i]['v']+"'");
+								$(mrow).find(".status mminutes").html(obj[i]['v']+"'");
 								$(mrow).find(".status").attr('class','status status1');
 							}
 						} else if (obj[i]['e']==7) {
@@ -181,9 +179,10 @@ function getnew() {
 			}
 		});
 		sl++;
-		if (sl>10)
+		if (sl>30)
 		rp=setTimeout(getnew,getdelay);
 		else
+		rp=setTimeout(getnew1,getdelay);
 		rp=setTimeout(getnew1,getdelay);
 	}
 	function getteam(teamid,away) {
@@ -241,11 +240,11 @@ function getnew() {
 						}
 					}
 					tr='<tr class="match" id="m'+obj.matches[i]['id']+'">';
-					tr+='<td class="status status'+obj.matches[i]['st']+'">';
+					//tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+tr+=status[obj.matches[i]['st']]+'</span><span class="mminutes"></span>';
 					if (obj.matches[i]['st']<1)  {
-						tr+=obj.matches[i]['da'].substr(11,5);
+						tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus" style="display:none;">'+tr+=status[obj.matches[i]['st']]+'</span><span class="mminutes" style="display:none;"></span>';
 					} else {
-						tr+=status[obj.matches[i]['st']];
+						tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart" style="display:none;">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+tr+=status[obj.matches[i]['st']]+'</span><span class="mminutes"></span>';
 					}
 					tr+="</td>";
 					//+(obj.matches[i]['st']<1?obj.matches[i]['da'].substr(11,5):(obj.matches[i]['mi']?obj.matches[i]['mi']+"'":status[obj.matches[i]['st']]))+'</td>';
@@ -430,7 +429,7 @@ echo '</div>
 <td>
 
 
-<a href="#" class=" button">'.(date("M j, Y H:i")).'</a>
+<a href="#" class=" button">'.(date("M j, Y")).'</a>
 </td><td align = "right" >
 ';
 
