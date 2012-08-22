@@ -16,6 +16,7 @@ var momment="";
 var hldelay=1000;
 var rp;
 var getdelay=2000;
+var sl=0;
 function getmatch(matchid) {
 	$.ajax({
 		url: 'getmatch.php',
@@ -179,6 +180,10 @@ function getnew() {
 				getdelay=10000;
 			}
 		});
+		sl++;
+		if (sl>10)
+		rp=setTimeout(getnew,getdelay);
+		else
 		rp=setTimeout(getnew1,getdelay);
 	}
 	function getteam(teamid,away) {
@@ -350,7 +355,7 @@ $(document).ready(function(){
 	$("#btest").click(function(){
 		if (rp) clearInterval(rp);
 	});
-	loadmatches();
+	//loadmatches();
 	getnew1();
 });
 </script>
