@@ -75,6 +75,7 @@ function getnew() {
 		$.ajax({
 			url: 'gtimeline.php',
 			type:"GET",
+			timeout:1000,
 			data:{t:momment},
 			//dataType: 'json',	
 			success: function(json) {
@@ -129,6 +130,7 @@ function getnew() {
 		$.ajax({
 			url: 'gtimeline.php',
 			type:"GET",
+			timeout:1000,
 			data:{t:momment},
 			//dataType: 'json',	
 			success: function(json) {
@@ -242,9 +244,9 @@ function getnew() {
 					tr='<tr class="match" id="m'+obj.matches[i]['id']+'">';
 					//tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+tr+=status[obj.matches[i]['st']]+'</span><span class="mminutes"></span>';
 					if (obj.matches[i]['st']<1)  {
-						tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus" style="display:none;">'+tr+=status[obj.matches[i]['st']]+'</span><span class="mminutes" style="display:none;"></span>';
+						tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus" style="display:none;">'+status[obj.matches[i]['st']]+'</span><span class="mminutes" style="display:none;"></span>';
 					} else {
-						tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart" style="display:none;">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+tr+=status[obj.matches[i]['st']]+'</span><span class="mminutes"></span>';
+						tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart" style="display:none;">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+status[obj.matches[i]['st']]+'</span><span class="mminutes"></span>';
 					}
 					tr+="</td>";
 					//+(obj.matches[i]['st']<1?obj.matches[i]['da'].substr(11,5):(obj.matches[i]['mi']?obj.matches[i]['mi']+"'":status[obj.matches[i]['st']]))+'</td>';
