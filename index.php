@@ -17,6 +17,7 @@ var hldelay=1000;
 var rp;
 var getdelay=2000;
 var sl=0;
+var isAjax=false;
 function getmatch(matchid) {
 	$.ajax({
 		url: 'getmatch.php',
@@ -72,10 +73,11 @@ function getmatch(matchid) {
 	});
 }
 function getnew() {
+		
 		$.ajax({
 			url: 'gtimeline.php',
 			type:"GET",
-			timeout:1000,
+			timeout:2000,
 			data:{t:momment},
 			//dataType: 'json',	
 			success: function(json) {
@@ -88,13 +90,13 @@ function getnew() {
 							loadmatches();
 							//break;
 						} else if ((obj[i]['e']==12) || (obj[i]['e']==9)) {
-							$(mrow).find(".status mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
+							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
 						} else if (obj[i]['e']==10) {
 							//getmatch(obj[i]['m']);
 						} else if (obj[i]['e']==8) {
 							if (obj[i]['v']) {
-								$(mrow).find(".status mminutes").html(obj[i]['v']+"'").effect("highlight", {color:"#ff0000"}, hldelay);
+								$(mrow).find(".status .mminutes").html(obj[i]['v']+"'").effect("highlight", {color:"#ff0000"}, hldelay);
 								$(mrow).find(".status").attr('class','status status1');
 							}
 						} else if (obj[i]['e']==7) {
@@ -130,7 +132,7 @@ function getnew() {
 		$.ajax({
 			url: 'gtimeline.php',
 			type:"GET",
-			timeout:1000,
+			timeout:2000,
 			data:{t:momment},
 			//dataType: 'json',	
 			success: function(json) {
@@ -142,17 +144,17 @@ function getnew() {
 							loadmatches();
 							//break;
 						} else if ((obj[i]['e']==12) || (obj[i]['e']==9)) {
-							$(mrow).find(".status mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]);
+							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
 						} else if (obj[i]['e']==10) {
 							//getmatch(obj[i]['m']);
 							$(mrow).find(".status span:eq(0)").hide();
 							$(mrow).find(".status span:gt(0)").show();
 						} else if (obj[i]['e']==8) {
-							if (obj[i]['v']) {
-								$(mrow).find(".status mminutes").html(obj[i]['v']+"'");
-								$(mrow).find(".status").attr('class','status status1');
-							}
+							//if (obj[i]['v']) {
+								$(mrow).find(".status .mminutes").html(obj[i]['v']+"'");
+								//$(mrow).find(".status").attr('class','status status1');
+							//}
 						} else if (obj[i]['e']==7) {
 							$(mrow).find(".possession .possession"+obj[i]['t']).html(obj[i]['v']);
 						} else if (obj[i]['e']==6) {
@@ -181,11 +183,12 @@ function getnew() {
 			}
 		});
 		sl++;
+		isAjax=false;
 		if (sl>30)
-		rp=setTimeout(getnew,getdelay);
+		rp=setTimeout(getnew1,getdelay);
 		else
 		rp=setTimeout(getnew1,getdelay);
-		rp=setTimeout(getnew1,getdelay);
+		//rp=setTimeout(getnew1,getdelay);
 	}
 	function getteam(teamid,away) {
 		$.ajax({
@@ -246,7 +249,7 @@ function getnew() {
 					if (obj.matches[i]['st']<1)  {
 						tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus" style="display:none;">'+status[obj.matches[i]['st']]+'</span><span class="mminutes" style="display:none;"></span>';
 					} else {
-						tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart" style="display:none;">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+status[obj.matches[i]['st']]+'</span><span class="mminutes"></span>';
+						tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart" style="display:none;">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+status[obj.matches[i]['st']]+'</span><span class="mminutes"> - </span>';
 					}
 					tr+="</td>";
 					//+(obj.matches[i]['st']<1?obj.matches[i]['da'].substr(11,5):(obj.matches[i]['mi']?obj.matches[i]['mi']+"'":status[obj.matches[i]['st']]))+'</td>';
@@ -364,7 +367,7 @@ $(document).ready(function(){
 </head>
 <body>
 
-<div class="topbar" id="ontop">
+<div id="ontop">
 <div id="topbar">
 
 <table border='0' width='100%'>
