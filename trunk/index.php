@@ -18,6 +18,7 @@ var rp;
 var getdelay=2000;
 var sl=0;
 var isAjax=false;
+var isViewAll=true;
 function getmatch(matchid) {
 	$.ajax({
 		url: 'getmatch.php',
@@ -92,8 +93,10 @@ function getnew() {
 						} else if ((obj[i]['e']==12) || (obj[i]['e']==9)) {
 							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
+							//if (!isViewAll) $(mrow).hide();
 						} else if (obj[i]['e']==10) {
 							//getmatch(obj[i]['m']);
+							if (!isViewAll) $(mrow).show();
 						} else if (obj[i]['e']==8) {
 							if (obj[i]['v']) {
 								$(mrow).find(".status .mminutes").html(obj[i]['v']+"'").effect("highlight", {color:"#ff0000"}, hldelay);
@@ -150,6 +153,7 @@ function getnew() {
 							//getmatch(obj[i]['m']);
 							$(mrow).find(".status span:eq(0)").hide();
 							$(mrow).find(".status span:gt(0)").show();
+							if (!isViewAll) $(mrow).show();
 						} else if (obj[i]['e']==8) {
 							//if (obj[i]['v']) {
 								$(mrow).find(".status .mminutes").html(obj[i]['v']+"'");
@@ -357,7 +361,9 @@ $(document).ready(function(){
 	$("#loadmatch").click();
 
 	$("#btest").click(function(){
-		if (rp) clearInterval(rp);
+		//if (rp) clearInterval(rp);
+		$("tr.match").has("td.status0").hide();
+		$("tr.match").has("td.status7").hide();
 	});
 	//loadmatches();
 	getnew1();
@@ -621,7 +627,7 @@ echo '<span class="" style="display:block;">
 <br><br><br>
 <div>
 <span class="button" id="loadmatch">Load Matches</span> 
-<span class="button" id="btest">Test:Stop update</span>
+<span class="button" id="btest">Test:Hide some matches</span>
 <a href="http://www.footygoat.com">Live Football Scores</a> | <a href="http://www.footygoat.com">Inplay Betting Alerts</a> | <a href="http://www.footygoat.com">Inplay Football Betting</a> 
 </div>
 <div id="fortest"></div>
