@@ -248,7 +248,7 @@ function getnew() {
 					//tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+tr+=status[obj.matches[i]['st']]+'</span><span class="mminutes"></span>';
 					if (obj.matches[i]['st']<1)  {
 						tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus" style="display:none;">'+status[obj.matches[i]['st']]+'</span><span class="mminutes" style="display:none;"></span>';
-					} else {
+					} else { 
 						tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart" style="display:none;">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+status[obj.matches[i]['st']]+'</span><span class="mminutes"> - </span>';
 					}
 					tr+="</td>";
