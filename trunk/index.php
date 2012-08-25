@@ -11,7 +11,7 @@ echo "</script>";
 ?>
 
 <script type="text/javascript">
-var status= new Array("","1st","HT","2nd","ST","Ex.","","FT","AET","FT-Pens");
+var status= new Array("*","1st","HT","2nd","ST","Ex.","Pen","FT","AET","FT-Pens","boc","Postp","Susp","s13","s14","s15");
 var momment="";
 var hldelay=1000;
 var rp;
@@ -34,17 +34,24 @@ function getmatch(matchid) {
 				var mrow="#m"+matchid;
 				//if ((obj['st']==1)||(obj['st']==3)) {
 				$(mrow).find(".status .mminutes").html(obj['mi']+"'");
-				$(mrow).find(".status .mstatus").html(status[obj['st']]);
+				
 				//}
 				if (obj['st']>=7) {
 					$(mrow).find(".status").attr("class","status status7");
+					$(mrow).find(".status .mminutes").hide();
 				}
 				else if (obj['st']>=1) {
 					$(mrow).find(".status").attr("class","status status1");
+					if ((obj['st']!=1) && (obj['st']!=3)) {
+						$(mrow).find(".status .mminutes").hide();
+					}
 				}
 				else {
 					$(mrow).find(".status").attr("class","status status0");
+					return;
 				}
+				$(mrow).find(".status .mstatus").html(status[obj['st']]);
+				
 				$(mrow).find(".score .score0").html(obj['hg']);
 				$(mrow).find(".score .score1").html(obj['ag']);
 				$(mrow).find(".score1 .score10").html(obj['h1']);
@@ -226,8 +233,6 @@ function getnew() {
 					//}
 					
 				}
-				
-				
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
 				//alert("Error get team");
@@ -260,14 +265,21 @@ function getnew() {
 						}
 					}
 					tr='<tr class="match" id="m'+obj.matches[i]['id']+'">';
-					//tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+tr+=status[obj.matches[i]['st']]+'</span><span class="mminutes"></span>';
+					tr+='<td class="status status'+obj.matches[i]['st']+'">';
 					if (obj.matches[i]['st']<1)  {
-						tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus" style="display:none;">'+status[obj.matches[i]['st']]+'</span><span class="mminutes" style="display:none;"></span>';
+						tr+='<span class="mstart">'obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus" style="display:none;">'+status[obj.matches[i]['st']]+'</span>';
 					} else { 
-						tr+='<td class="status status'+obj.matches[i]['st']+'"><span class="mstart" style="display:none;">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+status[obj.matches[i]['st']]+'</span><span class="mminutes"> - </span>';
+						tr+='<span class="mstart" style="display:none;">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+status[obj.matches[i]['st']]+'</span>';
 					}
+					if ((obj.matches[i]['st']==1)||(obj.matches[i]['st']==3)) {
+						tr+='<span class="mminutes">';
+					} else {
+						tr+='<span class="mminutes" style="display:none;">';
+					}
+					
+					tr+=obj.matches[i]['mi']+'</span>';
+					
 					tr+="</td>";
-					//+(obj.matches[i]['st']<1?obj.matches[i]['da'].substr(11,5):(obj.matches[i]['mi']?obj.matches[i]['mi']+"'":status[obj.matches[i]['st']]))+'</td>';
 					tr+='<td class="home" id="t'+obj.matches[i]['ht']+'">'+obj.matches[i]['ht']+'</td>';
 					tr+='<td class="score"><span class="score0">'+(obj.matches[i]['st']>0?obj.matches[i]['hg']:"")+'</span> - <span class="score1">'+(obj.matches[i]['st']>0?obj.matches[i]['ag']:"")+'</span></td>';
 					tr+='<td class="away" id="t'+obj.matches[i]['at']+'">'+obj.matches[i]['at']+'</td>';
@@ -369,7 +381,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("#loadmatch").click(funcion(){
+	$("#loadmatch").click(function(){
 		//isViewAll=false;
 	});
 
@@ -377,17 +389,17 @@ $(document).ready(function(){
 		//if (rp) clearInterval(rp);
 		isViewAll=!isViewAll;
 		if (isViewAll) {
-			$("tr.match").show();
+			$("tr.match").show(500);
 		} else {
-			$("tr.match").has("td.status0").hide();
-			$("tr.match").has("td.status7").hide();
+			$("tr.match").has("td.status0").hide(500);
+			$("tr.match").has("td.status7").hide(500);
 		}
 	});
 	//loadmatches();
 	getnew1();
 });
 </script>
-<!--<meta http-equiv='refresh' content='20'>-->
+
 </head>
 <body>
 
