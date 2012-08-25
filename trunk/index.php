@@ -90,12 +90,17 @@ function getnew() {
 						if (obj[i]['e']==100) {
 							loadmatches();
 							//break;
-						} else if ((obj[i]['e']==12) || (obj[i]['e']==9)) {
+						} else if ((obj[i]['e']==12) ) {
 							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
+							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
+							if (!isViewAll) $(mrow).hide();
+						} else if ( (obj[i]['e']==9)) {
+							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
+							$(mrow).find(".status .mminutes").toggle((obj[i]['v']==1)||(obj[i]['v']==3));
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
 							//if (!isViewAll) $(mrow).hide();
 						} else if (obj[i]['e']==10) {
-							//getmatch(obj[i]['m']);
+							getmatch(obj[i]['m']);
 							if (!isViewAll) $(mrow).show();
 						} else if (obj[i]['e']==8) {
 							if (obj[i]['v']) {
@@ -146,11 +151,17 @@ function getnew() {
 						if (obj[i]['e']==100) {
 							loadmatches();
 							//break;
-						} else if ((obj[i]['e']==12) || (obj[i]['e']==9)) {
+						} else if ((obj[i]['e']==12) ) {
 							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]);
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
-						} else if (obj[i]['e']==10) {
-							//getmatch(obj[i]['m']);
+							if (!isViewAll) $(mrow).hide();
+						} else if ( (obj[i]['e']==9)) {
+							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]);
+							$(mrow).find(".status .mminutes").toggle((obj[i]['v']==1)||(obj[i]['v']==3));
+							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
+							
+						}else if (obj[i]['e']==10) {
+							getmatch(obj[i]['m']);
 							$(mrow).find(".status span:eq(0)").hide();
 							$(mrow).find(".status span:gt(0)").show();
 							if (!isViewAll) $(mrow).show();
@@ -358,12 +369,19 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("#loadmatch").click();
+	$("#loadmatch").click(funcion(){
+		//isViewAll=false;
+	});
 
 	$("#btest").click(function(){
 		//if (rp) clearInterval(rp);
-		$("tr.match").has("td.status0").hide();
-		$("tr.match").has("td.status7").hide();
+		isViewAll=!isViewAll;
+		if (isViewAll) {
+			$("tr.match").show();
+		} else {
+			$("tr.match").has("td.status0").hide();
+			$("tr.match").has("td.status7").hide();
+		}
 	});
 	//loadmatches();
 	getnew1();
