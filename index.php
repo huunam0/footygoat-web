@@ -389,10 +389,10 @@ $(document).ready(function(){
 		//if (rp) clearInterval(rp);
 		isViewAll=!isViewAll;
 		if (isViewAll) {
-			$("tr.match").show(500);
+			$("tr.match").show();
 		} else {
-			$("tr.match").has("td.status0").hide(500);
-			$("tr.match").has("td.status7").hide(500);
+			$("tr.match").has("td.status0").hide();
+			$("tr.match").has("td.status7").hide();
 		}
 	});
 	//loadmatches();
