@@ -11,7 +11,7 @@ echo "</script>";
 ?>
 
 <script type="text/javascript">
-var status= new Array("*","1st","HT","2nd","ST","Ex.","Pen","FT","AET","FT-Pens","boc","Postp","Susp","s13","s14","s15");
+var status= new Array("*","1st","HT","2nd","Ex.","Pen","Susp","FT","AET","FT-Pens","boc","Postp","s12","s13","s14","s15");
 var momment="";
 var hldelay=1000;
 var rp;
@@ -36,7 +36,7 @@ function getmatch(matchid) {
 				$(mrow).find(".status .mminutes").html(obj['mi']+"'");
 				
 				//}
-				if (obj['st']>=7) {
+				if (obj['st']>=6) {
 					$(mrow).find(".status").attr("class","status status7");
 					$(mrow).find(".status .mminutes").hide();
 				}
@@ -267,7 +267,7 @@ function getnew() {
 					tr='<tr class="match" id="m'+obj.matches[i]['id']+'">';
 					tr+='<td class="status status'+obj.matches[i]['st']+'">';
 					if (obj.matches[i]['st']<1)  {
-						tr+='<span class="mstart">'obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus" style="display:none;">'+status[obj.matches[i]['st']]+'</span>';
+						tr+='<span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus" style="display:none;">'+status[obj.matches[i]['st']]+'</span>';
 					} else { 
 						tr+='<span class="mstart" style="display:none;">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+status[obj.matches[i]['st']]+'</span>';
 					}
@@ -277,7 +277,7 @@ function getnew() {
 						tr+='<span class="mminutes" style="display:none;">';
 					}
 					
-					tr+=obj.matches[i]['mi']+'</span>';
+					tr+=obj.matches[i]['mi']+"'</span>";
 					
 					tr+="</td>";
 					tr+='<td class="home" id="t'+obj.matches[i]['ht']+'">'+obj.matches[i]['ht']+'</td>';
