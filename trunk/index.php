@@ -11,7 +11,8 @@ echo "</script>";
 ?>
 
 <script type="text/javascript">
-var status= new Array("*","1st","HT","2nd","Ex.","Pen","Susp","FT","AET","FT-Pens","boc","Postp","s12","s13","s14","s15");
+var status= new Array("*","1st","HT","2nd","Ex.","Pen","Susp","FT","AET","FT-Pens","Aban","Postp","s12","s13","s14","s15");
+var nbm = new Array(0,0,0,0);
 var momment="";
 var hldelay=1000;
 var rp;
@@ -98,15 +99,20 @@ function getnew() {
 							loadmatches();
 							//break;
 						} else if ((obj[i]['e']==12) ) {
+							$(mrow).find(".status .mstatus").show();
+							$(mrow).find(".status .mstart").hide();
 							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
-							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
+							$(mrow).find(".status").attr('class','status status7');
 							if (!isViewAll) $(mrow).hide();
 						} else if ( (obj[i]['e']==9)) {
 							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
 							$(mrow).find(".status .mminutes").toggle((obj[i]['v']==1)||(obj[i]['v']==3));
-							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
+							//$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
 							//if (!isViewAll) $(mrow).hide();
 						} else if (obj[i]['e']==10) {
+							$(mrow).find(".status").attr('class','status status1');
+							$(mrow).find(".status .mstart").hide();
+							$(mrow).find(".status .mstatus").show();
 							getmatch(obj[i]['m']);
 							if (!isViewAll) $(mrow).show();
 						} else if (obj[i]['e']==8) {
@@ -160,7 +166,11 @@ function getnew() {
 							//break;
 						} else if ((obj[i]['e']==12) ) {
 							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]);
-							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
+							$(mrow).find(".status").attr('class','status status7');
+							nbm[2]++;
+							nbm[1]--;
+							$("nbm1").html(nbm[1]);
+							$("nbm2").html(nbm[2]);
 							if (!isViewAll) $(mrow).hide();
 						} else if ( (obj[i]['e']==9)) {
 							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]);
@@ -168,9 +178,16 @@ function getnew() {
 							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
 							
 						}else if (obj[i]['e']==10) {
+							$(mrow).find(".status .mstart").hide();
+							$(mrow).find(".status .mstatus").show();
 							getmatch(obj[i]['m']);
 							$(mrow).find(".status span:eq(0)").hide();
 							$(mrow).find(".status span:gt(0)").show();
+							$(mrow).find(".status").attr('class','status status1');
+							nbm[1]++;
+							nbm[0]--;
+							$("nbm1").html(nbm[1]);
+							$("nbm0").html(nbm[0]);
 							if (!isViewAll) $(mrow).show();
 						} else if (obj[i]['e']==8) {
 							//if (obj[i]['v']) {
@@ -251,6 +268,7 @@ function getnew() {
 				var league="";
 				var group="";
 				var tr='';
+				nbm[0]=nbm[1]=nbm[2]=0;
 				//alert(obj.leagues['col.1']);
 				$("#bigboard tr:gt(1)").remove();
 				for (var i=0; i<obj.matches.length;i++) {
@@ -264,12 +282,19 @@ function getnew() {
 							group=obj.matches[i]['gr'];
 						}
 					}
+					
 					tr='<tr class="match" id="m'+obj.matches[i]['id']+'">';
 					tr+='<td class="status status'+obj.matches[i]['st']+'">';
 					if (obj.matches[i]['st']<1)  {
 						tr+='<span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus" style="display:none;">'+status[obj.matches[i]['st']]+'</span>';
+						nbm[0]++;
 					} else { 
 						tr+='<span class="mstart" style="display:none;">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+status[obj.matches[i]['st']]+'</span>';
+						if (obj.matches[i]['st']<7)  {
+							nbm[1]++;
+						} else {
+							nbm[2]++;
+						}
 					}
 					if ((obj.matches[i]['st']==1)||(obj.matches[i]['st']==3)) {
 						tr+='<span class="mminutes">';
@@ -323,6 +348,9 @@ function getnew() {
 					//if (obj.matches[i]['st']>=1) getmatch(obj.matches[i]['id']);
 					//break;//debug only
 				}
+				$("nbm0").html(nbm[0]);
+				$("nbm1").html(nbm[1]);
+				$("nbm2").html(nbm[2]);
 				
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
@@ -418,6 +446,11 @@ $(document).ready(function(){
 <a href="http://www.facebook.com/footygoat" class='fb' target='_blank'><span class='space20 s12'>Like Us</span></a>
 <a href="http://www.petestilgoe.com/2012/01/turn-free-bets-into-free-cash" Target="_Blank"><span class='space20 s12'>Free Money</a>
 </div>
+</td>
+<td>
+<span id="nbm0"></span>
+<span id="nbm1"></span>
+<span id="nbm2"></span>
 </td>
 <td align = 'center' width="25%">
 <div>
