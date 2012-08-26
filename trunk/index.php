@@ -169,8 +169,8 @@ function getnew() {
 							$(mrow).find(".status").attr('class','status status7');
 							nbm[2]++;
 							nbm[1]--;
-							$("nbm1").html(nbm[1]);
-							$("nbm2").html(nbm[2]);
+							$("#nbm1").html(nbm[1]);
+							$("#nbm2").html(nbm[2]);
 							if (!isViewAll) $(mrow).hide();
 						} else if ( (obj[i]['e']==9)) {
 							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]);
@@ -186,8 +186,8 @@ function getnew() {
 							$(mrow).find(".status").attr('class','status status1');
 							nbm[1]++;
 							nbm[0]--;
-							$("nbm1").html(nbm[1]);
-							$("nbm0").html(nbm[0]);
+							$("#nbm1").html(nbm[1]);
+							$("#nbm0").html(nbm[0]);
 							if (!isViewAll) $(mrow).show();
 						} else if (obj[i]['e']==8) {
 							//if (obj[i]['v']) {
@@ -348,9 +348,9 @@ function getnew() {
 					//if (obj.matches[i]['st']>=1) getmatch(obj.matches[i]['id']);
 					//break;//debug only
 				}
-				$("nbm0").html(nbm[0]);
-				$("nbm1").html(nbm[1]);
-				$("nbm2").html(nbm[2]);
+				$("#nbm0").html(nbm[0]);
+				$("#nbm1").html(nbm[1]);
+				$("#nbm2").html(nbm[2]);
 				
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
