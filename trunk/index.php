@@ -35,19 +35,23 @@ function getmatch(matchid) {
 				var mrow="#m"+matchid;
 				//if ((obj['st']==1)||(obj['st']==3)) {
 				$(mrow).find(".status .mminutes").html(obj['mi']+"'");
-				
+				$(mrow).find(".status .mstatus").show();
 				//}
 				if (obj['st']>=6) {
 					$(mrow).find(".status").attr("class","status status7");
 					$(mrow).find(".status .mminutes").hide();
+					$(mrow).find(".status .mstart").hide();
 				}
 				else if (obj['st']>=1) {
 					$(mrow).find(".status").attr("class","status status1");
 					if ((obj['st']!=1) && (obj['st']!=3)) {
 						$(mrow).find(".status .mminutes").hide();
 					}
+					$(mrow).find(".status .mstart").hide();
 				}
 				else {
+					$(mrow).find(".status .mstart").show();
+					$(mrow).find(".status .mstatus").hide();
 					$(mrow).find(".status").attr("class","status status0");
 					return;
 				}
@@ -86,7 +90,7 @@ function getnew() {
 		$.ajax({
 			url: 'gtimeline.php',
 			type:"GET",
-			timeout:2000,
+			//timeout:2000,
 			data:{t:momment},
 			//dataType: 'json',	
 			success: function(json) {
@@ -153,7 +157,7 @@ function getnew() {
 		$.ajax({
 			url: 'gtimeline.php',
 			type:"GET",
-			timeout:2000,
+			//timeout:2000,
 			data:{t:momment},
 			//dataType: 'json',	
 			success: function(json) {
@@ -165,6 +169,7 @@ function getnew() {
 							loadmatches();
 							//break;
 						} else if ((obj[i]['e']==12) ) {
+							$(mrow).find(".status .mminutes").hide();
 							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]);
 							$(mrow).find(".status").attr('class','status status7');
 							nbm[2]++;
