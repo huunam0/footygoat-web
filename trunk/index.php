@@ -14,7 +14,7 @@ echo "</script>";
 var status= new Array("*","1st","HT","2nd","Ex.","Pen","Susp","FT","AET","FT-Pens","Aban","Postp","s12","s13","s14","s15");
 var nbm = new Array(0,0,0,0);
 var momment="";
-var addOne=0;
+var firstNew;
 var hldelay=1000;
 var rp;
 var getdelay=2000;
@@ -160,18 +160,21 @@ function getnew() {
 			url: 'gtimeline.php',
 			type:"GET",
 			//timeout:2000,
-			data:{t:momment,a:addOne},
+			data:{t:momment},
 			//dataType: 'json',	
 			success: function(json) {
 				var obj = $.parseJSON(json);
 				if (obj) {
-					addOne=0;
+					//addOne=0;
 					for (var i=0; i<obj.length;i++) {
 						$("#debug4").val($("#debug4").val()+"\n"+obj[i]['d']+"\t"+obj[i]['m']+"\t"+obj[i]['e']+"\t"+obj[i]['v']+"\t"+obj[i]['t']);
 						var mrow="#m"+obj[i]['m'];
 						if (obj[i]['e']==100) {
 							addOne=1;
-							loadmatches();
+							if (firstNew!=obj[i]['d']) {
+								firstNew=obj[i]['d'];
+								loadmatches();
+							}
 							//break;
 						} else if ((obj[i]['e']==12) ) {
 							$(mrow).find(".status .mminutes").hide();
