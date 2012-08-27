@@ -180,10 +180,10 @@ function getnew() {
 							$(mrow).find(".status .mminutes").hide();
 							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]);
 							$(mrow).find(".status").attr('class','status status7');
-							nbm[2]++;
-							nbm[1]--;
-							$("#nbm1").html(nbm[1]);
-							$("#nbm2").html(nbm[2]);
+							//nbm[2]++;
+							//nbm[1]--;
+							//$("#nbm1").html(nbm[1]);
+							//$("#nbm2").html(nbm[2]);
 							if (!isViewAll) $(mrow).hide();
 						} else if ( (obj[i]['e']==9)) {
 							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]);
@@ -197,10 +197,10 @@ function getnew() {
 							$(mrow).find(".status span:eq(0)").hide();
 							$(mrow).find(".status span:gt(0)").show();
 							$(mrow).find(".status").attr('class','status status1');
-							nbm[1]++;
-							nbm[0]--;
-							$("#nbm1").html(nbm[1]);
-							$("#nbm0").html(nbm[0]);
+							//nbm[1]++;
+							//nbm[0]--;
+							//$("#nbm1").html(nbm[1]);
+							//$("#nbm0").html(nbm[0]);
 							if (!isViewAll) $(mrow).show();
 						} else if (obj[i]['e']==8) {
 							//if (obj[i]['v']) {
@@ -300,13 +300,13 @@ function getnew() {
 					tr+='<td class="status status'+obj.matches[i]['st']+'">';
 					if (obj.matches[i]['st']<1)  {
 						tr+='<span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus" style="display:none;">'+status[obj.matches[i]['st']]+'</span>';
-						nbm[0]++;
+						//nbm[0]++;
 					} else { 
 						tr+='<span class="mstart" style="display:none;">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+status[obj.matches[i]['st']]+'</span>';
 						if (obj.matches[i]['st']<7)  {
-							nbm[1]++;
+							//nbm[1]++;
 						} else {
-							nbm[2]++;
+							//nbm[2]++;
 						}
 					}
 					if ((obj.matches[i]['st']==1)||(obj.matches[i]['st']==3)) {
@@ -361,9 +361,9 @@ function getnew() {
 					//if (obj.matches[i]['st']>=1) getmatch(obj.matches[i]['id']);
 					//break;//debug only
 				}
-				$("#nbm0").html(nbm[0]);
-				$("#nbm1").html(nbm[1]);
-				$("#nbm2").html(nbm[2]);
+				//$("#nbm0").html(nbm[0]);
+				//$("#nbm1").html(nbm[1]);
+				//$("#nbm2").html(nbm[2]);
 				
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
