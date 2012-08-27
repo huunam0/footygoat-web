@@ -420,11 +420,6 @@ $(document).ready(function(){
 	});
 	
 	$("#loadmatch").click(function(){
-		//isViewAll=false;
-	});
-
-	$("#btest").click(function(){
-		//if (rp) clearInterval(rp);
 		isViewAll=!isViewAll;
 		if (isViewAll) {
 			$("tr.match").show();
@@ -432,6 +427,12 @@ $(document).ready(function(){
 			$("tr.match").has("td.status0").hide();
 			$("tr.match").has("td.status7").hide();
 		}
+	});
+
+	$("#btest").click(function(){
+		//if (rp) clearInterval(rp);
+		if (rp) clearTimeout(rp);
+		else rp=setTimeout(getnew1,getdelay);
 	});
 	//loadmatches();
 	getnew1();
@@ -699,8 +700,8 @@ echo '<span class="" style="display:block;">
 </div>
 <br><br><br>
 <div>
-<span class="button" id="loadmatch">Load Matches</span> 
-<span class="button" id="btest">Test:Hide some matches</span>
+<span class="button" id="loadmatch">Hide Matches</span> 
+<span class="button" id="btest">Stop/Start Update</span>
 <a href="http://www.footygoat.com">Live Football Scores</a> | <a href="http://www.footygoat.com">Inplay Betting Alerts</a> | <a href="http://www.footygoat.com">Inplay Football Betting</a> 
 </div>
 <div id="fortest"></div>
