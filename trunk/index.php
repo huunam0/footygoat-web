@@ -403,11 +403,7 @@ $(document).ready(function(){
 			location.reload();
 		});
 	});
-	$("#u1m").click(function() {
-		var mi=prompt("Please enter match order","4");
-		stoping=false;
-		if (mi) uma(mi);
-	});
+	
 	$("#applytriger").click(function() {
 		location.reload();
 	});
@@ -434,8 +430,11 @@ $(document).ready(function(){
 
 	$("#btest").click(function(){
 		//if (rp) clearInterval(rp);
-		if (rp) clearTimeout(rp);
-		else rp=setTimeout(getnew1,getdelay);
+		if (rp) {
+			clearTimeout(rp);
+			rp=NULL;
+		}
+		else getnew1;
 	});
 	//loadmatches();
 	getnew1();
