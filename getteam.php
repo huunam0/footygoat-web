@@ -11,6 +11,7 @@
 		$team=array();
 		$team['na']="";
 		$team['po']="";
+		$team['pl']="";
 		$team['w']="";
 		$team['d']="";
 		$team['l']="";
@@ -20,6 +21,7 @@
 			$team['na']=$row['team_name'];
 			if ($row['team_updated']) {
 				$team['po']=$row['team_pos']."";
+				$team['pl']=$row['team_op']."";
 				if ($hora) {//away
 					$team['w']=$row['team_aw'];
 					$team['d']=$row['team_ad'];
