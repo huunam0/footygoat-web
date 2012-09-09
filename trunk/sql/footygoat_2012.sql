@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS `f_matches`;
 CREATE TABLE `f_matches` (
   `match_id` int(11) unsigned NOT NULL,
   `league_id` varchar(40) NOT NULL,
-  `group` varchar(1) DEFAULT NULL,
+  `group` varchar(15) DEFAULT NULL,
   `hteam` int(11) unsigned NOT NULL,
   `ateam` int(11) unsigned NOT NULL,
   `status` smallint(2) NOT NULL DEFAULT '0',
@@ -141,7 +141,7 @@ DROP TABLE IF EXISTS `f_teams`;
 CREATE TABLE `f_teams` (
   `team_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `team_name` varchar(30) NOT NULL,
-  `team_group` varchar(1) DEFAULT NULL,
+  `team_group` varchar(15) DEFAULT NULL,
   `team_league` varchar(20) DEFAULT NULL,
   `team_pos` smallint(2) DEFAULT NULL,
   `team_op` smallint(2) DEFAULT NULL,

@@ -1,13 +1,10 @@
 <?php
-echo "C1";
 if (!function_exists('curl_init')) {
   throw new Exception('Facebook needs the CURL PHP extension.');
 }
-echo "C12";
 if (!function_exists('json_decode')) {
   throw new Exception('Facebook needs the JSON PHP extension.');
 }
-echo "C2";
 /**
  * Thrown when an API call returns an exception.
  *

@@ -21,6 +21,17 @@ var getdelay=2000;
 var sl=0;
 var isAjax=false;
 var isViewAll=true;
+function div0(a,b,n,d) {
+	n = n || 0;
+	d = d || 0;
+	if (b==0) return d;
+	var f = a/b;
+	if (isNaN(f)) return d;
+	var p = Math.pow(10,n);
+	if (isNaN(p)||p==0) return d;
+	f = f * p;
+	return Math.round(f)/p;
+}
 function getmatch(matchid) {
 	$.ajax({
 		url: 'getmatch.php',
@@ -75,6 +86,18 @@ function getmatch(matchid) {
 				$(mrow).find(".possession .possession0").html(obj['hp']);
 				$(mrow).find(".possession .possession1").html(obj['ap']);
 				//...bo sung them %
+				if (obj['hs'] && obj['as']) {
+					$(mrow).find(".pshots .pshots0").html(div0(obj['hs']*100,obj['hs']+obj['as'],0,0));
+					$(mrow).find(".pshots .pshots1").html(div0(obj['as']*100,obj['hs']+obj['as'],0,0));
+				}
+				if (obj['hsg'] && obj['asg']) {
+					$(mrow).find(".pgshots .pgshots0").html(div0(obj['hsg']*100,obj['hsg']+obj['asg'],0,0));
+					$(mrow).find(".pgshots .pgshots1").html(div0(obj['asg']*100,obj['hsg']+obj['asg'],0,0));
+				}
+				if (obj['hc'] && obj['ac']) {
+					$(mrow).find(".pcorner .pcorner0").html(div0(obj['hc']*100,obj['hc']+obj['ac'],0,0));
+					$(mrow).find(".pcorner .pcorner1").html(div0(obj['ac']*100,obj['hc']+obj['ac'],0,0));
+				}
 				//}
 				
 			}
@@ -210,6 +233,7 @@ function getnew() {
 						} else if (obj[i]['e']==7) {
 							$(mrow).find(".possession .possession"+obj[i]['t']).html(obj[i]['v']);
 						} else if (obj[i]['e']==6) {
+							
 							$(mrow).find(".corner .corner"+obj[i]['t']).html(obj[i]['v']);
 						} else if (obj[i]['e']==5) {
 							$(mrow).find(".gshots .gshots"+obj[i]['t']).html(obj[i]['v']);
@@ -255,11 +279,28 @@ function getnew() {
 				if (obj) {
 					//if (obj.count) {
 						$("#t"+teamid).html(obj.na+(obj.po.length?" ("+obj.po+")":""));
-						$("#w"+teamid).html(obj.w);
-						$("#d"+teamid).html(obj.d);
-						$("#l"+teamid).html(obj.l);
-						$("#f"+teamid).html(obj.f);
-						$("#a"+teamid).html(obj.a);
+						var s1=0;
+						if (obj.pl)	{
+							if (obj.w) {
+								s1+=obj.w;
+								$("#w"+teamid).html(div0(obj.w*100,obj.pl,0,0));
+							}
+							if (obj.d) {
+								s1+=obj.d;
+								$("#d"+teamid).html(div0(obj.d*100,obj.pl,0,0));
+							}
+							if (obj.l) {
+								s1+=obj.l;
+								$("#l"+teamid).html(div0(obj.l*100,obj.pl,0,0));
+							}
+							if (obj.f) {
+								$("#f"+teamid).html(div0(obj.f,s1,1,0));
+							}
+							if (obj.a) {
+								$("#a"+teamid).html(div0(obj.a,s1,1,0));
+							}
+							
+						}
 					//}
 					
 				}
@@ -432,9 +473,9 @@ $(document).ready(function(){
 		//if (rp) clearInterval(rp);
 		if (rp) {
 			clearTimeout(rp);
-			rp=NULL;
+			rp=null;
 		}
-		else getnew1;
+		else getnew1();
 	});
 	//loadmatches();
 	getnew1();
