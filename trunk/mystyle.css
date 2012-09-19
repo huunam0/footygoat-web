@@ -378,3 +378,11 @@ a:focus { outline: none; }
 .mstatus {
 	padding: 0px 5px 0px 5px;
 }
+.f0, .f1, .a0, .a1 {
+	font-style:italic;
+	color:#a00fff;
+}
+.w0, .w1, .d0, .d1,.l0,.l1 {
+	font-style:normal;
+	color:#000fff;
+}
