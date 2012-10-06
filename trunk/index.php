@@ -281,15 +281,15 @@ function getnew() {
 						var s1=0;
 						if (obj.pl)	{
 							if (obj.w) {
-								s1+=obj.w;
+								s1+=parseInt(obj.w);
 								$("#w"+teamid).html(div0(obj.w*100,obj.pl,0,0));
 							}
 							if (obj.d) {
-								s1+=obj.d;
+								s1+=parseInt(obj.d);
 								$("#d"+teamid).html(div0(obj.d*100,obj.pl,0,0));
 							}
 							if (obj.l) {
-								s1+=obj.l;
+								s1+=parseInt(obj.l);
 								$("#l"+teamid).html(div0(obj.l*100,obj.pl,0,0));
 							}
 							if (obj.f) {
