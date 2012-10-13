@@ -14,9 +14,9 @@
 		$e=array(
 			"d" => $row['date'],
 			"m" => $row['match'],
-			"t" => $row['team'],
+			"h" => $row['home'],
 			"e" => $row['event'],
-			"v" => $row['value']
+			"a" => $row['away']
 		);
 		array_push($events,$e);
 	}
