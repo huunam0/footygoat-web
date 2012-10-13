@@ -200,7 +200,7 @@ function getnew() {
 							//break;
 						} else if ((obj[i]['e']==12) ) {
 							$(mrow).find(".status .mminutes").hide();
-							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]);
+							$(mrow).find(".status .mstatus").html(status[(obj[i]['h']?obj[i]['h']:7)]);
 							$(mrow).find(".status").attr('class','status status7');
 							//nbm[2]++;
 							//nbm[1]--;
@@ -208,9 +208,9 @@ function getnew() {
 							//$("#nbm2").html(nbm[2]);
 							if (!isViewAll) $(mrow).hide();
 						} else if ( (obj[i]['e']==9)) {
-							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]);
-							$(mrow).find(".status .mminutes").toggle((obj[i]['v']==1)||(obj[i]['v']==3));
-							$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
+							$(mrow).find(".status .mstatus").html(status[(obj[i]['h']?obj[i]['h']:7)]);
+							$(mrow).find(".status .mminutes").toggle((obj[i]['h']==1)||(obj[i]['h']==3));
+							$(mrow).find(".status").attr('class','status status'+obj[i]['h']);
 							
 						}else if (obj[i]['e']==10) {
 							$(mrow).find(".status .mstart").hide();
@@ -226,26 +226,34 @@ function getnew() {
 							if (!isViewAll) $(mrow).show();
 						} else if (obj[i]['e']==8) {
 							//if (obj[i]['v']) {
-								$(mrow).find(".status .mminutes").html(obj[i]['v']+"'");
+								$(mrow).find(".status .mminutes").html(obj[i]['h']+"'");
 								//$(mrow).find(".status").attr('class','status status1');
 							//}
 						} else if (obj[i]['e']==7) {
-							$(mrow).find(".possession .possession"+obj[i]['t']).html(obj[i]['v']);
+							$(mrow).find(".possession .possession0").html(obj[i]['h']);
+							$(mrow).find(".possession .possession1").html(obj[i]['a']);
 						} else if (obj[i]['e']==6) {
 							
-							$(mrow).find(".corner .corner"+obj[i]['t']).html(obj[i]['v']);
+							$(mrow).find(".corner .corner0").html(obj[i]['h']);
+							$(mrow).find(".corner .corner1").html(obj[i]['a']);
 						} else if (obj[i]['e']==5) {
-							$(mrow).find(".gshots .gshots"+obj[i]['t']).html(obj[i]['v']);
+							$(mrow).find(".gshots .gshots0").html(obj[i]['h']);
+							$(mrow).find(".gshots .gshots1").html(obj[i]['a']);
 						} else if (obj[i]['e']==4) {
-							$(mrow).find(".shots"+obj[i]['t']).html(obj[i]['v']);
+							$(mrow).find(".shots .shots0").html(obj[i]['h']);
+							$(mrow).find(".shots .shots1").html(obj[i]['a']);
 						} else if (obj[i]['e']==3) {
-							$(mrow).find(".yellow .yellow"+obj[i]['t']).html(obj[i]['v']);
+							$(mrow).find(".yellow .yellow0").html(obj[i]['h']);
+							$(mrow).find(".yellow .yellow1").html(obj[i]['a']);
 						} else if (obj[i]['e']==2) {
-							$(mrow).find(".red .red"+obj[i]['t']).html(obj[i]['v']);
+							$(mrow).find(".red .red0").html(obj[i]['h']);
+							$(mrow).find(".red .red1").html(obj[i]['a']);
 						} else if (obj[i]['e']==1) {
-							$(mrow).find(".score1 .score1"+obj[i]['t']).html(obj[i]['v']);
+							$(mrow).find(".score1 .score10").html(obj[i]['h']);
+							$(mrow).find(".score1 .score11").html(obj[i]['a']);
 						} else if (obj[i]['e']==0) {
-							$(mrow).find(".score .score"+obj[i]['t']).html(obj[i]['v']);
+							$(mrow).find(".score .score0").html(obj[i]['h']);
+							$(mrow).find(".score .score1").html(obj[i]['a']);
 						}
 						momment=obj[i]['d'];
 					}
