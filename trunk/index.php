@@ -90,25 +90,25 @@ function getmatch(matchid) {
 					//$(mrow).find(".pshots .pshots0").html(div0(obj['hs']*100,obj['hs']+obj['as'],0,0));
 					//$(mrow).find(".pshots .pshots1").html(div0(obj['as']*100,obj['hs']+obj['as'],0,0));
 					h=parseInt(obj['hs']);
-					h=parseInt(obj['as']);
+					a=parseInt(obj['as']);
 					sha=h+a;
-					$(mrow).find(".pshots").html(div0(h*100,sha,0,0)+" - "+div0(a,sha,0,0));
+					$(mrow).find(".pshots").html(div0(h*100,sha,0,0)+" - "+div0(a*100,sha,0,0));
 				}
 				if (obj['hsg'] && obj['asg']) {
 					//$(mrow).find(".pgshots .pgshots0").html(div0(obj['hsg']*100,obj['hsg']+obj['asg'],0,0));
 					//$(mrow).find(".pgshots .pgshots1").html(div0(obj['asg']*100,obj['hsg']+obj['asg'],0,0));
 					h=parseInt(obj['hsg']);
-					h=parseInt(obj['asg']);
+					a=parseInt(obj['asg']);
 					sha=h+a;
-					$(mrow).find(".pgshots").html(div0(h*100,sha,0,0)+" - "+div0(a,sha,0,0));
+					$(mrow).find(".pgshots").html(div0(h*100,sha,0,0)+" - "+div0(a*100,sha,0,0));
 				}
 				if (obj['hc'] && obj['ac']) {
 					//$(mrow).find(".pcorner .pcorner0").html(div0(obj['hc']*100,obj['hc']+obj['ac'],0,0));
 					//$(mrow).find(".pcorner .pcorner1").html(div0(obj['ac']*100,obj['hc']+obj['ac'],0,0));
 					h=parseInt(obj['hc']);
-					h=parseInt(obj['ac']);
+					a=parseInt(obj['ac']);
 					sha=h+a;
-					$(mrow).find(".pcorner").html(div0(h*100,sha,0,0)+" - "+div0(a,sha,0,0));
+					$(mrow).find(".pcorner").html(div0(h*100,sha,0,0)+" - "+div0(a*100,sha,0,0));
 				}
 				//}
 				
@@ -437,7 +437,7 @@ function getnew() {
 					$("#bigboard").append(tr);
 					getteam(obj.matches[i]['ht'],0);
 					getteam(obj.matches[i]['at'],1);
-					//if (obj.matches[i]['st']>=1) getmatch(obj.matches[i]['id']);
+					if ((obj.matches[i]['st']==1)||(obj.matches[i]['st']==3)) getmatch(obj.matches[i]['id']);
 					//break;//debug only
 				}
 				//$("#nbm0").html(nbm[0]);

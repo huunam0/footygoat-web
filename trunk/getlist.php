@@ -3,7 +3,7 @@
 	include_once("dbconfig.php");
 	if (!isset($_GET['d'])) {
 		$cdate=date("Y-m-d");
-		if (date("H")<="06") {
+		if (date("H")<="10") {
 			$cdate = date("Y-m-d", strtotime($cdate)-86400);
 		}
 	}
@@ -13,6 +13,10 @@
 	$sql = "SELECT * FROM f_matches where match_date between '$cdate 6:01:00' and '$ndate 6:00:00' order by `order`";
 	//echo $sql;
 	$result = mysql_query($sql);
+	if (!$result) {
+		$sql = "SELECT * FROM f_matches where match_date between '$cdate 6:01:00' and '$ndate 6:00:00' order by `order`";
+		$result = mysql_query($sql);
+	}
 	$list = array();
 	$leagues = array();
 	$str_league="";
