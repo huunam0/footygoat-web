@@ -226,9 +226,12 @@ function getnew() {
 							if (!isViewAll) $(mrow).show();
 						} else if (obj[i]['e']==8) {
 							//if (obj[i]['v']) {
-								$(mrow).find(".status .mminutes").html(obj[i]['h']+"'");
+								$(mrow).find(".status .mminutes").html(obj[i]['a']+"'");
 								//$(mrow).find(".status").attr('class','status status1');
 							//}
+							$(mrow).find(".status .mstatus").html(status[(obj[i]['h']?obj[i]['h']:7)]);
+							$(mrow).find(".status .mminutes").toggle((obj[i]['h']==1)||(obj[i]['h']==3));
+							$(mrow).find(".status").attr('class','status status'+obj[i]['h']);
 						} else if (obj[i]['e']==7) {
 							$(mrow).find(".possession .possession0").html(obj[i]['h']);
 							$(mrow).find(".possession .possession1").html(obj[i]['a']);
