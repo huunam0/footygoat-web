@@ -43,6 +43,7 @@ function getmatch(matchid) {
 			//alert(json);
 			if (obj) {
 				//if (obj.count) {
+				var h=0,a=0,sha=0;
 				var mrow="#m"+matchid;
 				//if ((obj['st']==1)||(obj['st']==3)) {
 				$(mrow).find(".status .mminutes").html(obj['mi']+"'");
@@ -86,16 +87,28 @@ function getmatch(matchid) {
 				$(mrow).find(".possession .possession1").html(obj['ap']);
 				//...bo sung them %
 				if (obj['hs'] && obj['as']) {
-					$(mrow).find(".pshots .pshots0").html(div0(obj['hs']*100,obj['hs']+obj['as'],0,0));
-					$(mrow).find(".pshots .pshots1").html(div0(obj['as']*100,obj['hs']+obj['as'],0,0));
+					//$(mrow).find(".pshots .pshots0").html(div0(obj['hs']*100,obj['hs']+obj['as'],0,0));
+					//$(mrow).find(".pshots .pshots1").html(div0(obj['as']*100,obj['hs']+obj['as'],0,0));
+					h=parseInt(obj['hs']);
+					h=parseInt(obj['as']);
+					sha=h+a;
+					$(mrow).find(".pshots").html(div0(h*100,sha,0,0)+" - "+div0(a,sha,0,0));
 				}
 				if (obj['hsg'] && obj['asg']) {
-					$(mrow).find(".pgshots .pgshots0").html(div0(obj['hsg']*100,obj['hsg']+obj['asg'],0,0));
-					$(mrow).find(".pgshots .pgshots1").html(div0(obj['asg']*100,obj['hsg']+obj['asg'],0,0));
+					//$(mrow).find(".pgshots .pgshots0").html(div0(obj['hsg']*100,obj['hsg']+obj['asg'],0,0));
+					//$(mrow).find(".pgshots .pgshots1").html(div0(obj['asg']*100,obj['hsg']+obj['asg'],0,0));
+					h=parseInt(obj['hsg']);
+					h=parseInt(obj['asg']);
+					sha=h+a;
+					$(mrow).find(".pgshots").html(div0(h*100,sha,0,0)+" - "+div0(a,sha,0,0));
 				}
 				if (obj['hc'] && obj['ac']) {
-					$(mrow).find(".pcorner .pcorner0").html(div0(obj['hc']*100,obj['hc']+obj['ac'],0,0));
-					$(mrow).find(".pcorner .pcorner1").html(div0(obj['ac']*100,obj['hc']+obj['ac'],0,0));
+					//$(mrow).find(".pcorner .pcorner0").html(div0(obj['hc']*100,obj['hc']+obj['ac'],0,0));
+					//$(mrow).find(".pcorner .pcorner1").html(div0(obj['ac']*100,obj['hc']+obj['ac'],0,0));
+					h=parseInt(obj['hc']);
+					h=parseInt(obj['ac']);
+					sha=h+a;
+					$(mrow).find(".pcorner").html(div0(h*100,sha,0,0)+" - "+div0(a,sha,0,0));
 				}
 				//}
 				
