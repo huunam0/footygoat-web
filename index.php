@@ -252,24 +252,24 @@ function getnew() {
 							$(mrow).find(".possession .possession0").html(obj[i]['h']);
 							$(mrow).find(".possession .possession1").html(obj[i]['a']);
 						} else if (obj[i]['e']==6) {
-							h = pareInt(obj[i]['h']);
-							a = pareInt(obj[i]['a']);
+							h = parseInt(obj[i]['h']);
+							a = parseInt(obj[i]['a']);
 							sha=h+a;
 							$(mrow).find(".corner").html(h + " - " + a);
 							$(mrow).find(".pcorner").html(div0(h*100,sha,0,0) + " - " + div0(a*100,sha,0,0));
 						} else if (obj[i]['e']==5) {
 							//$(mrow).find(".gshots .gshots0").html(obj[i]['h']);
 							//$(mrow).find(".gshots .gshots1").html(obj[i]['a']);
-							h = pareInt(obj[i]['h']);
-							a = pareInt(obj[i]['a']);
+							h = parseInt(obj[i]['h']);
+							a = parseInt(obj[i]['a']);
 							sha=h+a;
 							$(mrow).find(".gshots").html(h + " - " + a);
 							$(mrow).find(".pgshots").html(div0(h*100,sha,0,0) + " - " + div0(a*100,sha,0,0));
 						} else if (obj[i]['e']==4) {
 							//$(mrow).find(".shots .shots0").html(obj[i]['h']);
 							//$(mrow).find(".shots .shots1").html(obj[i]['a']);
-							h = pareInt(obj[i]['h']);
-							a = pareInt(obj[i]['a']);
+							h = parseInt(obj[i]['h']);
+							a = parseInt(obj[i]['a']);
 							sha=h+a;
 							$(mrow).find(".shots").html(h + " - " + a);
 							$(mrow).find(".pshots").html(div0(h*100,sha,0,0) + " - " + div0(a*100,sha,0,0));
