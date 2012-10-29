@@ -8,7 +8,7 @@
 		$today=$row['p_value'];
 	} else
 		$today= date("Y-n-d")."";
-	$sql = "SELECT * FROM f_matches where viewdate='$today' order by `order`";
+	$sql = "SELECT * FROM f_matches where viewdate='".$today."' order by `order`";
 	$result = mysql_query($sql);
 	while ($row = mysql_fetch_array($result)) {
 		echo $row['order']." ".$row['match_id']."-".$row['status']."<br/>";

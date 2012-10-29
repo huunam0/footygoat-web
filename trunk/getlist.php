@@ -2,21 +2,18 @@
 	include_once("maincore.php");
 	include_once("dbconfig.php");
 	if (!isset($_GET['d'])) {
-		$cdate=date("Y-m-d");
-		if (date("H")<="10") {
-			$cdate = date("Y-m-d", strtotime($cdate)-86400);
-		}
+		$sql="select p_value from f_params where p_name='currentdate' limit 1;";
+		$result = mysql_query($sql);
+		if ($row=mysql_fetch_array($result)) {
+			$cdate=$row['p_value'];
+		} else
+			$cdate= date("Y-n-d")."";
 	}
 	else $cdate=$_GET['d'];
-	$ndate = date("Y-m-d", strtotime($cdate)+86400);
-	//echo $cdate."/".$ndate;
-	$sql = "SELECT * FROM f_matches where match_date between '$cdate 6:01:00' and '$ndate 6:00:00' order by `order`";
+	
+	$sql = "SELECT * FROM f_matches where viewdate='".$cdate."' order by `order`";
 	//echo $sql;
 	$result = mysql_query($sql);
-	if (!$result) {
-		$sql = "SELECT * FROM f_matches where match_date between '$cdate 6:01:00' and '$ndate 6:00:00' order by `order`";
-		$result = mysql_query($sql);
-	}
 	$list = array();
 	$leagues = array();
 	$str_league="";
