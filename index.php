@@ -205,7 +205,7 @@ function getnew() {
 					var a=0;
 					var sha=0;
 					for (var i=0; i<obj.length;i++) {
-						$("#debug4").val($("#debug4").val()+"\n"+obj[i]['d']+"\t"+obj[i]['m']+"\t"+obj[i]['e']+"\t"+obj[i]['v']+"\t"+obj[i]['t']);
+						$("#debug4").append("\n"+obj[i]['d']+"\t"+obj[i]['m']+"\t"+obj[i]['e']+"\t"+obj[i]['h']+"\t"+obj[i]['a']);
 						var mrow="#m"+obj[i]['m'];
 						if (obj[i]['e']==100) {
 							addOne=1;
@@ -562,7 +562,7 @@ echo '<div class="menucontainer">
 <span class="menutitle">Set your triggers:</span>
 <table id ="mytriggers" class="tabtrig" RULES=ROWS FRAME=BOX>
 <th><td>Triggers</td><td width="45px">Operator (<>=)</td><td width="40px">Home Team</td><td width="40px">Away Team</td></th>';
-
+/*
 	$sql = "SELECT * FROM f_fields";
 	$result = mysql_query($sql);
 	$cl = array("odd","even");
@@ -580,7 +580,7 @@ echo '<div class="menucontainer">
 		echo "</tr>";
 		$i=1-$i;
 	}
-
+*/
 echo '</table>
 </div>
 <div align="center" style="width:70%"> <a href="#" id="applytriger" class="button3" >Save and apply triggers.</a></div>
