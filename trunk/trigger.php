@@ -19,39 +19,79 @@ else {
 	}
 	echo '<script type="text/javascript">var toption="'.$conds.'";</script>';
 ?>
-
 <script type="text/javascript">
 $(document).ready(function(){
-	$(".step3").hide()
-	$(".step2").hide();
-	
-	$(".chon").change(function(){
-		if ($(this).val())
-			$(this).parent().find(".step2").show().val("");
-		else
-			$(this).parent().find(".step2").hide();
-	});
-	$(".step2").change(function(){
-		if ($(this).val())
-			$(this).parent().find(".step3").show().val("");
-		else
-			$(this).parent().find(".step3").hide();
-	});
 	$("#addcond").click(function(){
-		$("#condboard").append('<div><select name="team[]" class="team"><option value="0">Home</option><option value="1">Away</option></select><select name="trigger[]" class="chon">'+toption+'</select><select name="operator[]" class="step2"><option>=</option><option>&gt;</option><option>&lt;</option><option>&le;</option><option>&ge;</option><option>&ne;</option></select><input name="number[]" type="text" size="2" maxlength="3"  class="step3"/></div>');
+		//if ($("#condboard").fi)
+		var isfilled = true;
+		$(".step3").each(function(){
+			if (!$(this).val()) {
+				isfilled=false;
+				return false;
+			}
+		});
+		if (isfilled)
+		$("#condboard").append('<div class="onetrigger" style="overflow: auto;"> <select name="team[]" class="team"><option value="0">Home</option><option value="1">Away</option></select><select name="trigger[]" class="chon">'+toption+'</select> <select name="operator[]" class="step2"><option>=</option><option>&gt;</option><option>&lt;</option><option>&le;</option><option>&ge;</option><option>&ne;</option></select> <input name="number[]" type="text" size="2" maxlength="3"  class="step3"/> .</div>');
 		//alert(toption);==?
 	});
+	/*
+	$(".onetrigger").hover(
+	function(){
+		$(this).append('<span class="listtodo">Delete</span>');
+		//alert("OK");
+	},
+	function (){
+		$(this).find("span:last").remove();
+		//$("#addcond").html("Out");
+	}
+	);
+	*/
+	/*
+	$("span").click(function(){
+		alert($(this).text());
+	});
+	$(".onetrigger:last").live({
+		mouseover:function(){
+			$(this).append('<span>Add trigger</span>');
+		},
+		mouseout:function(){
+			$(this).find("span:last").remove();
+		}
+	});
+	$(".onetrigger").live({
+		mouseover:function(){
+			$(this).append('<span>Delete</span>');
+		},
+		mouseout:function(){
+			$(this).find("span:last").remove();
+		}
+	});
+	*/
+	$(".todo").live("click",function(){
+		alert($(this).text());
+	});
+	$(".onetrigger").live({
+		mouseenter:function(){
+			$(this).append('<span class="todo">Delete this trigger</span> ');
+		},
+		mouseleave:function(){
+			$(this).find("span.todo").remove();
+		}
+	});
+	
 });
 </script>
 </head>
 <body>
+<h2>Set your own triggers </h2>
 <form name="input" action="?" method="post">
 <div id="condboard">
-</div>
 
+</div>
+<div id="addcond">Add more trigger</div><br/>
 <input type="submit" value="Submit" name="submit"/>
 </form>
-<button id="addcond">Add Trigger</button><br/>
+
 </body>
 </html>
 <?php
