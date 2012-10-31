@@ -17,6 +17,7 @@
 SET FOREIGN_KEY_CHECKS=0;
 -- Dump created: 2012-07-31 02:00
 
+
 --
 -- Create Table `f_fields`
 --
@@ -102,6 +103,7 @@ CREATE TABLE `f_matches` (
   `hpenalty` tinyint(1) DEFAULT NULL,
   `apenalty` tinyint(1) DEFAULT NULL,
   `match_date` datetime DEFAULT NULL,
+  `viewdate` date DEFAULT '0000-00-00',
   `order` smallint(2) DEFAULT 1,
   PRIMARY KEY (`match_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -129,7 +131,8 @@ CREATE TABLE `f_params` (
 --
 
 /*!40000 ALTER TABLE `f_params` DISABLE KEYS */;
-INSERT INTO `f_params` (`p_name`,`p_value`) VALUES ('dbversion','2.0');
+INSERT INTO `f_params` (`p_name`,`p_value`) VALUES ('dbversion','3.0');
+INSERT INTO `f_params` (`p_name`,`p_value`) VALUES ('currentdate','2.0');
 /*!40000 ALTER TABLE `f_params` ENABLE KEYS */;
 
 
@@ -188,7 +191,7 @@ CREATE TABLE `f_timeline` (
   `match` int(10) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `lam2lan` (`event`,`team`,`match`)
+  UNIQUE KEY `lam1lan` (`event`,`match`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `f_timeline2`;
@@ -209,30 +212,27 @@ CREATE TABLE `f_timeline2` (
 -- Create Table `f_trigger`
 --
 
-DROP TABLE IF EXISTS `f_trigger`;
-CREATE TABLE `f_trigger` (
+DROP TABLE IF EXISTS `f_condition`;
+CREATE TABLE `f_condition` (
   `trigger_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `groupid` tinyint(2) unsigned NOT NULL DEFAULT '1',
   `user_id` int(11) unsigned NOT NULL,
   `field_id` tinyint(2) NOT NULL,
   `operater` varchar(2) DEFAULT '',
-  `hvalue` varchar(6) DEFAULT NULL,
-  `avalue` varchar(6) DEFAULT NULL,
+  `isaway` tinyint(1) DEFAULT 0,
+  `value` varchar(6) DEFAULT NULL,
   PRIMARY KEY (`trigger_id`),
-  UNIQUE KEY `dkkolap` (`groupid`,`user_id`,`field_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
---
--- Data for Table `f_trigger`
---
-
-/*!40000 ALTER TABLE `f_trigger` DISABLE KEYS */;
-INSERT INTO `f_trigger` (`trigger_id`,`groupid`,`user_id`,`field_id`,`operater`,`hvalue`,`avalue`) VALUES ('1','1','2','11','>=','17','17');
-INSERT INTO `f_trigger` (`trigger_id`,`groupid`,`user_id`,`field_id`,`operater`,`hvalue`,`avalue`) VALUES ('2','1','2','1','>','2','2');
-INSERT INTO `f_trigger` (`trigger_id`,`groupid`,`user_id`,`field_id`,`operater`,`hvalue`,`avalue`) VALUES ('3','1','2','13','>=','1','0.6');
-/*!40000 ALTER TABLE `f_trigger` ENABLE KEYS */;
+  UNIQUE KEY `dkkolap` (`user_id`,`field_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
+
+DROP TABLE IF EXISTS `f_trigger`;
+CREATE TABLE `f_trigger` (
+  `user_id` int(11) unsigned NOT NULL,
+  `triggers` varchar(255) NOT NULL,
+  `disable` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 --
 -- Create Table `f_users`
 --
