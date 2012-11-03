@@ -26,12 +26,17 @@ if (isset($_POST['submit'])) {
 	while ($row = mysql_fetch_array($ret)) {
 		//echo "<div class='oldtrigger'><span style='display:none;'>".$row['trigger_id']."</span>".($row['isaway']?"Away":"Home")." - ".$row['field_name']." ".$row['operater']." ".$row['value']."</div>";
 		if ($row['field_in']=='m') {
-			if ($triggersm) $triggersm.=" and ";
+			if ($triggersm) $triggersm.="and";
 			$triggersm.="(".($row['isaway']?"a":"h").$row['field_tag'].$row['operater'].$row['value'].")";
 		} else {
-			if ($triggerst) $triggerst.=" and ";
-			$triggerst.="(team_".($row['isaway']?"a":"h").$row['field_tag'].$row['operater'].$row['value'].")";
+			if ($triggerst) $triggerst.="and";
+			$triggerst.="(".($row['isaway']?"awayteam":"hometeam").".team_".($row['isaway']?"a":"h").$row['field_tag'].$row['operater'].$row['value'].")";
 		}
+	}
+	if (($triggerst) && ($triggersm)) {
+		$triggersm.="and".$triggerst;
+	} else {
+		$triggersm.=$triggerst;
 	}
 	mysql_query("delete from f_trigger where user_id=$myid") or die (mysql_error());
 	$sql="insert into f_trigger (user_id,triggersm,triggerst) VALUE ($myid,'".$triggersm."','".$triggerst."');";

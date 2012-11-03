@@ -229,7 +229,7 @@ CREATE TABLE `f_condition` (
 DROP TABLE IF EXISTS `f_trigger`;
 CREATE TABLE `f_trigger` (
   `user_id` int(11) unsigned NOT NULL,
-  `triggers` varchar(255) NOT NULL,
+  `triggers` varchar(500) NOT NULL,
   `disable` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
