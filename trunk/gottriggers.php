@@ -22,9 +22,9 @@
 			//echo $sql2."<br/>";
 			$ret=mysql_query($sql2);
 			if (mysql_num_rows($ret)) {
-				echo "user#".$user_id."#".$user_twitter."\n";
+				echo "user#".$user_id."#".$user_twitter."#\n";
 				while ($data=mysql_fetch_array($ret)) {
-					echo "match#".$data['match_id']."#".$data['homename']." - ".$data['awayname']."\n";
+					echo "match#".$data['match_id']."#".$data['homename']." - ".$data['awayname']."#\n";
 				}
 			}
 		}
