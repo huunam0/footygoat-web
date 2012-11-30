@@ -18,7 +18,7 @@
 			$sql2="select f_matches.match_id,hometeam.team_name as homename,awayteam.team_name as awayname from f_matches ";
 			$sql2.="left join f_teams as hometeam on f_matches.hteam=hometeam.team_id ";
 			$sql2.="left join f_teams as awayteam on f_matches.ateam=awayteam.team_id ";
-			$sql2.="where (status between 1 and 6)and (viewdate='".$cdate."') and".$row['triggersm'];
+			$sql2.="where (status between 1 and 6)and (viewdate='".$cdate."')and".$row['triggersm']."and(match_id not in (select match_id from f_sent where user_id=$user_id))";
 			//echo $sql2."<br/>";
 			$ret=mysql_query($sql2);
 			if (mysql_num_rows($ret)) {
