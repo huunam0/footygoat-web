@@ -1,6 +1,10 @@
 <?php
 include_once("maincore.php");
 include_once("dbconfig.php");
+if (!$MEMBER) {
+	echo "You must login to use this function.";
+	exit();
+}
 if (isset($_GET['edit'])) {
 if (isset($_POST['submit'])) {
 	$nb = count($_POST['trigger']);
