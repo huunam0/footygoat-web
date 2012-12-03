@@ -5,6 +5,12 @@ if (!$MEMBER) {
 	echo "You must login to use this function.";
 	exit();
 }
+if (isset($_GET['enable'])) {
+	mysql_query("update f_trigger set disable=0 where user_id=$myid") or die("Cannot enable your triggers");
+}
+if (isset($_GET['disable'])) {
+	mysql_query("update f_trigger set disable=1 where user_id=$myid") or die("Cannot disable your triggers");
+}
 if (isset($_GET['edit'])) {
 if (isset($_POST['submit'])) {
 	$nb = count($_POST['trigger']);
@@ -42,8 +48,8 @@ if (isset($_POST['submit'])) {
 	} else {
 		$triggersm.=$triggerst;
 	}
-	mysql_query("delete from f_trigger where user_id=$myid") or die (mysql_error());
-	$sql="insert into f_trigger (user_id,triggersm,triggerst) VALUE ($myid,'".$triggersm."','".$triggerst."');";
+	//mysql_query("delete from f_trigger where user_id=$myid") or die (mysql_error());
+	$sql="insert into f_trigger (user_id,triggersm,triggerst) VALUE ($myid,'".$triggersm."','".$triggerst."') ON DUPLICATE KEY UPDATE triggersm='".$triggersm."' ;";
 	mysql_query($sql) or die (mysql_error());
 	header("location:trigger.php");
 	//echo $triggersm;
@@ -146,8 +152,31 @@ while ($row = mysql_fetch_array($ret)) {
 		echo "<div class='oldtrigger'><span style='display:none;'>".$row['trigger_id']."</span> <span class='teams'>".($row['isaway']?"Away":"Home")."</span> <span class='conditions'>".$row['field_name']."</span> <span class='operators'>".$row['operater']."</span> <span class='values'>".$row['value']."</span></div>";
 		
 	}
-	echo "<div><a href='trigger.php?edit'>Modify triggers</a></div>";
+	
+	$sql="select * from f_trigger where user_id=$myid limit 1";
+	$ret=mysql_query($sql) or die(mysql_error());
+	if (mysql_num_rows($ret)) {
+		echo "<div><a href='trigger.php?edit'>Edit triggers</a></div>";
+		if ($row=mysql_fetch_array($ret)) {
+			if (!$row['triggersm']) redirect("trigger.php?edit");
+			if ($row['disable']==1) {
+				echo "<div>TRIGGERS DISABLE! <a href='trigger.php?enable'>Enable trigger</a></div>";
+			} else {
+				echo "<div><a href='trigger.php?disable'>Disable triggers</a></div>";
+			}
+		}
+	} else {
+		redirect("trigger.php?edit");
+	}
+	
+	
+	
+	
+	
+	
 	echo "<div><a href='index.php'>Go to home page</a></div>";
 	
 }
+
+
 ?>
