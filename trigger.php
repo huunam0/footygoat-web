@@ -26,7 +26,8 @@ if (isset($_POST['submit'])) {
 	}
 	$sql2="delete from f_condition where user_id=".$myid;
 	$ret=mysql_query($sql2) or die(mysql_error());
-	$ret=mysql_query($sql) or die(mysql_error());
+	if ($sql)
+		$ret=mysql_query($sql) or die(mysql_error());
 	echo "<h2>Your triggers are saved:</h2>";
 	$sql="select * from f_condition,f_fields where f_condition.field_id=f_fields.field_id and user_id=$myid";
 	/**/
@@ -48,10 +49,10 @@ if (isset($_POST['submit'])) {
 	} else {
 		$triggersm.=$triggerst;
 	}
-	//mysql_query("delete from f_trigger where user_id=$myid") or die (mysql_error());
+	mysql_query("delete from f_trigger where user_id=$myid") or die (mysql_error());
 	$sql="insert into f_trigger (user_id,triggersm,triggerst) VALUE ($myid,'".$triggersm."','".$triggerst."') ON DUPLICATE KEY UPDATE triggersm='".$triggersm."' ;";
 	mysql_query($sql) or die (mysql_error());
-	header("location:trigger.php");
+	redirect("trigger.php");
 	//echo $triggersm;
 	
 	/**/
