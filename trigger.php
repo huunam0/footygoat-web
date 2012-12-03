@@ -49,9 +49,9 @@ if (isset($_POST['submit'])) {
 	} else {
 		$triggersm.=$triggerst;
 	}
-	mysql_query("delete from f_trigger where user_id=$myid") or die (mysql_error());
+	mysql_query("update f_trigger set triggersm='' where user_id=$myid");
 	$sql="insert into f_trigger (user_id,triggersm,triggerst) VALUE ($myid,'".$triggersm."','".$triggerst."') ON DUPLICATE KEY UPDATE triggersm='".$triggersm."' ;";
-	mysql_query($sql) or die (mysql_error());
+	mysql_query($sql);
 	redirect("trigger.php");
 	//echo $triggersm;
 	
