@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
 	$nb = count($_POST['trigger']);
 	$sql="";
 	for ($i=0;$i<$nb; $i++) {
-		if ($_POST['number'][$i]) {
+		if (strlen($_POST['number'][$i])) {
 			if ($sql) $sql.=",";
 			$sql.="($myid,".$_POST['team'][$i].",".$_POST['trigger'][$i].",'".$_POST['operator'][$i]."',".$_POST['number'][$i].")";
 		}
@@ -153,7 +153,7 @@ while ($row = mysql_fetch_array($ret)) {
 		echo "<div class='oldtrigger'><span style='display:none;'>".$row['trigger_id']."</span> <span class='teams'>".($row['isaway']?"Away":"Home")."</span> <span class='conditions'>".$row['field_name']."</span> <span class='operators'>".$row['operater']."</span> <span class='values'>".$row['value']."</span></div>";
 		
 	}
-	
+	echo "<br/><br/>";
 	$sql="select * from f_trigger where user_id=$myid limit 1";
 	$ret=mysql_query($sql) or die(mysql_error());
 	if (mysql_num_rows($ret)) {
