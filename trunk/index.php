@@ -555,13 +555,15 @@ $(document).ready(function(){
 
 echo '<div class="menucontainer">
 <span>
-<a href="trigger.php" target="_blank" class="dropdown button">TRIGGER</a>
-</span>
+<a href="trigger.php" target="_blank" class="button">TRIGGER</a>
+</span>';
+/*
 <div class="sublinks" id="triggerboard">
 <div class="trig_in">
 <span class="menutitle">Set your triggers:</span>
 <table id ="mytriggers" class="tabtrig" RULES=ROWS FRAME=BOX>
 <th><td>Triggers</td><td width="45px">Operator (<>=)</td><td width="40px">Home Team</td><td width="40px">Away Team</td></th>';
+*/
 /*
 	$sql = "SELECT * FROM f_fields";
 	$result = mysql_query($sql);
@@ -581,13 +583,15 @@ echo '<div class="menucontainer">
 		$i=1-$i;
 	}
 */
+/*
 echo '</table>
 </div>
 <div align="center" style="width:70%"> <a href="#" id="applytriger" class="button3" >Save and apply triggers.</a></div>
 <div class="hidedrop">Hide this panel</div>
 </div>
 </div>';
-
+*/
+echo "</div>";
 }
 
 echo '</div>
