@@ -555,7 +555,7 @@ $(document).ready(function(){
 
 echo '<div class="menucontainer">
 <span>
-<a href="#" class="dropdown button">TRIGGER</a>
+<a href="trigger.php" target="_blank" class="dropdown button">TRIGGER</a>
 </span>
 <div class="sublinks" id="triggerboard">
 <div class="trig_in">

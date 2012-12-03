@@ -36,6 +36,12 @@ if (isset($_SESSION['user_name'])){
 	$myname=$_SESSION['user_name'];
 }
 //date_default_timezone_set("Asia/Ho_Chi_Minh");
-
+function redirect($location, $delaytime = 0) {
+    if ($delaytime>0) {    
+        header( "refresh: $delaytime; url='".str_replace("&amp;", "&", $location)."'" );
+    } else {
+        header("Location: ".str_replace("&amp;", "&", $location));
+    }    
+}
 
 ?>
