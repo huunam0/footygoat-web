@@ -1,6 +1,7 @@
 <?php
 include_once("maincore.php");
 include_once("dbconfig.php");
+include_once("header.php");
 if (!$MEMBER) {
 	echo "You must login to use this function.";
 	exit();
@@ -98,7 +99,7 @@ $(document).ready(function(){
 	$(".onetrigger").live({
 		mouseenter:function(){
 			$(this).css("background-color","#afff00");
-			$(this).append('<span class="todo">Delete this trigger</span> ');
+			$(this).append('<span class="todo" class="button">Delete this trigger</span> ');
 		},
 		mouseleave:function(){
 			$(this).css("background-color","#ffffff");
@@ -108,7 +109,7 @@ $(document).ready(function(){
 	$(".oldtrigger").hover(
 		function(){
 			$(this).css("background-color","#afff00");
-			$(this).append('<span class="todid">Delete this trigger</span> ');
+			$(this).append('<span class="todid" class="button">Delete this trigger</span> ');
 		},
 		function(){
 			$(this).css("background-color","#ffffff");
@@ -137,7 +138,7 @@ while ($row = mysql_fetch_array($ret)) {
 
 
 </div><br/>
-<div id="addcond">Add more trigger</div><br/>
+<div id="addcond" class='button'>Add more trigger</div><br/><br/>
 <input type="submit" value="Submit" name="submit"/>
 </form>
 
@@ -146,7 +147,7 @@ while ($row = mysql_fetch_array($ret)) {
 <?php
 }
 } else {
-	echo "<h2>Your triggers :</h2>";
+	echo "<h2>Your triggers :</h2><br/>";
 	$sql="select * from f_condition,f_fields where f_condition.field_id=f_fields.field_id and user_id=$myid";
 	$ret=mysql_query($sql) or die(mysql_error());
 	while ($row = mysql_fetch_array($ret)) {
@@ -157,13 +158,13 @@ while ($row = mysql_fetch_array($ret)) {
 	$sql="select * from f_trigger where user_id=$myid limit 1";
 	$ret=mysql_query($sql) or die(mysql_error());
 	if (mysql_num_rows($ret)) {
-		echo "<div><a href='trigger.php?edit'>Edit triggers</a></div>";
+		echo "<div><a href='trigger.php?edit' class='button'>Edit triggers</a></div>";
 		if ($row=mysql_fetch_array($ret)) {
 			if (!$row['triggersm']) redirect("trigger.php?edit");
 			if ($row['disable']==1) {
-				echo "<div>TRIGGERS DISABLE! <a href='trigger.php?enable'>Enable trigger</a></div>";
+				echo "<div>TRIGGERS DISABLE! <a href='trigger.php?enable' class='button'>Enable trigger</a></div>";
 			} else {
-				echo "<div><a href='trigger.php?disable'>Disable triggers</a></div>";
+				echo "<div><a href='trigger.php?disable' class='button'>Disable triggers</a></div>";
 			}
 		}
 	} else {
@@ -181,3 +182,5 @@ while ($row = mysql_fetch_array($ret)) {
 
 
 ?>
+</body>
+</html>
