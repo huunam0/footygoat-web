@@ -7,7 +7,7 @@
 		$cdate=$row['p_value'];
 	} else
 		$cdate= date("Y-n-d")."";
-	$sql="select * from f_trigger where `disable`=0;";
+	$sql="select * from f_trigger where `disable`=0 and triggers<>'';";
 	$result = mysql_query($sql);
 	while ($row = mysql_fetch_array($result)) {
 		$user_id=$row['user_id'];
@@ -18,8 +18,8 @@
 			$sql2="select f_matches.match_id,hometeam.team_name as homename,awayteam.team_name as awayname from f_matches ";
 			$sql2.="left join f_teams as hometeam on f_matches.hteam=hometeam.team_id ";
 			$sql2.="left join f_teams as awayteam on f_matches.ateam=awayteam.team_id ";
-			$sql2.="where (status between 1 and 6)and (viewdate='".$cdate."')and".$row['triggersm']."and(match_id not in (select match_id from f_sent where user_id=$user_id))";
-			//echo $sql2."<br/>";
+			$sql2.="where (status between 1 and 6)and (viewdate='".$cdate."')and".(strlen($row['triggers'])>5?$row['triggers']:"(1=0)")."and(match_id not in (select match_id from f_sent where user_id=$user_id))";
+			echo "sql#".$sql2."#\n";
 			$ret=mysql_query($sql2);
 			if (mysql_num_rows($ret)) {
 				echo "user#".$user_id."#".$user_twitter."#\n";
