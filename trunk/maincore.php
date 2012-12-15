@@ -35,6 +35,7 @@ if (isset($_SESSION['user_email'])) {
 if (isset($_SESSION['user_name'])){
 	$myname=$_SESSION['user_name'];
 }
+include_once("configs.php");
 //date_default_timezone_set("Asia/Ho_Chi_Minh");
 function redirect($location, $delaytime = 0) {
     if ($delaytime>0) {    
