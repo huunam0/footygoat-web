@@ -646,8 +646,8 @@ echo '<span class="" style="display:block;">
 <tr><td>Pass:</td><td><input type="password" id="login_pass" name="loginpass"/></td></tr>
 <tr><td> </td><td><span id="login_submit" class="button" style="height:14px;">Login</span></td></tr>
 </table>
-<a href="lbfb/index.php?login&oauth_provider=facebook"><img src="lbfb/images/fb_login.png" /></a><br/>
-<a href="lbfb/index.php?login&oauth_provider=twitter"><img src="lbfb/images/tw_login.png" /></a>
+<a href="lbfb/index.php?login&oauth_provider=facebook"><img width="90" src="lbfb/images/fb_login.png" /></a><br/>
+<a href="lbfb/index.php?login&oauth_provider=twitter"><img width="90" src="lbfb/images/tw_login.png" /></a>
 </div>
 <span class="hidedrop">Hide this panel</span>
 </div>

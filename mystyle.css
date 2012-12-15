@@ -386,3 +386,18 @@ a:focus { outline: none; }
 	font-style:normal;
 	color:#000fff;
 }
+
+table.thuong {
+	border:1px solid blue;
+	border-collapse:collapse;
+}
+table.thuong tr {
+	border:1px solid blue;
+}
+table.thuong td {
+	border:1px solid blue;
+	padding:0.25em;
+}
+.redalert {
+	color:red;
+}
