@@ -1,7 +1,11 @@
 <?php
 	include_once("maincore.php");
 	include_once("dbconfig.php");
-	if (!isset($_GET['d'])) {
+	$cdate="";
+	if (isset($_GET['d'])) {
+		$cdate=$_GET['d'];
+	}
+	if (strlen($cdate)<8) {
 		$sql="select p_value from f_params where p_name='currentdate' limit 1;";
 		$result = mysql_query($sql);
 		if ($row=mysql_fetch_array($result)) {
@@ -9,7 +13,7 @@
 		} else
 			$cdate= date("Y-n-d")."";
 	}
-	else $cdate=$_GET['d'];
+	//else $cdate=$_GET['d'];
 	
 	$sql = "SELECT * FROM f_matches where viewdate='".$cdate."' order by `order`";
 	//echo $sql;
