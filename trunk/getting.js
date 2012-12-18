@@ -1,5 +1,12 @@
+function gup(name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}
 var status= new Array("*","1st","HT","2nd","Ex.","Pen","Susp","FT","AET","FT-Pens","Aban","Postp","s12","s13","s14","s15");
 var nbm = new Array(0,0,0,0);
+var today = gup("date")+"";
+var anotherday=(today?false:true);
 var momment="";
 var firstNew;
 var hldelay=1000;
@@ -438,8 +445,4 @@ function getnew() {
 			}
 		});
 	}
-function gup(name) {
-    return decodeURI(
-        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
-    );
-}
+

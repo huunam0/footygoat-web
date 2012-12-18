@@ -11,7 +11,6 @@ echo "</script>";
 <script src="getting.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	var today = gup("date")+"";
 	$("#Content2").css($("#Content").offset());
 	$("#loadpage").click(function() {
 		fd();
