@@ -293,10 +293,11 @@ function getnew() {
 		});
 		sl++;
 		isAjax=false;
+		if (anotherday) return;
 		if (sl>30)
-		rp=setTimeout(getnew1,getdelay);
+			rp=setTimeout(getnew1,getdelay);
 		else
-		rp=setTimeout(getnew1,getdelay);
+			rp=setTimeout(getnew1,getdelay);
 		//rp=setTimeout(getnew1,getdelay);
 	}
 	function getteam(teamid,away) {
