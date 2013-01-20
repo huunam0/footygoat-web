@@ -20,7 +20,7 @@ $(document).ready(function(){
 	});
 	$("#upmatch").click(function() {
 		stoping=false;
-		ud();
+		getnew1();
 	});
 	$("#stopup").click(function() {
 		working=true;
