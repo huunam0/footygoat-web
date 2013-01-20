@@ -294,6 +294,7 @@ function getnew() {
 		sl++;
 		isAjax=false;
 		if (anotherday) return;
+		if (myid==0) return;
 		if (sl>30)
 			rp=setTimeout(getnew1,getdelay);
 		else
