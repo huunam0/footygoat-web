@@ -75,6 +75,7 @@ $(document).ready(function(){
 		else getnew1();
 	});
 	//loadmatches();
+	if (myid>0)
 	getnew1();
 });
 </script>
