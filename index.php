@@ -6,7 +6,7 @@ include_once("header.php");
 include_once("dbconfig.php");
 mysql_query("insert into f_logs (`ip`,`moment`) value ('".$_SERVER['REMOTE_ADDR']."',NOW())");
 date_default_timezone_set("Europe/London");
-echo "<script language='javascript'>var myid=".$myid.";";
+echo "<script type='text/javascript'>var myid=".$myid.";";
 echo "</script>";
 ?>
 <script src="getting.js" type="text/javascript"></script>
