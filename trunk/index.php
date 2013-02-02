@@ -256,7 +256,7 @@ echo '<span class="" style="display:block;">
 
 </tr>
 <tr class="header" align="center" valign="middle">
-<td title="% games team has won at home" width="2%">W</td>
+<td width="2%">W</td>
 <td width="2%">D</td>
 <td width="2%">L</td>
 <td width="2%">F</td>
@@ -326,7 +326,7 @@ echo '<span class="" style="display:block;">
 
 </tr>
 <tr class="header" align="center" valign="middle">
-<td width="2%">W</td>
+<td title="% games team has won at home" width="2%">W</td>
 <td width="2%">D</td>
 <td width="2%">L</td>
 <td width="2%">F</td>
