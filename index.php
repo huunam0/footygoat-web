@@ -257,15 +257,15 @@ echo '<span class="" style="display:block;">
 </tr>
 <tr class="header" align="center" valign="middle">
 <td title="% games team has won at home" width="2%">W</td>
-<td width="2%">D</td>
-<td width="2%">L</td>
-<td width="2%">F</td>
-<td width="2%">A</td>
-<td width="2%">W</td>
-<td width="2%">D</td>
-<td width="2%">L</td>
-<td width="2%">F</td>
-<td width="2%">A</td>
+<td title="% games team has drawn at home" width="2%">D</td>
+<td title="% games team has lost at home" width="2%">L</td>
+<td title="Average goals scored at home" width="2%">F</td>
+<td title="Average goals conceeded at home" width="2%">A</td>
+<td title="% games team has won away" width="2%">W</td>
+<td title="% games team has drawn away" width="2%">D</td>
+<td title="% games teams has lost away" width="2%">L</td>
+<td title="Average goals scored away" width="2%">F</td>
+<td title="Average goals conceeded away" width="2%">A</td>
 </tr>
 </thead>
 <tr class="odd">
@@ -327,15 +327,15 @@ echo '<span class="" style="display:block;">
 </tr>
 <tr class="header" align="center" valign="middle">
 <td title="% games team has won at home" width="2%">W</td>
-<td width="2%">D</td>
-<td width="2%">L</td>
-<td width="2%">F</td>
-<td width="2%">A</td>
-<td width="2%">W</td>
-<td width="2%">D</td>
-<td width="2%">L</td>
-<td width="2%">F</td>
-<td width="2%">A</td>
+<td title="% games team has drawn at home" width="2%">D</td>
+<td title="% games team has lost at home" width="2%">L</td>
+<td title="Average goals scored at home" width="2%">F</td>
+<td title="Average goals conceeded at home" width="2%">A</td>
+<td title="% games team has won away" width="2%">W</td>
+<td title="% games team has drawn away" width="2%">D</td>
+<td title="% games teams has lost away" width="2%">L</td>
+<td title="Average goals scored away" width="2%">F</td>
+<td title="Average goals conceeded away" width="2%">A</td>
 </tr>
 </table>
 
