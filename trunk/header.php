@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <title>FootyGoat - Live football scores & statistics, inplay betting alerts</title>	
