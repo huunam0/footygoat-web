@@ -3858,4 +3858,4 @@ function wp_is_stream( $path ) {
 function wp_checkdate( $month, $day, $year, $source_date ) {
 	return apply_filters( 'wp_checkdate', checkdate( $month, $day, $year ), $source_date );
 }
-add_filter( 'pre_site_transient_update_core', create_function( '$a', "return null;" ) );
+//add_filter( 'pre_site_transient_update_core', create_function( '$a', "return null;" ) );
