@@ -98,6 +98,7 @@ $(document).ready(function(){
 <a href="http://twitter.com/footygoat" class='tw' target='_blank'><span class='space20 s12'>Follow Us</span></a>
 <a href="http://www.facebook.com/footygoat" class='fb' target='_blank'><span class='space20 s12'>Like Us</span></a>
 <a href="http://www.petestilgoe.com/2012/01/turn-free-bets-into-free-cash" Target="_Blank"><span class='space20 s12'>Free Money</a>
+<a href="http://www.footygoat.com/blog/" class='blog' target='_blank'><span class='space20 s12'>Blog</span></a>
 </div>
 </td>
 <td>
@@ -238,9 +239,9 @@ echo '<span class="" style="display:block;">
 <thead>
 <tr class="header" align="center" valign="middle">
 <td rowspan="2">Status</td>
-<td rowspan="2" width="16%">Home Team</td>
+<td rowspan="2" width="14%">Home Team</td>
 <td rowspan="2" width="3%">Score</td>
-<td rowspan="2" width="16%">Away Team</td>
+<td rowspan="2" width="14%">Away Team</td>
 <td rowspan="2" width="3%">1st <br> round</td>
 <td rowspan="2" width="3%">Yellow<br/>Cards</td>
 <td rowspan="2" width="3%">Red<br/>Cards</td>
@@ -251,6 +252,7 @@ echo '<span class="" style="display:block;">
 <td rowspan="2" width="4%">% Shots</td>
 <td rowspan="2" width="4%">% Shots<br/>on goal</td>
 <td rowspan="2" width="4%">% Corner<br/>kicks</td>
+<td rowspan="2" width="4%">P/SOT</td>
 <td colspan="5">Home Team (%)</td>
 <td colspan="5">Away Team (%)</td>
 
@@ -293,6 +295,7 @@ echo '<span class="" style="display:block;">
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 
 </table>
@@ -308,9 +311,9 @@ echo '<span class="" style="display:block;">
 <table id="bigboard2">
 <tr class="header" align="center" valign="middle">
 <td rowspan="2">Status</td>
-<td rowspan="2" width="16%">Home Team</td>
+<td rowspan="2" width="14%">Home Team</td>
 <td rowspan="2" width="3%">Score</td>
-<td rowspan="2" width="16%">Away Team</td>
+<td rowspan="2" width="14%">Away Team</td>
 <td rowspan="2" width="3%">1st <br> round</td>
 <td rowspan="2" width="3%">Yellow<br/>Cards</td>
 <td rowspan="2" width="3%">Red<br/>Cards</td>
@@ -321,6 +324,7 @@ echo '<span class="" style="display:block;">
 <td rowspan="2" width="4%">% Shots</td>
 <td rowspan="2" width="4%">% Shots<br/>on goal</td>
 <td rowspan="2" width="4%">% Corner<br/>kicks</td>
+<td rowspan="2" width="4%">P/SOT</td>
 <td colspan="5">Home Team (%)</td>
 <td colspan="5">Away Team (%)</td>
 

@@ -362,12 +362,12 @@ function getnew() {
 				$("#bigboard tr:gt(1)").remove();
 				for (var i=0; i<obj.matches.length;i++) {
 					if (obj.matches[i]['lg']!=league) {
-						$("#bigboard").append('<tr class="league"><td align="left" colspan="24">'+obj.leagues[obj.matches[i]['lg']]+'</td></tr>');
+						$("#bigboard").append('<tr class="league"><td align="left" colspan="25">'+obj.leagues[obj.matches[i]['lg']]+'</td></tr>');
 						league=obj.matches[i]['lg']+"";
 					}
 					if (obj.matches[i]['gr']) {
 						if (obj.matches[i]['gr']!=group) {
-							$("#bigboard").append('<tr class="group"><td align="left" colspan="24">Group '+obj.matches[i]['gr']+'</td></tr>');
+							$("#bigboard").append('<tr class="group"><td align="left" colspan="25">Group '+obj.matches[i]['gr']+'</td></tr>');
 							group=obj.matches[i]['gr'];
 						}
 					}
@@ -408,6 +408,7 @@ function getnew() {
 						tr+='<td class="pshots"><span class="pshots0"></span> - <span class="pshots1"></span></td>';
 						tr+='<td class="pgshots"><span class="pgshots0"></span> - <span class="pgshots1"></span></td>';
 						tr+='<td class="pcorner"><span class="pcorner0"></span> - <span class="pcorner1"></span></td>';
+						tr+='<td class="psot"><span class="psot0"></span> - <span class="psot1"></span></td>';
 					} else {
 						tr+='<td class="score1"><span class="score10">'+obj.matches[i]['hg1']+'</span> - <span class="score11">'+obj.matches[i]['ag1']+'</span></td>';
 						tr+='<td class="yellow"><span class="yellow0">'+obj.matches[i]['hy']+'</span> - <span class="yellow1">'+obj.matches[i]['ay']+'</span></td>';
@@ -419,6 +420,7 @@ function getnew() {
 						tr+='<td class="pshots"><span class="pshots0"></span> - <span class="pshots1"></span></td>';
 						tr+='<td class="pgshots"><span class="pgshots0"></span> - <span class="pgshots1"></span></td>';
 						tr+='<td class="pcorner"><span class="pcorner0"></span> - <span class="pcorner1"></span></td>';
+						tr+='<td class="psot"><span class="psot0"></span> - <span class="psot1"></span></td>';
 					}
 					tr+='<td class="w0" id="w'+obj.matches[i]['ht']+'">-</td>';
 					tr+='<td class="d0" id="d'+obj.matches[i]['ht']+'">-</td>';
