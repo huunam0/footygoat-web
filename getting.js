@@ -178,8 +178,8 @@ function getmatch(matchid) {
 						} else if (obj[i]['e']==7) {
 							$(mrow).find(".possession .possession0").html(obj[i]['h']);
 							$(mrow).find(".possession .possession1").html(obj[i]['a']);
-							$(mrow).find(".psot .psot0").html(div0(obj[i]['h'],parseInt($(mrow).find(".gshots .gshots0").html()),1,0));
-							$(mrow).find(".psot .psot1").html(div0(obj[i]['a'],parseInt($(mrow).find(".gshots .gshots1").html()),1,0));
+							$(mrow).find(".psot .psot0").html(div0(obj[i]['h'],parseInt($(mrow).find(".gshots .gshots0").html()),0,0));
+							$(mrow).find(".psot .psot1").html(div0(obj[i]['a'],parseInt($(mrow).find(".gshots .gshots1").html()),0,0));
 						} else if (obj[i]['e']==6) {
 							h = parseInt(obj[i]['h']);
 							a = parseInt(obj[i]['a']);
@@ -193,8 +193,8 @@ function getmatch(matchid) {
 							$(mrow).find(".gshots .gshots0").html(h);
 							$(mrow).find(".gshots .gshots1").html(a);
 							$(mrow).find(".pgshots").html(div0(h*100,sha,0,0) + " - " + div0(a*100,sha,0,0));
-							$(mrow).find(".psot .psot0").html(div0(parseInt($(mrow).find(".possession .possession0").html()),h,1,0));
-							$(mrow).find(".psot .psot1").html(div0(parseInt($(mrow).find(".possession .possession1").html()),a,1,0));
+							$(mrow).find(".psot .psot0").html(div0(parseInt($(mrow).find(".possession .possession0").html()),h,0,0));
+							$(mrow).find(".psot .psot1").html(div0(parseInt($(mrow).find(".possession .possession1").html()),a,0,0));
 						} else if (obj[i]['e']==4) {
 							h = parseInt(obj[i]['h']);
 							a = parseInt(obj[i]['a']);
