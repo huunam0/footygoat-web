@@ -116,74 +116,7 @@ function getmatch(matchid) {
 		}
 	});
 }
-function getnew() {
-		
-		$.ajax({
-			url: 'gtimeline.php',
-			type:"GET",
-			//timeout:2000,
-			data:{t:momment},
-			//dataType: 'json',	
-			success: function(json) {
-				var obj = $.parseJSON(json);
-				if (obj) {
-					$("#fortest").html(json);
-					for (var i=0; i<obj.length;i++) {
-						var mrow="#m"+obj[i]['m'];
-						if (obj[i]['e']==100) {
-							loadmatches();
-							//break;
-						} else if ((obj[i]['e']==12) ) {
-							$(mrow).find(".status .mstatus").show();
-							$(mrow).find(".status .mstart").hide();
-							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
-							$(mrow).find(".status").attr('class','status status7');
-							if (!isViewAll) $(mrow).hide();
-						} else if ( (obj[i]['e']==9)) {
-							$(mrow).find(".status .mstatus").html(status[(obj[i]['v']?obj[i]['v']:7)]).effect("highlight", {color:"#ff0000"}, hldelay);
-							$(mrow).find(".status .mminutes").toggle((obj[i]['v']==1)||(obj[i]['v']==3));
-							//$(mrow).find(".status").attr('class','status status'+obj[i]['v']);
-							//if (!isViewAll) $(mrow).hide();
-						} else if (obj[i]['e']==10) {
-							$(mrow).find(".status").attr('class','status status1');
-							$(mrow).find(".status .mstart").hide();
-							$(mrow).find(".status .mstatus").show();
-							getmatch(obj[i]['m']);
-							if (!isViewAll) $(mrow).show();
-						} else if (obj[i]['e']==8) {
-							if (obj[i]['v']) {
-								$(mrow).find(".status .mminutes").html(obj[i]['v']+"'").effect("highlight", {color:"#ff0000"}, hldelay);
-								$(mrow).find(".status").attr('class','status status1');
-							}
-						} else if (obj[i]['e']==7) {
-							$(mrow).find(".possession .possession"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
-						} else if (obj[i]['e']==6) {
-							$(mrow).find(".corner .corner"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
-						} else if (obj[i]['e']==5) {
-							$(mrow).find(".gshots .gshots"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
-						} else if (obj[i]['e']==4) {
-							$(mrow).find(".shots"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
-						} else if (obj[i]['e']==3) {
-							$(mrow).find(".yellow .yellow"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
-						} else if (obj[i]['e']==2) {
-							$(mrow).find(".red .red"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
-						} else if (obj[i]['e']==1) {
-							$(mrow).find(".score1 .score1"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
-						} else if (obj[i]['e']==0) {
-							$(mrow).find(".score .score"+obj[i]['t']).html(obj[i]['v']).effect("highlight", {color:"#ff0000"}, hldelay);
-						}
-						momment=obj[i]['d'];
-					}
-				}
-				getdelay=2000;
-			},
-			error: function(xhr, ajaxOptions, thrownError) {
-				//alert("Error get team");
-				getdelay=10000;
-			}
-		});
-		rp=setTimeout(getnew,getdelay);
-	}
+
 	function getnew1() {
 		
 		$.ajax({
@@ -200,7 +133,7 @@ function getnew() {
 					var a=0;
 					var sha=0;
 					for (var i=0; i<obj.length;i++) {
-						$("#debug4").append("\n"+obj[i]['d']+"\t"+obj[i]['m']+"\t"+obj[i]['e']+"\t"+obj[i]['h']+"\t"+obj[i]['a']);
+						//$("#debug4").append("\n"+obj[i]['d']+"\t"+obj[i]['m']+"\t"+obj[i]['e']+"\t"+obj[i]['h']+"\t"+obj[i]['a']);
 						var mrow="#m"+obj[i]['m'];
 						if (obj[i]['e']==100) {
 							addOne=1;
@@ -238,7 +171,6 @@ function getnew() {
 						} else if (obj[i]['e']==8) {
 							//if (obj[i]['v']) {
 								$(mrow).find(".status .mminutes").html(obj[i]['a']+"'");
-								//$(mrow).find(".status").attr('class','status status1');
 							//}
 							$(mrow).find(".status .mstatus").html(status[(obj[i]['h']?obj[i]['h']:7)]);
 							$(mrow).find(".status .mminutes").toggle((obj[i]['h']==1)||(obj[i]['h']==3));
@@ -246,6 +178,8 @@ function getnew() {
 						} else if (obj[i]['e']==7) {
 							$(mrow).find(".possession .possession0").html(obj[i]['h']);
 							$(mrow).find(".possession .possession1").html(obj[i]['a']);
+							$(mrow).find(".psot .psot0").html(div0(obj[i]['h'],$(mrow).find(".gshots .gshots0"),1,0));
+							$(mrow).find(".psot .psot1").html(div0(obj[i]['a'],$(mrow).find(".gshots .gshots1"),1,0));
 						} else if (obj[i]['e']==6) {
 							h = parseInt(obj[i]['h']);
 							a = parseInt(obj[i]['a']);
@@ -253,16 +187,15 @@ function getnew() {
 							$(mrow).find(".corner").html(h + " - " + a);
 							$(mrow).find(".pcorner").html(div0(h*100,sha,0,0) + " - " + div0(a*100,sha,0,0));
 						} else if (obj[i]['e']==5) {
-							//$(mrow).find(".gshots .gshots0").html(obj[i]['h']);
-							//$(mrow).find(".gshots .gshots1").html(obj[i]['a']);
 							h = parseInt(obj[i]['h']);
 							a = parseInt(obj[i]['a']);
 							sha=h+a;
-							$(mrow).find(".gshots").html(h + " - " + a);
+							$(mrow).find(".gshots .gshots0").html(h);
+							$(mrow).find(".gshots .gshots1").html(a);
 							$(mrow).find(".pgshots").html(div0(h*100,sha,0,0) + " - " + div0(a*100,sha,0,0));
+							$(mrow).find(".psot .psot0").html(div0($(mrow).find(".possession .possession0"),h,1,0));
+							$(mrow).find(".psot .psot1").html(div0($(mrow).find(".possession .possession1"),a,1,0));
 						} else if (obj[i]['e']==4) {
-							//$(mrow).find(".shots .shots0").html(obj[i]['h']);
-							//$(mrow).find(".shots .shots1").html(obj[i]['a']);
 							h = parseInt(obj[i]['h']);
 							a = parseInt(obj[i]['a']);
 							sha=h+a;
