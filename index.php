@@ -252,7 +252,7 @@ echo '<span class="" style="display:block;">
 <td rowspan="2" width="4%">% Shots</td>
 <td rowspan="2" width="4%">% Shots<br/>on goal</td>
 <td rowspan="2" width="4%">% Corner<br/>kicks</td>
-<td rowspan="2" width="4%">P/SOT</td>
+<td title="Possession per Shots on target - The lower the number the more efficient the team has been with their possession" rowspan="2" width="4%">P/SOT</td>
 <td colspan="5">Home Team (%)</td>
 <td colspan="5">Away Team (%)</td>
 
