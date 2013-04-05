@@ -239,17 +239,17 @@ echo '<span class="" style="display:block;">
 <thead>
 <tr class="header" align="center" valign="middle">
 <td rowspan="2">Status</td>
-<td rowspan="2" width="14%">Home Team</td>
+<td rowspan="2" width="16%">Home Team</td>
 <td rowspan="2" width="3%">Score</td>
-<td rowspan="2" width="14%">Away Team</td>
+<td rowspan="2" width="16%">Away Team</td>
 <td rowspan="2" width="3%">1st <br> round</td>
 <td rowspan="2" width="3%">Yellow<br/>Cards</td>
 <td rowspan="2" width="3%">Red<br/>Cards</td>
-<td rowspan="2" width="4%">Shots</td>
-<td rowspan="2" width="4%">Shots<br/>on goal</td>
-<td rowspan="2" width="4%">Corner<br/>kicks</td>
+<td rowspan="2" width="3%">Shots</td>
+<td rowspan="2" width="3%">Shots<br/>on goal</td>
+<td rowspan="2" width="3%">Corner<br/>kicks</td>
 <td rowspan="2" width="4%">% Time of<br/>Possession</td>
-<td rowspan="2" width="4%">% Shots</td>
+<td rowspan="2" width="3%">% Shots</td>
 <td rowspan="2" width="4%">% Shots<br/>on goal</td>
 <td rowspan="2" width="4%">% Corner<br/>kicks</td>
 <td rowspan="2" width="4%">PSOT</td>
@@ -311,17 +311,17 @@ echo '<span class="" style="display:block;">
 <table id="bigboard2">
 <tr class="header" align="center" valign="middle">
 <td rowspan="2">Status</td>
-<td rowspan="2" width="14%">Home Team</td>
+<td rowspan="2" width="16%">Home Team</td>
 <td rowspan="2" width="3%">Score</td>
-<td rowspan="2" width="14%">Away Team</td>
+<td rowspan="2" width="16%">Away Team</td>
 <td rowspan="2" width="3%">1st <br> round</td>
 <td rowspan="2" width="3%">Yellow<br/>Cards</td>
 <td rowspan="2" width="3%">Red<br/>Cards</td>
-<td rowspan="2" width="4%">Shots</td>
-<td rowspan="2" width="4%">Shots<br/>on goal</td>
-<td rowspan="2" width="4%">Corner<br/>kicks</td>
+<td rowspan="2" width="3%">Shots</td>
+<td rowspan="2" width="3%">Shots<br/>on goal</td>
+<td rowspan="2" width="3%">Corner<br/>kicks</td>
 <td rowspan="2" width="4%">% Time of<br/>Possession</td>
-<td rowspan="2" width="4%">% Shots</td>
+<td rowspan="2" width="3%">% Shots</td>
 <td rowspan="2" width="4%">% Shots<br/>on goal</td>
 <td rowspan="2" width="4%">% Corner<br/>kicks</td>
 <td rowspan="2" width="4%" title="Possession per Shots on target - The lower the number the more efficient the team has been with their possession">PSOT</td>
