@@ -14,10 +14,11 @@
 	//echo add_post_tag($post_id,"Chelsea");
 	//echo add_post_tag($post_id,"Man");
 	//echo lookup_info("f_matches","hteam","match_id=334630");
-	post_match($m);
+	echo post_match($m);
 	//post a match
 	function post_match($match_id) {
 		$match = get_match($match_id);
+		$post_id=0;
 		if ($match!="") {
 			$hteam = get_team($match['hteam']);
 			$ateam = get_team($match['ateam']);
@@ -53,11 +54,11 @@
 					
 				}
 				
-				return true;
+				
 			}
 			
 		}
-		return false;
+		return $post_id;
 	}
 	//lookup infos
 	function lookup_info($table, $field, $condition='') {
@@ -119,7 +120,7 @@
 	//post
 	function insert_post($title,$content,$slug='') {
 		$today = date("Y-m-d H:i:s");
-		$sql="INSERT INTO `wp_posts` (`post_author`,`post_date`,`post_date_gmt`,`post_content`,`post_title`,`post_excerpt`,`post_status`,`comment_status`,`ping_status`,`post_password`,`post_name`,`to_ping`,`pinged`,`post_modified`,`post_modified_gmt`,`post_content_filtered`,`post_parent`,`guid`,`menu_order`,`post_type`,`post_mime_type`,`comment_count`) VALUES ('1','$today','$today','".mysql_real_escape_string($content)."','$title','','publish','open','open','','$slug','','','$today','$today','','0','','0','post','','0');";
+		$sql="INSERT INTO `wp_posts` (`post_author`,`post_date`,`post_date_gmt`,`post_content`,`post_title`,`post_excerpt`,`post_status`,`comment_status`,`ping_status`,`post_password`,`post_name`,`to_ping`,`pinged`,`post_modified`,`post_modified_gmt`,`post_content_filtered`,`post_parent`,`guid`,`menu_order`,`post_type`,`post_mime_type`,`comment_count`) VALUES ('1','$today','$today','".mysql_real_escape_string($content)."','$title','','draft','open','open','','$slug','','','$today','$today','','0','','0','post','','0');";
 		//echo $sql;
 		$post_id=0;
 		$result = mysql_query($sql);
