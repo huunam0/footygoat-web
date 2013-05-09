@@ -25,18 +25,29 @@
 			$league = get_league($match['league_id']);
 			$mdate = substr($match['match_date'],0,10);
 			if (($hteam!="")&&($ateam!="")) {
-				$title="Football betting alert - ".$hteam['team_name']." (".$hteam['team_pos'].") v (".$ateam['team_pos'].") ".$ateam['team_name']."";
-				$slug="match-".$match_id."-".date("Y-m-d");
+				$title="Football betting alert - ".$hteam['team_name']." (".$hteam['team_pos'].") v ".$ateam['team_name']." (".$ateam['team_pos'].")";
+				//$slug="match-".$match_id."-".date("Y-m-d");
+				$slug=slugify($title);
 				$content="<table>";
-				$content.="<tr><td>".$match['minutes']."'</td><td align='right'>".$hteam['team_name']."</td><td>-</td><td>".$ateam['team_name']."</td></tr>";
-				$content.="<tr><td>Score</td><td align='right'>".$match['hgoals']."</td><td>-</td><td>".$match['agoals']."</td></tr>";
-				$content.="<tr><td>Score in 1st</td><td align='right'>".$match['h1goals']."</td><td>-</td><td>".$match['a1goals']."</td></tr>";
-				$content.="<tr><td>Yellow cards</td><td align='right'>".$match['hyellows']."</td><td>-</td><td>".$match['ayellows']."</td></tr>";
-				$content.="<tr><td>Red cards</td><td align='right'>".$match['hreds']."</td><td>-</td><td>".$match['areds']."</td></tr>";
-				$content.="<tr><td>Shots</td><td align='right'>".$match['hshots']."</td><td>-</td><td>".$match['ashots']."</td></tr>";
-				$content.="<tr><td>Shots on goal</td><td align='right'>".$match['hgshots']."</td><td>-</td><td>".$match['agshots']."</td></tr>";
-				$content.="<tr><td>Corner kick</td><td align='right'>".$match['hcorner']."</td><td>-</td><td>".$match['acorner']."</td></tr>";
-				$content.="<tr><td>Time of possession</td><td align='right'>".$match['hpossession']."</td><td>-</td><td>".$match['apossession']."</td></tr>";
+				//Add basic infos
+				$content.="<tr align='center'><td>".$match['minutes']."'</td><td align='right'>".$hteam['team_name']."</td><td>-</td><td>".$ateam['team_name']."</td></tr>";
+				$content.="<tr align='center'><td>Score</td><td align='right'>".$match['hgoals']."</td><td>-</td><td>".$match['agoals']."</td></tr>";
+				$content.="<tr align='center'><td>Score in 1st</td><td align='right'>".$match['h1goals']."</td><td>-</td><td>".$match['a1goals']."</td></tr>";
+				$content.="<tr align='center'><td>Yellow cards</td><td align='right'>".$match['hyellows']."</td><td>-</td><td>".$match['ayellows']."</td></tr>";
+				$content.="<tr align='center'><td>Red cards</td><td align='right'>".$match['hreds']."</td><td>-</td><td>".$match['areds']."</td></tr>";
+				$content.="<tr align='center'><td>Shots</td><td align='right'>".$match['hshots']."</td><td>-</td><td>".$match['ashots']."</td></tr>";
+				$content.="<tr align='center'><td>Shots on goal</td><td align='right'>".$match['hgshots']."</td><td>-</td><td>".$match['agshots']."</td></tr>";
+				$content.="<tr align='center'><td>Corner kick</td><td align='right'>".$match['hcorner']."</td><td>-</td><td>".$match['acorner']."</td></tr>";
+				$content.="<tr align='center'><td>Time of possession</td><td align='right'>".$match['hpossession']."</td><td>-</td><td>".$match['apossession']."</td></tr>";
+				//Add %WDLFA
+				$s1=$hteam['team_hw']+$hteam['team_hd']+$hteam['team_hl'];
+				$s2=$ateam['team_aw']+$ateam['team_ad']+$ateam['team_al'];;
+				$content.="<tr align='center'><td>% W</td><td align='right'>".div0($hteam['team_hw'],$hteam['team_op'],0,0)."</td><td>-</td><td>".div0($ateam['team_aw'],$ateam['team_op'],0,0)."</td></tr>";
+				$content.="<tr align='center'><td>% D</td><td align='right'>".div0($hteam['team_hd'],$hteam['team_op'],0,0)."</td><td>-</td><td>".div0($ateam['team_ad'],$ateam['team_op'],0,0)."</td></tr>";
+				$content.="<tr align='center'><td>% L</td><td align='right'>".div0($hteam['team_hl'],$hteam['team_op'],0,0)."</td><td>-</td><td>".div0($ateam['team_al'],$ateam['team_op'],0,0)."</td></tr>";
+				$content.="<tr align='center'><td>% Win</td><td align='right'>".div0($hteam['team_hf'],$s1,1,0)."</td><td>-</td><td>".div0($ateam['team_af'],$s2,1,0)."</td></tr>";
+				$content.="<tr align='center'><td>% Win</td><td align='right'>".div0($hteam['team_ha'],$s1,1,0)."</td><td>-</td><td>".div0($ateam['team_aa'],$s2,1,0)."</td></tr>";
+				
 				$content.="</table>";
 				$post_id=insert_post($title,$content,$slug);
 				if ($post_id) {
@@ -184,5 +195,91 @@
 	function add_post_tag($post_id,$tag_name) {
 		return add_term_to_post($post_id,$tag_name,'post_tag');
 	}
+function div0($a,$b,$n=0,$d=0) {
+	if (is_nan($a))  return $d;
+	if (is_nan($b))  return $d;
+	if ($b==0) return $d;
+	return round($a/$b,$n);
+}
+function slugify0($str) {
+	$table = array(
+        'Š'=>'S', 'š'=>'s',
+		'Đ'=>'Dj', 'đ'=>'dj',
+		'Ž'=>'Z', 'ž'=>'z',
+		'Č'=>'C', 'č'=>'c',
+		'Ć'=>'C', 'ć'=>'c',
+        'À'=>'A',
+		'Á'=>'A', 'á'=>'a',
+		'Â'=>'A', 'â'=>'a',
+		'Ã'=>'A', 'ã'=>'a',
+		'Ä'=>'A', 'ä'=>'a',
+		'Å'=>'A',
+		'Æ'=>'A',
+		'Ç'=>'C',
+		'È'=>'E',
+		'É'=>'E',
+        'Ê'=>'E',
+		'Ë'=>'E',
+		'Ì'=>'I',
+		'Í'=>'I',
+		'Î'=>'I',
+		'Ï'=>'I',
+		'Ñ'=>'N',
+		'Ò'=>'O',
+		'Ó'=>'O',
+		'Ô'=>'O',
+        'Õ'=>'O',
+		'Ö'=>'O',
+		'Ø'=>'O',
+		'Ù'=>'U',
+		'Ú'=>'U',
+		'Û'=>'U',
+		'Ü'=>'U',
+		'Ý'=>'Y',
+		'Þ'=>'B',
+		'ß'=>'Ss',
+        'à'=>'a',
+		
+		'å'=>'a', 
+		'æ'=>'a', 
+		'ç'=>'c', 
+		'è'=>'e', 
+		'é'=>'e',
+        'ê'=>'e', 
+		'ë'=>'e', 
+		'ì'=>'i', 
+		'í'=>'i', 
+		'î'=>'i', 
+		'ï'=>'i', 
+		'ð'=>'o', 
+		'ñ'=>'n', 
+		'ò'=>'o', 
+		'ó'=>'o',
+        'ô'=>'o', 
+		'õ'=>'o', 
+		'ö'=>'o', 
+		'ø'=>'o', 
+		'ù'=>'u', 
+		'ú'=>'u', 
+		'û'=>'u', 
+		'ý'=>'y', 
+		'ý'=>'y', 
+		'þ'=>'b',
+        'ÿ'=>'y', 
+		'Ŕ'=>'R', 
+		'ŕ'=>'r'
+    );
+	return strtr($str,$table);
+}
+function slugify($str, $delimiter='-') {
+	$clean = slugify0($str);
+	if (function_exists('iconv'))
+	$clean = iconv('UTF-8', 'ASCII//TRANSLIT', $clean);
+	$clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+	$clean = strtolower(trim($clean, '-'));
+	$clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+	return $clean;
+}
+
 ?>
 
