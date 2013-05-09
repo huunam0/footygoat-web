@@ -27,7 +27,7 @@
 			if (($hteam!="")&&($ateam!="")) {
 				$title="Football betting alert - ".$hteam['team_name']." (".$hteam['team_pos'].") v ".$ateam['team_name']." (".$ateam['team_pos'].")";
 				//$slug="match-".$match_id."-".date("Y-m-d");
-				$slug=slugify($title);
+				$slug=make_post_slug($title);
 				$content="<table>";
 				//Add basic infos
 				$content.="<tr><td>".$match['minutes']."'</td><td style='text-align: center;'>".$hteam['team_name']."</td><td style='text-align: center;'>-</td><td style='text-align: center;'>".$ateam['team_name']."</td></tr>";
@@ -280,6 +280,20 @@ function slugify($str, $delimiter='-') {
 	$clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
 	return $clean;
 }
-
+function make_post_slug($bname) {
+	$slug = slugify($bname);
+	$noi="-";
+	while (true) {
+		$sql = "select guid from wp_post where guid='$slug' limit 1";
+		$result = mysql_query($sql);
+		if (mysql_num_rows($result)) {
+			$slug.=$noi.chr(rand(48,57));
+			$noi="";
+		} else {
+			break;
+		}
+	}
+	return $slug;
+}
 ?>
 
