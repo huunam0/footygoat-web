@@ -45,8 +45,8 @@
 				$content.="<tr><td>% W</td><td style='text-align: center;'>".div0($hteam['team_hw'],$hteam['team_op'],0,0)."</td><td style='text-align: center;'>-</td><td style='text-align: center;'>".div0($ateam['team_aw'],$ateam['team_op'],0,0)."</td></tr>";
 				$content.="<tr><td>% D</td><td style='text-align: center;'>".div0($hteam['team_hd'],$hteam['team_op'],0,0)."</td><td style='text-align: center;'>-</td><td style='text-align: center;'>".div0($ateam['team_ad'],$ateam['team_op'],0,0)."</td></tr>";
 				$content.="<tr><td>% L</td><td style='text-align: center;'>".div0($hteam['team_hl'],$hteam['team_op'],0,0)."</td><td style='text-align: center;'>-</td><td style='text-align: center;'>".div0($ateam['team_al'],$ateam['team_op'],0,0)."</td></tr>";
-				$content.="<tr><td>% Win</td><td style='text-align: center;'>".div0($hteam['team_hf'],$s1,1,0)."</td><td style='text-align: center;'>-</td><td style='text-align: center;'>".div0($ateam['team_af'],$s2,1,0)."</td></tr>";
-				$content.="<tr><td>% Win</td><td style='text-align: center;'>".div0($hteam['team_ha'],$s1,1,0)."</td><td style='text-align: center;'>-</td><td style='text-align: center;'>".div0($ateam['team_aa'],$s2,1,0)."</td></tr>";
+				$content.="<tr><td>% F</td><td style='text-align: center;'>".div0($hteam['team_hf'],$s1,1,0)."</td><td style='text-align: center;'>-</td><td style='text-align: center;'>".div0($ateam['team_af'],$s2,1,0)."</td></tr>";
+				$content.="<tr><td>% A</td><td style='text-align: center;'>".div0($hteam['team_ha'],$s1,1,0)."</td><td style='text-align: center;'>-</td><td style='text-align: center;'>".div0($ateam['team_aa'],$s2,1,0)."</td></tr>";
 				
 				$content.="</table>";
 				$post_id=insert_post($title,$content,$slug);
