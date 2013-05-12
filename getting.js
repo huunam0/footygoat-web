@@ -306,7 +306,7 @@ function getmatch(matchid) {
 					}
 					
 					tr='<tr class="match" id="m'+obj.matches[i]['id']+'">';
-					tr+='<td class="status status'+obj.matches[i]['st']+'"><a href="/match/'+obj.matches[i]['id']+'" target="_blank">';
+					tr+='<td class="status status'+obj.matches[i]['st']+'" title="#match:'+obj.matches[i]['id']+'">';
 					if (obj.matches[i]['st']<1)  {
 						tr+='<span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus" style="display:none;">'+status[obj.matches[i]['st']]+'</span>';
 						//nbm[0]++;
@@ -326,10 +326,10 @@ function getmatch(matchid) {
 					
 					tr+=obj.matches[i]['mi']+"'</span>";
 					
-					tr+="</a></td>";
-					tr+='<td class="home" id="t'+obj.matches[i]['ht']+'"><a href="/team/'+obj.matches[i]['ht']+'">'+obj.matches[i]['ht']+'</a></td>';
+					tr+="</td>";
+					tr+='<td class="home" id="t'+obj.matches[i]['ht']+'" title="#team:'+obj.matches[i]['ht']+'">'+obj.matches[i]['ht']+'</td>';
 					tr+='<td class="score"><span class="score0">'+(obj.matches[i]['st']>0?obj.matches[i]['hg']:"")+'</span> - <span class="score1">'+(obj.matches[i]['st']>0?obj.matches[i]['ag']:"")+'</span></td>';
-					tr+='<td class="away" id="t'+obj.matches[i]['at']+'"><a href="/team/'+obj.matches[i]['at']+'">'+obj.matches[i]['at']+'</td>';
+					tr+='<td class="away" id="t'+obj.matches[i]['at']+'" title="#team:'+obj.matches[i]['at']+'">'+obj.matches[i]['at']+'</td>';
 					if (obj.matches[i]['st']==0) {
 						tr+='<td class="score1"><span class="score10"></span> - <span class="score11"></span></td>';
 						tr+='<td class="yellow"><span class="yellow0"></span> - <span class="yellow1"></span></td>';
