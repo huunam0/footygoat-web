@@ -352,7 +352,7 @@ echo '<span class="" style="display:block;">
 <div>
 <span class="button" id="loadmatch">Hide Matches</span> 
 <span class="button" id="btest">Stop/Start Update</span>
-<a href="http://www.footygoat.com">Live Football Scores</a> | <a href="http://www.footygoat.com">Inplay Betting Alerts</a> | <a href="http://www.footygoat.com">Inplay Football Betting</a> 
+  <a href="http://www.footygoat.com">Live Football Scores</a> | <a href="http://www.footygoat.com/blog">Inplay Football Betting Alerts</a> | <a href="http://www.footygoat.com">Inplay Football Betting</a> 
 </div>
 <div id="fortest"></div>
 <br><br><br>
