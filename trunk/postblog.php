@@ -1,13 +1,11 @@
 <?php
+	if ($_SERVER['SERVER_ADDR'] != $_SERVER['REMOTE_ADDR']){
+		die("Access denied!");
+	}
 	include_once("maincore.php");
 	include_once("dbconfig.php");
 	if (!isset($_GET['m'])) die("khong co tham so");
 	$m = $_GET['m'];
-	
-	
-	
-	
-	
 	//$post_id = insert_post($title,$content,$slug);
 	//echo add_post_category($post_id,"Chealsea");
 	//echo add_post_category($post_id,"Man");

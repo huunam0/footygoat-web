@@ -98,7 +98,7 @@ $(document).ready(function(){
 <a href="http://twitter.com/footygoat" class='tw' target='_blank'><span class='space20 s12'>Follow Us</span></a>
 <a href="http://www.facebook.com/footygoat" class='fb' target='_blank'><span class='space20 s12'>Like Us</span></a>
 <a href="http://www.petestilgoe.com/2012/01/turn-free-bets-into-free-cash" Target="_Blank"><span class='space20 s12'>Free Money</a>
-<a href="http://www.footygoat.com/blog/" class='blog' target='_blank'><span class='space20 s12'>Blog</span></a>
+<a href="http://www.footygoat.com/" class='blog' target='_blank'><span class='space20 s12'>Blog</span></a>
 </div>
 </td>
 <td>
