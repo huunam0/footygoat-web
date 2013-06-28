@@ -90,7 +90,7 @@ $(document).ready(function(){
 <table border='0' width='100%'>
 <tr valign="middle" style="height:40px;">
 <td align = 'right' width="5%">
-<img src="image/goat.png"/>
+<img src="image/goat.jpg"/>
 </td>
 <td align = 'left' width="40%">
 <div class="white" style="position: relative">
@@ -376,4 +376,6 @@ echo '<span class="" style="display:block;">
 </script>
 </body>
 </html>
+
+
 
