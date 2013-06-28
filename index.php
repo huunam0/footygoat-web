@@ -90,7 +90,7 @@ $(document).ready(function(){
 <table border='0' width='100%'>
 <tr valign="middle" style="height:40px;">
 <td align = 'right' width="5%">
-<img src="image/goat.jpg"/>
+<img src="image/goat.png"/>
 </td>
 <td align = 'left' width="40%">
 <div class="white" style="position: relative">
@@ -98,7 +98,7 @@ $(document).ready(function(){
 <a href="http://twitter.com/footygoat" class='tw' target='_blank'><span class='space20 s12'>Follow Us</span></a>
 <a href="http://www.facebook.com/footygoat" class='fb' target='_blank'><span class='space20 s12'>Like Us</span></a>
 <a href="http://www.petestilgoe.com/2012/01/turn-free-bets-into-free-cash" Target="_Blank"><span class='space20 s12'>Free Money</a>
-<a href="http://www.footygoat.com/" class='blog' target='_blank'><span class='space20 s12'>Blog</span></a>
+<a href="http://www.footygoat.com/" class='blog' target='_blank'><span class='space20 s12'>Home</span></a>
 </div>
 </td>
 <td>
@@ -350,9 +350,8 @@ echo '<span class="" style="display:block;">
 </div>
 <br><br><br>
 <div>
-<span class="button" id="loadmatch">Hide Matches</span> 
-<span class="button" id="btest">Stop/Start Update</span>
-  <a href="http://www.footygoat.com">Live Football Scores</a> | <a href="http://www.footygoat.com/blog">Inplay Football Betting Alerts</a> | <a href="http://www.footygoat.com">Inplay Football Betting</a> 
+
+  <a href="http://www.footygoat.com/livefootystats/">Live Football Scores</a> | <a href="http://www.footygoat.com/">Inplay Football Betting Alerts</a> | <a href="http://www.footygoat.com">Inplay Football Betting</a> 
 </div>
 <div id="fortest"></div>
 <br><br><br>
