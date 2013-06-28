@@ -109,7 +109,6 @@ $(document).ready(function(){
 <td align = 'center' width="25%">
 <div>
 <!--<a href="image/sample1.png" rel="oday" class="button" title="screen shot 1">HOME</a>-->
-<a href='#' class="button"><span id = "upmatch" >Update matches</span></a>
 <img src="image/loading16.gif" id="matchload" style="display:none;"/>
 <?php 
 	if ($MEMBER) { 
@@ -117,7 +116,7 @@ $(document).ready(function(){
 
 echo '<div class="menucontainer">
 <span>
-<a href="trigger.php" target="_blank" class="button">TRIGGER</a>
+<a href="trigger.php" target="_blank" class="button">Your Triggers</a>
 </span>';
 /*
 <div class="sublinks" id="triggerboard">
