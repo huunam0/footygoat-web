@@ -1,6 +1,7 @@
 <?php
 error_reporting(-1);
 $thispage = $_SERVER["PHP_SELF"];
+session_start();
 if (isset($_COOKIE['your_id'])) {
 	$puser = $_COOKIE['your_id'];
 	$sql = "SELECT * FROM f_users where user_id='$puser' ";
@@ -14,9 +15,13 @@ if (isset($_COOKIE['your_id'])) {
 			$_SESSION['user_email']=$row['user_email'];
 			setcookie("your_id",$row['user_id'],time()+86400);
 		}
+	} else {
+		session_unset();
+		unset($_COOKIE['your_id']);
+		setcookie('your_id', '', time() - 3600);
 	}
 }
-session_start(); 
+ 
 $MEMBER=false;
 $ADMIN=false;
 $myid=0;
