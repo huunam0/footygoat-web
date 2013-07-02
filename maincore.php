@@ -3,7 +3,7 @@ error_reporting(-1);
 $thispage = $_SERVER["PHP_SELF"];
 if (isset($_COOKIE['your_id'])) {
 	$puser = $_COOKIE['your_id'];
-	$sql = "SELECT * FROM f_users where user_name='$puser' ";
+	$sql = "SELECT * FROM f_users where user_id='$puser' ";
 	$result = mysql_query($sql);
 	if (mysql_num_rows($result)) {
 		$row = mysql_fetch_array($result);
