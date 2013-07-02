@@ -20,6 +20,8 @@ session_start();
 $MEMBER=false;
 $ADMIN=false;
 $myid=0;
+$myname="";
+$myemail="";
 if (isset($_SESSION['user_id'])) {
 	$myid = $_SESSION['user_id'];
 	$MEMBER = true;
