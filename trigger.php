@@ -14,7 +14,12 @@ if (isset($_GET['disable'])) {
 	mysql_query("update f_trigger set disable=1 where user_id=$myid and numero=".intval($_GET['disable'])) or die("Cannot disable your triggers");
 	redirect($thispage);
 }
-
+if (isset($_GET['delete'])) {
+	$n=intval($_GET['delete']);
+	mysql_query("delete from f_trigger where user_id=$myid and numero=".$n or die("Cannot delete your triggers");
+	mysql_query("delete from f_condition where user_id=$myid and numero=".$n or die("Cannot delete your triggers' conditions");
+	redirect($thispage);
+}
 if (isset($_GET['view'])) {
 	
 	$trig = intval($_GET['view']);
@@ -198,7 +203,7 @@ else {
 		echo "<h1>You have $quantity trigger(s)</h1>";
 		echo "<table class='thuong'><tr><td>N°</td><td>Trigger's name</td><td>Status</td><td>Functions</td></tr>";
 		while ($row=mysql_fetch_array($ret)) {
-			echo "<tr style='height:40px;'><td>".$row['numero']."</td><td>".$row['notes']."</td><td>".($row['disable']==1?"<span class='redalert'>Disable</span>":"Enable")."</td><td><a class='button' href='?view=".$row['numero']."' title='View this trigger'>View</a><a class='button' href='?edit=".$row['numero']."' title='Edit this trigger'>Edit</a> ";
+			echo "<tr style='height:40px;'><td>".$row['numero']."</td><td>".$row['notes']."</td><td>".($row['disable']==1?"<span class='redalert'>Disable</span>":"Enable")."</td><td><a class='button' href='?delete=".$row['numero']."' title='Delete this trigger'>Delete</a> <a class='button' href='?edit=".$row['numero']."' title='Edit this trigger'>Edit</a> <a class='button' href='?view=".$row['numero']."' title='View this trigger'>View</a> ";
 			if ($row['disable']==1) {
 				echo "<a class='button' href='?enable=".$row['numero']."' title='Enable this trigger'>Enable</a>";
 			} else {
