@@ -13,6 +13,7 @@ if (isset($_POST['getvalue'])) //submit get
 	{
 		echo $_POST['s_name']."<br>";
 		echo $_SESSION[$_POST['s_name']];
+		echo $_COOKIE[$_POST['s_name']];
 	}
 }
 ?>

@@ -16,8 +16,8 @@ if (isset($_GET['disable'])) {
 }
 if (isset($_GET['delete'])) {
 	$n=intval($_GET['delete']);
-	mysql_query("delete from f_trigger where user_id=$myid and numero=".$n or die("Cannot delete your triggers");
-	mysql_query("delete from f_condition where user_id=$myid and numero=".$n or die("Cannot delete your triggers' conditions");
+	mysql_query("delete from f_trigger where user_id=$myid and numero=".$n) or die("Cannot delete your triggers");
+	mysql_query("delete from f_condition where user_id=$myid and numero=".$n) or die("Cannot delete your triggers' conditions");
 	redirect($thispage);
 }
 if (isset($_GET['view'])) {
