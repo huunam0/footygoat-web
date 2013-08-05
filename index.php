@@ -194,30 +194,14 @@ echo '<a href="#" class="button" id="btlogout">LOGOUT</a>';
 
 } else {
 
+echo '<span>Log in by<a href="lbfb/index.php?login&oauth_provider=twitter"><img src="lbfb/images/tw_login.png" height="25" align="middle" alt="Login by Twitter" title="Login by Twitter"/></a></span>';
 
-
-echo '<span class="" style="display:block;">
-<span>
-<a href="#" class="dropdown button">LOGIN BY</a>
-</span>
-<div class="sublinks" id="loginpage">
-<div class="trig_in">
-<table border="0" style="display:none;">
-<tr><td>User:</td><td><input type="text" id="login_user" name="loginuser"/></td></tr>
-<tr><td>Pass:</td><td><input type="password" id="login_pass" name="loginpass"/></td></tr>
-<tr><td> </td><td><span id="login_submit" class="button" style="height:14px;">Login</span></td></tr>
-</table>
-<a href="lbfb/index.php?login&oauth_provider=facebook"><img width="90" src="lbfb/images/fb_login.png" /></a><br/>
-<a href="lbfb/index.php?login&oauth_provider=twitter"><img width="90" src="lbfb/images/tw_login.png" /></a>
-</div>
-<span class="hidedrop">Hide this panel</span>
-</div>
-</span>
+/*
 <!--
 <a href="lbfb/index.php?login&oauth_provider=twitter"><img src="lbfb/images/tw_login.png" height="30" align="middle" alt="Login by Twitter" title="Login by Twitter"/></a>
 <a href="lbfb/index.php?login&oauth_provider=facebook"><img src="lbfb/images/fb_login.png" height="30" align="middle" alt="Login by Facebook" title="Login by Facebook"/></a>
 <a href="register.php" rel="olaiday" class="button" style="display:none;">REGISTER</a>-->';
-
+*/
 	}
 ?>
 
