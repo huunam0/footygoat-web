@@ -194,7 +194,7 @@ echo '<a href="#" class="button" id="btlogout">LOGOUT</a>';
 
 } else {
 
-echo '<span>Log in by<a href="lbfb/index.php?login&oauth_provider=twitter"><img src="lbfb/images/tw_login.png" height="25" align="middle" alt="Login by Twitter" title="Login by Twitter"/></a></span>';
+echo '<span><a href="lbfb/index.php?login&oauth_provider=twitter"><img src="lbfb/images/tw_login.png" height="25" align="middle" alt="Login by Twitter" title="Login by Twitter"/></a></span>';
 
 /*
 <!--
