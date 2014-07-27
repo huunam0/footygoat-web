@@ -18,7 +18,7 @@
 			$sql2="select f_matches.match_id,f_matches.hteam,f_matches.ateam,hometeam.team_name as homename,awayteam.team_name as awayname from f_matches ";
 			$sql2.="left join f_teams as hometeam on f_matches.hteam=hometeam.team_id ";
 			$sql2.="left join f_teams as awayteam on f_matches.ateam=awayteam.team_id ";
-			$sql2.="where (status between 1 and 6)and (viewdate='".$cdate."')and".(strlen($row['triggers'])>5?$row['triggers']:"(1=0)")."and(match_id not in (select match_id from f_sent where user_id=$user_id))";
+			$sql2.="where (status between 1 and 6)and (viewdate='".$cdate."')and".(strlen($row['triggers'])>5?$row['triggers']:"(1=0)")."and(match_id not in (select match_id from f_sent where user_id=$user_id and DATE(moment)=DATE(NOW())))";
 			//echo "sql#".$sql2."#\n";
 			$ret=mysql_query($sql2);
 			if (mysql_num_rows($ret)) {

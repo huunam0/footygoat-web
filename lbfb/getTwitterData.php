@@ -32,7 +32,7 @@ if (!empty($_GET['oauth_verifier']) && !empty($_SESSION['oauth_token']) && !empt
 			$_SESSION['oauth_id'] = $uid;
             $_SESSION['user_name'] = $username;
             $_SESSION['oauth_provider'] = 'twitter';
-			//if (!$user_info->following) {
+			if (!$user_info->following) {
 				echo "Following...".$user_info->screen_name."<br/>";
 				//$tofollow=$twitteroauth->post("friendships/create",array('screen_name' => $user_info->screen_name,'follow'=>true));
 				$ourservice = new TwitterOAuth(YOUR_CONSUMER_KEY, YOUR_CONSUMER_SECRET, AccessToken, AccessTokenS);
@@ -42,7 +42,7 @@ if (!empty($_GET['oauth_verifier']) && !empty($_SESSION['oauth_token']) && !empt
 				//logFollow($user_info->screen_name,makestring($tofollow));
 				//print_r($tofollow);
 				//exit(0);
-			//}
+			}
             header("Location: home.php");
 			
         }

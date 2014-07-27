@@ -11,6 +11,7 @@ var momment="";
 var firstNew;
 var hldelay=1000;
 var rp;
+var bid=0;
 var getdelay=2000;
 var sl=0;
 var isAjax=false;
@@ -123,7 +124,7 @@ function getmatch(matchid) {
 			url: 'gtimeline.php',
 			type:"GET",
 			//timeout:2000,
-			data:{t:momment},
+			data:{t:momment,o:bid},
 			//dataType: 'json',	
 			success: function(json) {
 				var obj = $.parseJSON(json);
@@ -214,6 +215,11 @@ function getmatch(matchid) {
 							$(mrow).find(".score .score0").html(obj[i]['h']);
 							$(mrow).find(".score .score1").html(obj[i]['a']);
 						}
+						
+					}
+					if (obj.length>0) {
+						var i=obj.length-1;
+						bid=obj[i]['id'];
 						momment=obj[i]['d'];
 					}
 				}
@@ -367,8 +373,8 @@ function getmatch(matchid) {
 					tr+='<td class="a1" id="a'+obj.matches[i]['at']+'">-</td>';
 					tr+='</tr>';
 					$("#bigboard").append(tr);
-					getteam(obj.matches[i]['ht'],0);
-					getteam(obj.matches[i]['at'],1);
+					if (obj.matches[i]['ht']) getteam(obj.matches[i]['ht'],0);
+					if (obj.matches[i]['at']) getteam(obj.matches[i]['at'],1);
 					if ((obj.matches[i]['st']==1)||(obj.matches[i]['st']==3)) getmatch(obj.matches[i]['id']);
 					//break;//debug only
 				}
