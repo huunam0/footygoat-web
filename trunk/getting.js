@@ -7,13 +7,13 @@ var status= new Array("*","1st","HT","2nd","Ex.","Pen","Susp","FT","AET","FT-Pen
 var nbm = new Array(0,0,0,0);
 var today = gup("date")+"";
 var anotherday=(today.length>7?true:false);
-var momment="";
-var firstNew;
+
+var isNewDay;
 var hldelay=1000;
 var rp;
 var bid=0;
 var getdelay=2000;
-var sl=0;
+
 var isAjax=false;
 var isViewAll=true;
 function div0(a,b,n,d) {
@@ -124,12 +124,12 @@ function getmatch(matchid) {
 			url: 'gtimeline.php',
 			type:"GET",
 			//timeout:2000,
-			data:{t:momment,o:bid},
+			data:{o:bid},
 			//dataType: 'json',	
 			success: function(json) {
 				var obj = $.parseJSON(json);
 				if (obj) {
-					//addOne=0;
+					var addOne=0;
 					var h=0;
 					var a=0;
 					var sha=0;
@@ -137,10 +137,10 @@ function getmatch(matchid) {
 						//$("#debug4").append("\n"+obj[i]['d']+"\t"+obj[i]['m']+"\t"+obj[i]['e']+"\t"+obj[i]['h']+"\t"+obj[i]['a']);
 						var mrow="#m"+obj[i]['m'];
 						if (obj[i]['e']==100) {
-							addOne=1;
-							if (firstNew!=obj[i]['d']) {
-								firstNew=obj[i]['d'];
-								loadmatches();
+							addOne++;
+							if (isNewDay!=obj[i]['d']) {
+								isNewDay=obj[i]['d'];
+								if (addOne<=1) loadmatches();
 							}
 							//break;
 						} else if ((obj[i]['e']==12) ) {
@@ -218,9 +218,7 @@ function getmatch(matchid) {
 						
 					}
 					if (obj.length>0) {
-						var i=obj.length-1;
-						bid=obj[i]['id'];
-						momment=obj[i]['d'];
+						bid=obj[obj.length-1]['id'];
 					}
 				}
 				getdelay=2000;
@@ -230,15 +228,12 @@ function getmatch(matchid) {
 				getdelay=10000;
 			}
 		});
-		sl++;
+		
 		isAjax=false;
 		if (anotherday) return;
-		//if (myid==0) return;
-		if (sl>30)
-			rp=setTimeout(getnew1,getdelay);
-		else
-			rp=setTimeout(getnew1,getdelay);
-		//rp=setTimeout(getnew1,getdelay);
+		if (myid==0) return;
+		rp=setTimeout(getnew1,getdelay);
+		
 	}
 	function getteam(teamid,away) {
 		$.ajax({
@@ -373,8 +368,8 @@ function getmatch(matchid) {
 					tr+='<td class="a1" id="a'+obj.matches[i]['at']+'">-</td>';
 					tr+='</tr>';
 					$("#bigboard").append(tr);
-					if (obj.matches[i]['ht']) getteam(obj.matches[i]['ht'],0);
-					if (obj.matches[i]['at']) getteam(obj.matches[i]['at'],1);
+					if (obj.matches[i]['ht']>0) getteam(obj.matches[i]['ht'],0);
+					if (obj.matches[i]['at']>0) getteam(obj.matches[i]['at'],1);
 					if ((obj.matches[i]['st']==1)||(obj.matches[i]['st']==3)) getmatch(obj.matches[i]['id']);
 					//break;//debug only
 				}
