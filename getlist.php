@@ -5,6 +5,7 @@
 	if (isset($_GET['d'])) {
 		$cdate=$_GET['d'];
 	}
+	//mysql_query("insert into f_ajax_calls (func,params,moment) value ('getlist','$cdate',NOW());");
 	if (strlen($cdate)<8) {
 		$sql="select p_value from f_params where p_name='currentdate' limit 1;";
 		$result = mysql_query($sql);
@@ -58,7 +59,7 @@
 	//
 	$str_league=substr($str_league,0,strlen($str_league)-1);
 	//lecho $str_league."<br/>";
-	$sql = "Select * from f_leagues where league_id in (".$str_league.")";
+	$sql = "Select * from f_leagues2 where league_id in (".$str_league.")";
 	//echo $sql;
 	$result = mysql_query($sql);
 	while ($row=mysql_fetch_array($result)) {

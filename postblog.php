@@ -6,12 +6,6 @@
 	include_once("dbconfig.php");
 	if (!isset($_GET['m'])) die("khong co tham so");
 	$m = $_GET['m'];
-	//$post_id = insert_post($title,$content,$slug);
-	//echo add_post_category($post_id,"Chealsea");
-	//echo add_post_category($post_id,"Man");
-	//echo add_post_tag($post_id,"Chelsea");
-	//echo add_post_tag($post_id,"Man");
-	//echo lookup_info("f_matches","hteam","match_id=334630");
 	echo post_match($m);
 	//post a match
 	function post_match($match_id) {
@@ -49,23 +43,21 @@
 				$content.="</table>";
 				$post_id=insert_post($title,$content,$slug);
 				if ($post_id) {
-					add_post_category($post_id,$hteam['team_name']);
-					add_post_category($post_id,$ateam['team_name']);
-					add_post_category($post_id,$league['league_name']);
+					add_post_category($post_id,$hteam['team_name'],$hteam['team_slug']);
+					add_post_category($post_id,$ateam['team_name'],$ateam['team_slug']);
+					add_post_category($post_id,$league['league_name'],$league['league_slug']);
 					//add_post_category($post_id,$mdate);
 					
-					add_post_tag($post_id,$hteam['team_name']);
-					add_post_tag($post_id,$ateam['team_name']);
-					add_post_tag($post_id,$league['league_name']);
-					add_post_tag($post_id,$hteam['team_name']." vs ".$ateam['team_name']);
+					add_post_tag($post_id,$hteam['team_name'],$hteam['team_slug']);
+					add_post_tag($post_id,$ateam['team_name'],$ateam['team_slug']);
+					add_post_tag($post_id,$league['league_name'],$league['league_slug']);
+					add_post_tag($post_id,$hteam['team_name']." vs ".$ateam['team_name'],(($hteam['team_slug'] && $ateam['team_slug'])?$hteam['team_slug']."-vs-".$ateam['team_slug']:""));
 					//add_post_tag($post_id,$hteam['team_name']." vs ".$ateam['team_name']." ".$mdate);
 					//add_post_tag($post_id,$mdate);
-					
+					post2fbpage($match['minutes']. "': ".$hteam['team_name']." (".$hteam['team_pos'].") v ".$ateam['team_name']." (".$ateam['team_pos'].") www.footygoat.com/?p=$post_id","fan996mice@m.facebook.com");
 				}
 				
-				
 			}
-			
 		}
 		return $post_id;
 	}
@@ -176,8 +168,9 @@
 		}
 		return $cat_id;
 	}
-	function add_term_to_post($post_id,$term_name,$term_type) {
-		$slug=str_replace(" ","-",$term_name);
+	function add_term_to_post($post_id,$term_name,$term_type,$slug="") {
+		if (!$slug)
+			$slug=str_replace(" ","-",$term_name);
 		$term_id=insert_term($term_name,$term_type,$slug);
 		//echo "tt: $term_id<br/>";
 		if ($term_id) {
@@ -187,11 +180,11 @@
 		}
 		return 0;
 	}
-	function add_post_category($post_id,$cat_name) {
-		return add_term_to_post($post_id,$cat_name,'category');
+	function add_post_category($post_id,$cat_name,$cat_slug="") {
+		return add_term_to_post($post_id,$cat_name,'category',$cat_slug);
 	}
-	function add_post_tag($post_id,$tag_name) {
-		return add_term_to_post($post_id,$tag_name,'post_tag');
+	function add_post_tag($post_id,$tag_name,$tag_slug) {
+		return add_term_to_post($post_id,$tag_name,'post_tag',$tag_slug);
 	}
 function div0($a,$b,$n=0,$d=0) {
 	if (is_nan($a))  return $d;
@@ -292,6 +285,10 @@ function make_post_slug($bname) {
 		}
 	}
 	return $slug;
+}
+
+function post2fbpage($share,$toemail) {
+	mail($toemail,$share,"");
 }
 ?>
 
