@@ -78,76 +78,76 @@ else if (isset($_GET['add'])) {
 }
 else if (isset($_GET['edit'])) {
 	$trig=intval($_GET['edit']);
-if (isset($_POST['submit'])) {
-	$nb = count($_POST['trigger']);
-	$sql="";
-	for ($i=0;$i<$nb; $i++) {
-		if (strlen($_POST['number'][$i])) {
-			if ($sql) $sql.=",";
-			$sql.="($myid,$trig,".$_POST['team'][$i].",".$_POST['trigger'][$i].",'".$_POST['operator'][$i]."',".$_POST['number'][$i].")";
+	if (isset($_POST['submit'])) {
+		$nb = count($_POST['trigger']);
+		$sql="";
+		for ($i=0;$i<$nb; $i++) {
+			if (strlen($_POST['number'][$i])) {
+				if ($sql) $sql.=",";
+				$sql.="($myid,$trig,".$_POST['team'][$i].",".$_POST['trigger'][$i].",'".$_POST['operator'][$i]."',".$_POST['number'][$i].")";
+			}
 		}
-	}
-	if ($sql) {
-		$sql="insert into f_condition (`user_id`,`numero`,`isaway`,`field_id`,`operater`,`value`) Value ".$sql;
-	}
-	$sql2="delete from f_condition where user_id=".$myid." and numero=$trig";
-	$ret=mysql_query($sql2) or die(mysql_error());
-	if ($sql)
+		if ($sql) {
+			$sql="insert into f_condition (`user_id`,`numero`,`isaway`,`field_id`,`operater`,`value`) Value ".$sql;
+		}
+		$sql2="delete from f_condition where user_id=".$myid." and numero=$trig";
+		$ret=mysql_query($sql2) or die(mysql_error());
+		if ($sql)
+			$ret=mysql_query($sql) or die(mysql_error());
+		echo "<h2>Your triggers are saved:</h2>";
+		$sql="select * from f_condition,f_fields where f_condition.field_id=f_fields.field_id and user_id=$myid and numero=$trig";
+		/**/
 		$ret=mysql_query($sql) or die(mysql_error());
-	echo "<h2>Your triggers are saved:</h2>";
-	$sql="select * from f_condition,f_fields where f_condition.field_id=f_fields.field_id and user_id=$myid and numero=$trig";
-	/**/
-	$ret=mysql_query($sql) or die(mysql_error());
-	$triggersm="";
-	$triggerst="";
-	while ($row = mysql_fetch_array($ret)) {
-		//echo "<div class='oldtrigger'><span style='display:none;'>".$row['trigger_id']."</span>".($row['isaway']?"Away":"Home")." - ".$row['field_name']." ".$row['operater']." ".$row['value']."</div>";
-		if ($row['field_in']=='m') {
-			if ($triggersm) $triggersm.="and";
-			$triggersm.="(".($row['isaway']?"a":"h").$row['field_tag'].$row['operater'].$row['value'].")";
-		} else {
-			if ($triggerst) $triggerst.="and";
-			$triggerst.="(".($row['isaway']?"awayteam":"hometeam").".team_".($row['isaway']?"a":"h").$row['field_tag'].$row['operater'].$row['value'].")";
+		$triggersm="";
+		$triggerst="";
+		while ($row = mysql_fetch_array($ret)) {
+			//echo "<div class='oldtrigger'><span style='display:none;'>".$row['trigger_id']."</span>".($row['isaway']?"Away":"Home")." - ".$row['field_name']." ".$row['operater']." ".$row['value']."</div>";
+			if ($row['field_in']=='m') {
+				if ($triggersm) $triggersm.="and";
+				$triggersm.="(".($row['isaway']?"a":"h").$row['field_tag'].$row['operater'].$row['value'].")";
+			} else {
+				if ($triggerst) $triggerst.="and";
+				$triggerst.="(".($row['isaway']?"awayteam":"hometeam").".team_".($row['isaway']?"a":"h").$row['field_tag'].$row['operater'].$row['value'].")";
+			}
 		}
+		if (($triggerst) && ($triggersm)) {
+			$triggersm.="and".$triggerst;
+		} else {
+			$triggersm.=$triggerst;
+		}
+		mysql_query("update f_trigger set triggers='' where user_id=$myid and numero=$trig");
+		$sql="insert into f_trigger (user_id,numero,triggers,moment) VALUE ($myid,$trig,'".$triggersm."',NOW()) ON DUPLICATE KEY UPDATE triggers='".$triggersm."', moment=NOW();";
+		mysql_query($sql);
+		redirect($thispage."?view=$trig");
 	}
-	if (($triggerst) && ($triggersm)) {
-		$triggersm.="and".$triggerst;
-	} else {
-		$triggersm.=$triggerst;
-	}
-	mysql_query("update f_trigger set triggers='' where user_id=$myid and numero=$trig");
-	$sql="insert into f_trigger (user_id,numero,triggers) VALUE ($myid,$trig,'".$triggersm."') ON DUPLICATE KEY UPDATE triggers='".$triggersm."' ;";
-	mysql_query($sql);
-	redirect($thispage."?view=$trig");
-}
-else {
-	$sql="select * from f_fields order by field_order";
-	$ret = mysql_query($sql);
-	$conds="";
-	if ($ret)
-	while ($row=mysql_fetch_array($ret)) {
-		$conds.="<option value='".$row['field_id']."'>".$row['field_name']."</option>";
-	}
-	echo '<script type="text/javascript">var toption="'.$conds.'";</script>';
-	echo '<script type="text/javascript" src="trigger.js"></script>';
-	echo '</head>';
-	echo '<body>';
-	echo '<h2>Edit your own triggers </h2>';
-	$sql="select * from f_trigger where user_id=$myid and numero=$trig limit 1";
-	$ret=mysql_query($sql) or die("Cannot found your trigger(s)");
-	if($row = mysql_fetch_array($ret)) {
-		echo "<h3>N° $trig - ".$row['notes']."</h3><br/>";
-	}
-	echo '<form name="input" action="?edit='.$trig.'" method="post">';
-	echo '<div id="condboard">';
-	$sql="select * from f_condition,f_fields where f_condition.field_id=f_fields.field_id and user_id=$myid and numero=$trig";
-	$ret=mysql_query($sql);
-	$i=1;
-	while ($row = mysql_fetch_array($ret)) {
-		echo '<div class="onetrigger" style="overflow: auto;"> <select name="team[]" class="team"><option value="0">Home</option><option value="1" '.($row['isaway']?"selected":"").'>Away</option></select> <select id="trigger'.$i.'" name="trigger[]" class="chon">'.$conds.'</select> <select id="operator'.$i.'" name="operator[]" class="step2"><option>&gt;</option><option>&gt;=</option><option>=</option><option>&lt;</option><option>&lt;=</option><option>&lt;&gt;</option></select> <input name="number[]" type="text" size="2" maxlength="3"  class="step3" value="'.$row['value'].'"/> .</div>';
-		echo '<script type="text/javascript">document.getElementById("trigger'.$i.'").value='.$row['field_id'].';document.getElementById("operator'.$i.'").value="'.$row['operater'].'";</script>';
-		$i++;
-	}
+	else {
+		$sql="select * from f_fields order by field_order";
+		$ret = mysql_query($sql);
+		$conds="";
+		if ($ret)
+		while ($row=mysql_fetch_array($ret)) {
+			$conds.="<option value='".$row['field_id']."'>".$row['field_name']."</option>";
+		}
+		echo '<script type="text/javascript">var toption="'.$conds.'";</script>';
+		echo '<script type="text/javascript" src="trigger.js"></script>';
+		echo '</head>';
+		echo '<body>';
+		echo '<h2>Edit your own triggers </h2>';
+		$sql="select * from f_trigger where user_id=$myid and numero=$trig limit 1";
+		$ret=mysql_query($sql) or die("Cannot found your trigger(s)");
+		if($row = mysql_fetch_array($ret)) {
+			echo "<h3>N° $trig - ".$row['notes']."</h3><br/>";
+		}
+		echo '<form name="input" action="?edit='.$trig.'" method="post">';
+		echo '<div id="condboard">';
+		$sql="select * from f_condition,f_fields where f_condition.field_id=f_fields.field_id and user_id=$myid and numero=$trig";
+		$ret=mysql_query($sql);
+		$i=1;
+		while ($row = mysql_fetch_array($ret)) {
+			echo '<div class="onetrigger" style="overflow: auto;"> <select name="team[]" class="team"><option value="0">Home</option><option value="1" '.($row['isaway']?"selected":"").'>Away</option></select> <select id="trigger'.$i.'" name="trigger[]" class="chon">'.$conds.'</select> <select id="operator'.$i.'" name="operator[]" class="step2"><option>&gt;</option><option>&gt;=</option><option>=</option><option>&lt;</option><option>&lt;=</option><option>&lt;&gt;</option></select> <input name="number[]" type="text" size="2" maxlength="3"  class="step3" value="'.$row['value'].'"/> .</div>';
+			echo '<script type="text/javascript">document.getElementById("trigger'.$i.'").value='.$row['field_id'].';document.getElementById("operator'.$i.'").value="'.$row['operater'].'";</script>';
+			$i++;
+		}
 ?>
 
 
