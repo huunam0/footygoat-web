@@ -7,7 +7,7 @@ var status= new Array("*","1st","HT","2nd","Ex.","Pen","Susp","FT","AET","FT-Pen
 var nbm = new Array(0,0,0,0);
 var today = gup("date")+"";
 var anotherday=(today.length>7?true:false);
-
+var getnewloop=0;
 var isNewDay;
 var hldelay=1000;
 var rp;
@@ -119,7 +119,7 @@ function getmatch(matchid,from) {
 }
 
 	function getnew1() {
-		
+		getnewloop++;
 		$.ajax({
 			url: 'gtimeline.php',
 			type:"GET",
@@ -140,6 +140,7 @@ function getmatch(matchid,from) {
 							addOne++;
 							//if (isNewDay!=obj[i]['d']) {
 							//	isNewDay=obj[i]['d'];
+							if (getnewloop>1)
 								if (addOne<=1) loadmatches();
 							//}
 							//break;
@@ -238,7 +239,7 @@ function getmatch(matchid,from) {
 		
 		isAjax=false;
 		if (anotherday) return;
-		if (myid==0) return;
+		//if (myid==0) return;
 		rp=setTimeout(getnew1,getdelay);
 		
 	}
