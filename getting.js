@@ -27,11 +27,11 @@ function div0(a,b,n,d) {
 	f = f * p;
 	return Math.round(f)/p;
 }
-function getmatch(matchid) {
+function getmatch(matchid,from) {
 	$.ajax({
 		url: 'getmatch.php',
 		type:"GET",
-		data:{id:matchid},
+		data:{id:matchid,f:from},
 		//dataType: 'json',	
 		success: function(json) {
 			//$("#fortest").html(json);
@@ -138,10 +138,10 @@ function getmatch(matchid) {
 						var mrow="#m"+obj[i]['m'];
 						if (obj[i]['e']==100) {
 							addOne++;
-							if (isNewDay!=obj[i]['d']) {
-								isNewDay=obj[i]['d'];
+							//if (isNewDay!=obj[i]['d']) {
+							//	isNewDay=obj[i]['d'];
 								if (addOne<=1) loadmatches();
-							}
+							//}
 							//break;
 						} else if ((obj[i]['e']==12) ) {
 							$(mrow).find(".status .mminutes").hide();
@@ -157,10 +157,17 @@ function getmatch(matchid) {
 							$(mrow).find(".status .mminutes").toggle((obj[i]['h']==1)||(obj[i]['h']==3));
 							$(mrow).find(".status").attr('class','status status'+obj[i]['h']);
 							
-						}else if (obj[i]['e']==10) {
+						} else if ( (obj[i]['e']==11)) { //set teams' id
+							$(mrow).find("td.home:first").html(obj[i]['h']);
+							$(mrow).find("td.home:first").attr({id:"t"+obj[i]['h'],title:"#team:"+obj[i]['h']});
+							if (obj[i]['h']>0) getteam(obj[i]['h'],0);
+							$(mrow).find("td.away:first").html(obj[i]['a']);
+							$(mrow).find("td.away:first").attr({id:"t"+obj[i]['a'],title:"#team:"+obj[i]['a']});
+							if (obj[i]['a']>0) getteam(obj[i]['a'],1);
+						} else if (obj[i]['e']==10) {
 							$(mrow).find(".status .mstart").hide();
 							$(mrow).find(".status .mstatus").show();
-							getmatch(obj[i]['m']);
+							getmatch(obj[i]['m'],1);
 							$(mrow).find(".status span:eq(0)").hide();
 							$(mrow).find(".status span:gt(0)").show();
 							$(mrow).find(".status").attr('class','status status1');
@@ -370,7 +377,7 @@ function getmatch(matchid) {
 					$("#bigboard").append(tr);
 					if (obj.matches[i]['ht']>0) getteam(obj.matches[i]['ht'],0);
 					if (obj.matches[i]['at']>0) getteam(obj.matches[i]['at'],1);
-					if ((obj.matches[i]['st']==1)||(obj.matches[i]['st']==3)) getmatch(obj.matches[i]['id']);
+					if ((obj.matches[i]['st']==1)||(obj.matches[i]['st']==3)) getmatch(obj.matches[i]['id'],2);
 					//break;//debug only
 				}
 				//$("#nbm0").html(nbm[0]);

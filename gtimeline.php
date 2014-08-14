@@ -10,8 +10,8 @@
 		//echo $row['date']." ".$row['event']."-".$row['match']."<br/>";
 		$e=array(
 			"id" => $row['id'],
-			"d" => $row['date'],
-			"m" => $row['match'],
+			//"d" => $row['date'],
+			"m" => $row['match_id'],
 			"h" => $row['home'],
 			"e" => $row['event'],
 			"a" => $row['away']
