@@ -54,7 +54,7 @@
 					add_post_tag($post_id,$hteam['team_name']." vs ".$ateam['team_name'],(($hteam['team_slug'] && $ateam['team_slug'])?$hteam['team_slug']."-vs-".$ateam['team_slug']:""));
 					//add_post_tag($post_id,$hteam['team_name']." vs ".$ateam['team_name']." ".$mdate);
 					//add_post_tag($post_id,$mdate);
-					post2fbpage($match['minutes']. "': ".$hteam['team_name']." (".$hteam['team_pos'].") v ".$ateam['team_name']." (".$ateam['team_pos'].") www.footygoat.com/?p=$post_id","fan996mice@m.facebook.com");
+					//post2fbpage($match['minutes']. "': ".$hteam['team_name']." (".$hteam['team_pos'].") v ".$ateam['team_name']." (".$ateam['team_pos'].") www.footygoat.com/?p=$post_id","fitted10potter@m.facebook.com");
 				}
 				
 			}
