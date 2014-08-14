@@ -75,9 +75,11 @@ $(document).ready(function(){
 		}
 		else getnew1();
 	});
-	//loadmatches();
-	if (myid>0)
-	getnew1();
+
+	if (myid>0) {
+		loadmatches();
+		setTimeout(getnew1,3000);
+	}
 });
 </script>
 
