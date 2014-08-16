@@ -3,7 +3,7 @@ function gup(name) {
         (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
     );
 }
-var status= new Array("*","1st","HT","2nd","Ex.","Pen","Susp","FT","AET","FT-Pens","Aban","Postp","s12","s13","s14","s15");
+var mstatus= new Array("*","1st","HT","2nd","Ex.","Pen","Susp","FT","AET","FT-Pens","Aban","Postp","s12","s13","s14","s15");
 var nbm = new Array(0,0,0,0);
 var today = gup("date")+"";
 var anotherday=(today.length>7?true:false);
@@ -63,7 +63,7 @@ function getmatch(matchid,from) {
 					$(mrow).find(".status").attr("class","status status0");
 					return;
 				}
-				$(mrow).find(".status .mstatus").html(status[obj['st']]);
+				$(mrow).find(".status .mstatus").html(mstatus[obj['st']]);
 				
 				$(mrow).find(".score .score0").html(obj['hg']);
 				$(mrow).find(".score .score1").html(obj['ag']);
@@ -140,13 +140,13 @@ function getmatch(matchid,from) {
 							addOne++;
 							//if (isNewDay!=obj[i]['d']) {
 							//	isNewDay=obj[i]['d'];
-							if (getnewloop>1)
+							if (getnewloop>10)
 								if (addOne<=1) loadmatches();
 							//}
 							//break;
 						} else if ((obj[i]['e']==12) ) {
 							$(mrow).find(".status .mminutes").hide();
-							$(mrow).find(".status .mstatus").html(status[(obj[i]['h']?obj[i]['h']:7)]);
+							$(mrow).find(".status .mstatus").html(mstatus[(obj[i]['h']?obj[i]['h']:7)]);
 							$(mrow).find(".status").attr('class','status status7');
 							//nbm[2]++;
 							//nbm[1]--;
@@ -154,17 +154,21 @@ function getmatch(matchid,from) {
 							//$("#nbm2").html(nbm[2]);
 							if (!isViewAll) $(mrow).hide();
 						} else if ( (obj[i]['e']==9)) {
-							$(mrow).find(".status .mstatus").html(status[(obj[i]['h']?obj[i]['h']:7)]);
+							$(mrow).find(".status .mstatus").html(mstatus[(obj[i]['h']?obj[i]['h']:7)]);
 							$(mrow).find(".status .mminutes").toggle((obj[i]['h']==1)||(obj[i]['h']==3));
 							$(mrow).find(".status").attr('class','status status'+obj[i]['h']);
 							
 						} else if ( (obj[i]['e']==11)) { //set teams' id
-							$(mrow).find("td.home:first").html(obj[i]['h']);
-							$(mrow).find("td.home:first").attr({id:"t"+obj[i]['h'],title:"#team:"+obj[i]['h']});
-							if (obj[i]['h']>0) getteam(obj[i]['h'],0);
-							$(mrow).find("td.away:first").html(obj[i]['a']);
-							$(mrow).find("td.away:first").attr({id:"t"+obj[i]['a'],title:"#team:"+obj[i]['a']});
-							if (obj[i]['a']>0) getteam(obj[i]['a'],1);
+							if ($(mrow).find("td.home:first").html()=="0") {
+								$(mrow).find("td.home:first").html(obj[i]['h']);
+								$(mrow).find("td.home:first").attr({id:"t"+obj[i]['h'],title:"#team:"+obj[i]['h']});
+								if (obj[i]['h']>0) getteam(obj[i]['h'],0);
+							}
+							if ($(mrow).find("td.away:first").html()=="0") {
+								$(mrow).find("td.away:first").html(obj[i]['a']);
+								$(mrow).find("td.away:first").attr({id:"t"+obj[i]['a'],title:"#team:"+obj[i]['a']});
+								if (obj[i]['a']>0) getteam(obj[i]['a'],1);
+							}
 						} else if (obj[i]['e']==10) {
 							$(mrow).find(".status .mstart").hide();
 							$(mrow).find(".status .mstatus").show();
@@ -181,7 +185,7 @@ function getmatch(matchid,from) {
 							//if (obj[i]['v']) {
 								$(mrow).find(".status .mminutes").html(obj[i]['a']+"'");
 							//}
-							$(mrow).find(".status .mstatus").html(status[(obj[i]['h']?obj[i]['h']:7)]);
+							$(mrow).find(".status .mstatus").html(mstatus[(obj[i]['h']?obj[i]['h']:7)]);
 							$(mrow).find(".status .mminutes").toggle((obj[i]['h']==1)||(obj[i]['h']==3));
 							$(mrow).find(".status").attr('class','status status'+obj[i]['h']);
 						} else if (obj[i]['e']==7) {
@@ -303,6 +307,7 @@ function getmatch(matchid,from) {
 				//alert(obj.leagues['col.1']);
 				$("#bigboard tr:gt(1)").remove();
 				for (var i=0; i<obj.matches.length;i++) {
+					//alert(obj.matches[i]);
 					if (obj.matches[i]['lg']!=league) {
 						$("#bigboard").append('<tr class="league"><td align="left" colspan="25">'+obj.leagues[obj.matches[i]['lg']]+'</td></tr>');
 						league=obj.matches[i]['lg']+"";
@@ -317,10 +322,10 @@ function getmatch(matchid,from) {
 					tr='<tr class="match" id="m'+obj.matches[i]['id']+'">';
 					tr+='<td class="status status'+obj.matches[i]['st']+'" title="#match:'+obj.matches[i]['id']+'">';
 					if (obj.matches[i]['st']<1)  {
-						tr+='<span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus" style="display:none;">'+status[obj.matches[i]['st']]+'</span>';
+						tr+='<span class="mstart">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus" style="display:none;">'+mstatus[obj.matches[i]['st']]+'</span>';
 						//nbm[0]++;
 					} else { 
-						tr+='<span class="mstart" style="display:none;">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+status[obj.matches[i]['st']]+'</span>';
+						tr+='<span class="mstart" style="display:none;">'+obj.matches[i]['da'].substr(11,5)+'</span><span class="mstatus">'+mstatus[obj.matches[i]['st']]+'</span>';
 						if (obj.matches[i]['st']<7)  {
 							//nbm[1]++;
 						} else {
